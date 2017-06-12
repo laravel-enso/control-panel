@@ -1,0 +1,17 @@
+{
+    "name": "laravel-enso/app-statistics-client",
+    "description": "A client that aggregates and displays statistics from other laravel-enso apps",
+    "type": "project",
+    "require": {
+        "laravel-enso/core": "^1.0",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mihai Ocneanu",
+            "email": "mihai.ocneanu@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
