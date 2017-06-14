@@ -7,7 +7,9 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use LaravelEnso\AppStatisticsClient\app\Classes\ResponseGetter;
+use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsRequestHub;
+use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsResponseGetter;
+use LaravelEnso\AppStatisticsClient\app\Classes\TokenRequestHub;
 use LaravelEnso\AppStatisticsClient\app\Enums\SubscribedAppTypesEnum;
 use LaravelEnso\AppStatisticsClient\app\Http\Requests\ValidateSubscriptionRequest;
 use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
@@ -26,7 +28,7 @@ class AppStatisticsClientController extends Controller {
 
     public function store(Request $request) {
 
-        $tokenResponseData = $this->requestNewToken($request);
+        $tokenResponseData = TokenRequestHub::requestNewToken($request);
 
         if (!$tokenResponseData) {
             throw new EnsoException(__('Unable to get token. Check data!'));
@@ -53,7 +55,7 @@ class AppStatisticsClientController extends Controller {
 
     public function getAll(Request $request, SubscribedApp $subscribedApp) {
 
-        $response = ResponseGetter::getEnsoGetAllResponse($request, $subscribedApp);
+        $response = StatisticsRequestHub::getAll($request, $subscribedApp);
 
         return [
             'appName' => $subscribedApp->name,
@@ -82,35 +84,6 @@ class AppStatisticsClientController extends Controller {
     public function show() {
 
         return 'show';
-    }
-
-    private function requestNewToken(Request $request) {
-
-        $client = new Client();
-
-        $url = $request->get('url').'/oauth/token';
-
-        $form = [
-            'grant_type'    => 'client_credentials',
-            'client_id'     => $request->get('client_id'),
-            'client_secret' => $request->get('secret'),
-            'scope'         => '*',
-        ];
-
-        $res = $client->request('POST', $url,
-            [
-                'form_params' => $form,
-            ]
-        );
-
-        $responseStatusCode = $res->getStatusCode();
-        if ($responseStatusCode !== 200) {
-            return null;
-        }
-
-        $responseObj = (object) (json_decode($res->getBody(), true));
-
-        return $responseObj;
     }
 
     private function deleteToken($id) {
