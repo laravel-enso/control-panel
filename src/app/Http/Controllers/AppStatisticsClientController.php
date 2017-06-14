@@ -88,6 +88,8 @@ class AppStatisticsClientController extends Controller {
 
         $client = new Client();
 
+        $url = $request->get('url').'/oauth/token';
+
         $form = [
             'grant_type'    => 'client_credentials',
             'client_id'     => $request->get('client_id'),
@@ -95,7 +97,7 @@ class AppStatisticsClientController extends Controller {
             'scope'         => '*',
         ];
 
-        $res = $client->request('POST', 'http://enso.dev/oauth/token/',
+        $res = $client->request('POST', $url,
             [
                 'form_params' => $form,
             ]

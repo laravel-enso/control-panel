@@ -1,5 +1,5 @@
 {
-    "name": "laravel-enso/app-statistics-client",
+    "name": "laravel-enso/appstatisticsclient",
     "description": "A client that aggregates and displays statistics from other laravel-enso apps",
     "type": "project",
     "require": {
