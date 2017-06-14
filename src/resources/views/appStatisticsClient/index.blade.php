@@ -117,12 +117,37 @@
                         <div class="box-body">
 
                             <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">{{ __("Start Date") }}</label>
+                                        <div class="input-group">
+                                            <datepicker v-model="filters.startDate"
+                                                        clear-button>
+                                            </datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="">{{ __("End Date") }}</label>
+                                        <div class="input-group">
+                                            <datepicker v-model="filters.endDate" clear-button>
+                                            </datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-2 col-md-4 pull-right">
                                     <button class="btn btn-success btn-block margin-top-24"
                                             @click="getAllMetrics">
                                         {{ __('Get All Metrics') }}
                                     </button>
                                 </div>
+
+                            </div>
+
+                            <div class="row">
+
                             </div>
 
                             <div class="row">
@@ -228,7 +253,11 @@
                     newApp: new StatisticsApp(),
                     activeApps: JSON.parse('{!! $activeApps  !!}'),
                     appTypes: JSON.parse('{!! $subscribedAppTypes !!}'),
-                    appMetrics: []
+                    appMetrics: [],
+                    filters: {
+                        startDate: "01-01-2017",
+                        endDate: "01-01-2025"
+                    }
                 }
             },
             computed: {
@@ -237,7 +266,7 @@
             methods: {
                 getAllMetrics: function () {
                     let self = this;
-                    axios.get('/statistics/getConsolidated').then(function(response) {
+                    axios.get('/statistics/getConsolidated', {params:this.filters}).then(function(response) {
 
                         self.appMetrics = response.data;
                     });

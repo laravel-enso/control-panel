@@ -13,6 +13,5 @@ Route::group(['namespace'  => 'LaravelEnso\AppStatisticsClient\app\Http\Controll
 Route::group(['namespace'  => 'LaravelEnso\AppStatisticsClient\app\Http\Controllers',
               'middleware' => ['web', 'auth', 'core'],], function () {
 
-
     Route::resource('statistics', 'AppStatisticsClientController');
 });

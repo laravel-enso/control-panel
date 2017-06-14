@@ -26,8 +26,8 @@ class ResponseGetter {
         ];
 
         $query = [
-            'startDate' => '2017-01-01',
-            'endDate'   => '2017-12-01',
+            'startDate' => $request->get('startDate'),
+            'endDate'   => $request->get('endDate'),
         ];
 
         $response = $client->request('GET', $url.'/api/v1/statistics',
