@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use LaravelEnso\AppStatisticsClient\app\Classes\ResponseDataWrapper;
 use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsRequestHub;
 use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsResponseGetter;
 use LaravelEnso\AppStatisticsClient\app\Classes\TokenRequestHub;
@@ -55,20 +56,16 @@ class AppStatisticsClientController extends Controller {
 
     public function getAll(Request $request, SubscribedApp $subscribedApp) {
 
-        $result = [
-            'appName' => $subscribedApp->name
-        ];
+        $result = new ResponseDataWrapper($subscribedApp->id, $subscribedApp->name);
 
         try {
 
             $response = StatisticsRequestHub::getAll($request, $subscribedApp);
-            $result['data'] = json_decode($response->getBody(), true);
+            $result->data = json_decode($response->getBody(), true);
 
         } catch (\Exception $e) {
 
-            $result['data'] = [
-                ['key'   => 'error', 'value' => $e->getMessage()],
-            ];
+            $result->addError($e->getMessage());
         }
 
         return $result;

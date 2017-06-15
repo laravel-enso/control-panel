@@ -23,6 +23,53 @@
             margin-top: 24px;
         }
 
+        .flip-container {
+            perspective: 1000px;
+        }
+        /* flip the pane when hovered */
+
+        .flip-container.flip .flipper {
+            transform: rotateY(180deg);
+        }
+
+        .flip-container, .front, .back {
+            width: 100%;
+            height: 215px;
+        }
+
+        /* flip speed goes here */
+        .flipper {
+            transition: 0.6s;
+            transform-style: preserve-3d;
+
+            position: relative;
+        }
+
+        /* hide back of pane during swap */
+        .front, .back {
+            backface-visibility: hidden;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* front pane, placed above back */
+        .front {
+            z-index: 2;
+            /* for firefox 31 */
+            transform: rotateY(0deg);
+        }
+
+        /* back, initially hidden pane */
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        .inherit-color-hover:hover {
+            color: inherit;
+        }
+
     </style>
 
 @endsection
@@ -153,7 +200,7 @@
                             <div class="row">
                                 <div class="col-md-3" v-for="metric in appMetrics">
 
-                                    <application-metrics :app-metrics="metric" >
+                                    <application-metrics :initial-metrics="metric" :filters="filters" >
                                     </application-metrics>
 
                                 </div>
@@ -192,7 +239,7 @@
 
 @push('scripts')
 
-    {{-- equipment component --}}
+    {{-- subscribed apps component --}}
     <script type="text/x-template" id="subscribed-app">
         <div :class="['small-box', 'bg-light-blue']">
 
@@ -217,16 +264,64 @@
 
     {{-- display statistics component --}}
     <script type="text/x-template" id="subscribed-app-metrics">
-        <div :class="['small-box']">
 
-            <div class="inner">
-                <h4><span v-html="appMetrics.appName"></span></h4>
-                <ul>
-                    <li v-for="metric in appMetrics.data">
-                        <span v-html="metric.key"></span>:  <span v-html="metric.value"></span>
-                    </li>
-                </ul>
+        <div class="small-box flip-container inherit-color-hover" :class="{flip: flipped}">
 
+            <div class="flipper">
+
+                <div class="front" :class="{flipped: flipped}">
+
+                    <div class="inner">
+                        <h4>
+                            <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
+                            <span v-html="appMetrics.appName"></span>
+                            <i class="fa fa-bars pull-right" @click="flipped=!flipped"></i>
+                        </h4>
+
+                        <ul>
+                            <li v-for="metric in appMetrics.data">
+                                <span v-html="metric.key"></span>: <span v-html="metric.value"></span>
+                            </li>
+                        </ul>
+
+                        <ul v-if="appMetrics.errors.length">
+                            <li v-for="error in appMetrics.errors">
+                                <span v-html="error"></span>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="back" :class="{flipped: flipped}">
+
+                    <div class="inner">
+                        <h4>
+                            <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
+                            <span v-html="appMetrics.appName"></span>
+                            <i class="fa fa-bars pull-right" @click="flipped=!flipped"></i>
+                        </h4>
+                    </div>
+
+                    <br>
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">{{ __("Refresh Interval") }}</label>
+                                    <div class="input-group">
+                                        <input type="number"
+                                               @change="updateInterval"
+                                               v-model="refreshInterval">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -324,18 +419,26 @@
                 applicationMetrics: {
                     template: '#subscribed-app-metrics',
                     props: {
-                        appMetrics: {
+                        initialMetrics: {
                             type: Object,
                             default: function () {
                                 return {
-                                    appName: "bla",
+                                    appName: "default",
+                                    status: 'green',
                                     data:[
                                         {
                                             key:"",
                                             value:""
                                         }
-                                    ]
+                                    ],
+                                    errors: []
                                 }
+                            }
+                        },
+                        filters: {
+                            type: Object,
+                            default: function () {
+                                return {};
                             }
                         }
                     },
@@ -343,10 +446,50 @@
                     },
                     data: function () {
                         return {
-                            name: 'test'
-                        };
+                            flipped: false,
+                            refreshInterval: 1,
+                            intervalEventId: null,
+                            appMetrics: this.initialMetrics
+                        }
                     },
                     methods: {
+
+                        getAllMetrics: function () {
+
+                            console.log('hit getAllMetrics');
+
+                            let self = this;
+                            axios.get('/statistics/getAll/' + this.initialMetrics.id, {params:this.filters})
+                                .then(function(response) {
+
+                                    self.appMetrics = response.data;
+                                });
+                        },
+                        updateInterval: function () {
+                            this.resetInterval();
+                            this.setInterval();
+                        },
+                        resetInterval: function () {
+                            clearInterval(this.intervalEventId);
+                        },
+                        setInterval: function () {
+
+                            console.log('hit setInterval');
+
+                            let tmpInterval = this.refreshInterval * 6000;
+                            this.intervalEventId = setInterval(function () {
+                                this.getAllMetrics();
+                            }.bind(this), tmpInterval);
+                        }
+                    },
+                    mounted: function () {
+
+                        console.log('hit ready');
+                        this.setInterval();
+                    },
+
+                    beforeDestroy: function(){
+                        clearInterval(this.intervalEventId);
                     }
                 },
             }
