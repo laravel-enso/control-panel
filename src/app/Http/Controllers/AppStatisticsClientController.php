@@ -55,12 +55,23 @@ class AppStatisticsClientController extends Controller {
 
     public function getAll(Request $request, SubscribedApp $subscribedApp) {
 
-        $response = StatisticsRequestHub::getAll($request, $subscribedApp);
-
-        return [
-            'appName' => $subscribedApp->name,
-            'data' => json_decode($response->getBody(), true)
+        $result = [
+            'appName' => $subscribedApp->name
         ];
+
+        try {
+
+            $response = StatisticsRequestHub::getAll($request, $subscribedApp);
+            $result['data'] = json_decode($response->getBody(), true);
+
+        } catch (\Exception $e) {
+
+            $result['data'] = [
+                ['key'   => 'error', 'value' => $e->getMessage()],
+            ];
+        }
+
+        return $result;
     }
 
     public function getConsolidated(Request $request) {

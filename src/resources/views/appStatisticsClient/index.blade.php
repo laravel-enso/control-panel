@@ -176,7 +176,8 @@
                                 </div>
 
                                 <div class="col-md-3 col-sm-6 col-xs-12" v-for="app in activeApps">
-                                    <subscribed-application :application="app" @sent-app-metrics="showAppMetric" />
+                                    <subscribed-application :application="app"
+                                        @sent-app-metrics="showAppMetric" :filters="filters"/>
                                 </div>
                             </div>
                         </div>
@@ -294,6 +295,10 @@
                         application: {
                             type: Object,
                             default: {}
+                        },
+                        filters: {
+                            type: Object,
+                            default: {}
                         }
                     },
                     computed: {
@@ -308,10 +313,11 @@
                         getAllMetrics: function () {
 
                             let self = this;
-                            axios.get('/statistics/getAll/' + this.application.id).then(function(response) {
+                            axios.get('/statistics/getAll/' + this.application.id, {params:this.filters})
+                                .then(function(response) {
 
-                                self.$emit('sent-app-metrics', response.data);
-                            });
+                                    self.$emit('sent-app-metrics', response.data);
+                                });
                         }
                     }
                 },

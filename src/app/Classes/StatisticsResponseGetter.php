@@ -14,6 +14,15 @@ use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
 
 class StatisticsResponseGetter {
 
+    private static $clientParams = array(
+        'request.options' => array(
+            'timeout'         => 6,
+            'connect_timeout' => 6,
+        ));
+
+
+
+
     public static function retrieveEnsoGetAllResponse(Request $request, SubscribedApp $subscribedApp) {
 
         $client = new Client();
@@ -30,10 +39,10 @@ class StatisticsResponseGetter {
             'endDate'   => $request->get('endDate'),
         ];
 
-        $response = $client->request('GET', $url.'/api/v1/statistics',
+        $response = $client->request('GET', $url . '/api/v1/statistics',
             [
                 'headers' => $headers,
-                'query' => $query
+                'query'   => $query,
             ]
         );
 
@@ -47,7 +56,7 @@ class StatisticsResponseGetter {
         $url = $subscribedApp->url;
 
         $headers = [
-            'Accept'        => 'application/json',
+            'Accept' => 'application/json',
         ];
 
         $query = [
@@ -55,10 +64,12 @@ class StatisticsResponseGetter {
             'end_date'   => $request->get('endDate'),
         ];
 
-        $response = $client->request('GET', $url.'/api/statistics',
+        $response = $client->request('GET', $url . '/api/statistics',
             [
                 'headers' => $headers,
-                'query' => $query
+                'query'   => $query,
+                'timeout' => 3,
+                'connect_timeout' => 3
             ]
         );
 
