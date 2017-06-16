@@ -285,7 +285,7 @@
                             <span v-html="appMetrics.appName"></span>
                             <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
                                 <i class="fa fa-bars"></i>
-                            </button>   
+                            </button>
                         </h4>
 
                         <ul>

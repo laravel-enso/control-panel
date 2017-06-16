@@ -4,15 +4,15 @@ namespace LaravelEnso\AppStatisticsClient\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateSubscriptionRequest extends FormRequest {
-
+class ValidateSubscriptionRequest extends FormRequest
+{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
-
+    public function authorize()
+    {
         return true;
     }
 
@@ -21,8 +21,8 @@ class ValidateSubscriptionRequest extends FormRequest {
      *
      * @return array
      */
-    public function rules() {
-
+    public function rules()
+    {
         return [
 
             'client_id'   => 'required',
