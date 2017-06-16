@@ -27,9 +27,9 @@ class StatisticsRequestHub
         throw new EnsoException(__('Unsupported Application Type'));
     }
 
-    public static function clearLaravelLog(Request $request, SubscribedApp $subscribedApp) {
-
-        if($subscribedApp->type == 2) {
+    public static function clearLaravelLog(Request $request, SubscribedApp $subscribedApp)
+    {
+        if ($subscribedApp->type == 2) {
             return StatisticsResponseGetter::retrieveClearLaravelLogResponse($request, $subscribedApp);
         }
 

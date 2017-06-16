@@ -108,8 +108,8 @@ class AppStatisticsClientController extends Controller
         */
     }
 
-    public function clearLaravelLog(Request $request, SubscribedApp $subscribedApp) {
-
+    public function clearLaravelLog(Request $request, SubscribedApp $subscribedApp)
+    {
         $response = StatisticsRequestHub::clearLaravelLog($request, $subscribedApp);
 
         return $response->getStatusCode();

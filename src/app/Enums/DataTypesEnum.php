@@ -15,23 +15,22 @@ class DataTypesEnum extends AbstractEnum
     public function __construct()
     {
         $this->data = [
-            'logins'=>'logins',
-            'actions'=>'actions',
-            'failedJobs'=>'failed jobs',
+            'logins'        => 'logins',
+            'actions'       => 'actions',
+            'failedJobs'    => 'failed jobs',
             'activeSessions'=> 'active sessions',
-            'serverTime'=> 'server time',
-            'logSize'=> 'log size',
+            'serverTime'    => 'server time',
+            'logSize'       => 'log size',
         ];
     }
 
-    public function getJsonKVData() {
-
+    public function getJsonKVData()
+    {
         $tmp = [];
         foreach ($this->data as $key=>$value) {
-
             $tmp[] = [
-                'key' => $key,
-                'value' => __($value)
+                'key'   => $key,
+                'value' => __($value),
             ];
         }
 

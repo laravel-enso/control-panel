@@ -14,10 +14,9 @@ use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
 
 class StatisticsResponseGetter
 {
-
     public static function retrieveEnsoGetAllResponse(Request $request, SubscribedApp $subscribedApp)
     {
-        $filters = (object) json_decode($request->get('filters'),true);
+        $filters = (object) json_decode($request->get('filters'), true);
 
         $client = new Client();
 
@@ -31,7 +30,7 @@ class StatisticsResponseGetter
         $query = [
             'startDate' => $filters->startDate,
             'endDate'   => $filters->endDate,
-            'dataTypes' => $request->get('dataTypes')
+            'dataTypes' => $request->get('dataTypes'),
         ];
 
         $response = $client->request('GET', $url.'/api/v1/statistics',
@@ -48,7 +47,7 @@ class StatisticsResponseGetter
 
     public static function retrieveLegacyGetAllResponse(Request $request, SubscribedApp $subscribedApp)
     {
-        $filters = (object) json_decode($request->get('filters'),true);
+        $filters = (object) json_decode($request->get('filters'), true);
 
         $client = new Client();
 
@@ -61,7 +60,7 @@ class StatisticsResponseGetter
         $query = [
             'startDate' => $filters->startDate,
             'endDate'   => $filters->endDate,
-            'dataTypes' => $request->get('dataTypes')
+            'dataTypes' => $request->get('dataTypes'),
         ];
 
         $response = $client->request('GET', $url.'/api/statistics',
@@ -77,25 +76,25 @@ class StatisticsResponseGetter
         return $response;
     }
 
-    public static function retrieveClearLaravelLogResponse($request, $subscribedApp) {
-
+    public static function retrieveClearLaravelLogResponse($request, $subscribedApp)
+    {
         $client = new Client();
 
         $url = $subscribedApp->url;
 
         $headers = [
             'Accept'        => 'application/json',
-            'Authorization' => 'Bearer ' . $subscribedApp->token,
+            'Authorization' => 'Bearer '.$subscribedApp->token,
         ];
 
         $query = [
 
         ];
 
-        $response = $client->request('DELETE', $url . '/api/v1/clearLaravelLog',
+        $response = $client->request('DELETE', $url.'/api/v1/clearLaravelLog',
             [
-                'headers' => $headers,
-                'query'   => $query,
+                'headers'         => $headers,
+                'query'           => $query,
                 'timeout'         => 3,
                 'connect_timeout' => 3,
             ]
