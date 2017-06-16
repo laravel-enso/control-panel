@@ -11,6 +11,7 @@ use LaravelEnso\AppStatisticsClient\app\Classes\ResponseDataWrapper;
 use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsRequestHub;
 use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsResponseGetter;
 use LaravelEnso\AppStatisticsClient\app\Classes\TokenRequestHub;
+use LaravelEnso\AppStatisticsClient\app\Enums\DataTypesEnum;
 use LaravelEnso\AppStatisticsClient\app\Enums\SubscribedAppTypesEnum;
 use LaravelEnso\AppStatisticsClient\app\Http\Requests\ValidateSubscriptionRequest;
 use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
@@ -22,9 +23,10 @@ class AppStatisticsClientController extends Controller {
 
         $activeApps = json_encode(SubscribedApp::all());
         $subscribedAppTypes = (new SubscribedAppTypesEnum())->getJsonKVData();
+        $dataTypes = json_encode((new DataTypesEnum())->getKeys());
 
         return view('laravel-enso/app-statistics-client::appStatisticsClient.index',
-            compact('activeApps', 'subscribedAppTypes'));
+            compact('activeApps', 'subscribedAppTypes', 'dataTypes'));
     }
 
     public function store(Request $request) {
@@ -112,5 +114,12 @@ class AppStatisticsClientController extends Controller {
             throw new EnsoException(__('Could not delete token'));
         }
         */
+    }
+
+    public function clearLaravelLog(Request $request, SubscribedApp $subscribedApp) {
+
+        $response = StatisticsRequestHub::clearLaravelLog($request, $subscribedApp);
+
+        return $response->getStatusCode();
     }
 }

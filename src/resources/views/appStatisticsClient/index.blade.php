@@ -70,6 +70,10 @@
             color: inherit;
         }
 
+        .bg-white {
+            background: white;
+        }
+
     </style>
 
 @endsection
@@ -200,7 +204,9 @@
                             <div class="row">
                                 <div class="col-md-3" v-for="metric in appMetrics">
 
-                                    <application-metrics :initial-metrics="metric" :filters="filters" >
+                                    <application-metrics :initial-metrics="metric"
+                                                         :filters="filters"
+                                                         :initial-data-types="dataTypes">
                                     </application-metrics>
 
                                 </div>
@@ -254,9 +260,9 @@
 
             </div>
             <div class="icon">
-                <i class="fa fa-print"></i>
+                <i class="fa fa-ravelry"></i>
             </div>
-            <a class="small-box-footer" href="#" @click="getAllMetrics">
+            <a class="small-box-footer" href="#" @click="showAppStatistics">
                 <i class="fa fa-arrow-circle-right  "></i>
             </a>
         </div>
@@ -273,9 +279,13 @@
 
                     <div class="inner">
                         <h4>
-                            <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
+                            <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
+                            <i v-if="appMetrics.status != 'loading'" class="fa fa-circle-o fa-fw" :style="{color: appMetrics.status}"></i>
+
                             <span v-html="appMetrics.appName"></span>
-                            <i class="fa fa-bars pull-right" @click="flipped=!flipped"></i>
+                            <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
+                                <i class="fa fa-bars"></i>
+                            </button>   
                         </h4>
 
                         <ul>
@@ -294,32 +304,55 @@
 
                 </div>
 
-                <div class="back" :class="{flipped: flipped}">
-
-                    <div class="inner">
-                        <h4>
-                            <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
-                            <span v-html="appMetrics.appName"></span>
-                            <i class="fa fa-bars pull-right" @click="flipped=!flipped"></i>
-                        </h4>
-                    </div>
-
-                    <br>
+                <div class="back" :class="{flipped: flipped}" >
 
                     <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="">{{ __("Refresh Interval") }}</label>
-                                    <div class="input-group">
-                                        <input type="number"
-                                               @change="updateInterval"
-                                               v-model="refreshInterval">
+                        <br>
+                            <div class="inner">
+                                <h4>
+                                    <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
+                                    <span v-html="appMetrics.appName"></span>
+                                    <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
+                                        <i class="fa fa-bars"></i>
+                                    </button>
+                                </h4>
+                            </div>
+                        <br>
+                        <div class="col-md-12" style="overflow: auto; height: 130px;">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row" v-for="dataType in initialDataTypes">
+                                        <input type="checkbox" :id="dataType" :value="dataType" v-model="dataTypes">
+                                        <label for="dataType">
+                                            <span v-html="dataType"></span>
+                                        </label>
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="">{{ __("Refresh Interval (minutes)") }}</label>
+                                            <div class="input-group">
+                                                <input type="number"
+                                                       @change="updateInterval"
+                                                       v-model="refreshInterval">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger btn-block margin-top-24"
+                                                    @click="clearLaravelLog">
+                                                {{ __('Clear Laravel Log') }}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -349,6 +382,7 @@
                     newApp: new StatisticsApp(),
                     activeApps: JSON.parse('{!! $activeApps  !!}'),
                     appTypes: JSON.parse('{!! $subscribedAppTypes !!}'),
+                    dataTypes: JSON.parse('{!! $dataTypes !!}'),
                     appMetrics: [],
                     filters: {
                         startDate: "01-01-2017",
@@ -405,14 +439,17 @@
                         };
                     },
                     methods: {
-                        getAllMetrics: function () {
+                        showAppStatistics: function () {
 
-                            let self = this;
-                            axios.get('/statistics/getAll/' + this.application.id, {params:this.filters})
-                                .then(function(response) {
+                            let data = {
+                                id: this.application.id,
+                                "appName": this.application.name,
+                                "status": "loading",
+                                "data": [],
+                                "errors": [],
+                            };
 
-                                    self.$emit('sent-app-metrics', response.data);
-                                });
+                            this.$emit('sent-app-metrics', data);
                         }
                     }
                 },
@@ -435,6 +472,12 @@
                                 }
                             }
                         },
+                        initialDataTypes: {
+                            type: Array,
+                            default: function () {
+                                return [];
+                            }
+                        },
                         filters: {
                             type: Object,
                             default: function () {
@@ -449,17 +492,37 @@
                             flipped: false,
                             refreshInterval: 1,
                             intervalEventId: null,
-                            appMetrics: this.initialMetrics
+                            appMetrics: this.initialMetrics,
+                            dataTypes: this.initialDataTypes
                         }
                     },
                     methods: {
 
+                        buildRequestPayload: function () {
+
+                            return {
+                                filters: this.filters,
+                                dataTypes: this.dataTypes
+                            }
+
+                        },
+                        clearLaravelLog: function () {
+
+
+                            let payload = this.buildRequestPayload();
+
+                            axios.delete('/statistics/clearLaravelLog/' + this.initialMetrics.id, {params:payload})
+                                .then(function(response) {
+
+                                    console.log('ok');
+                                });
+                        },
                         getAllMetrics: function () {
 
-                            console.log('hit getAllMetrics');
+                            let payload = this.buildRequestPayload();
 
                             let self = this;
-                            axios.get('/statistics/getAll/' + this.initialMetrics.id, {params:this.filters})
+                            axios.get('/statistics/getAll/' + this.initialMetrics.id, {params:payload})
                                 .then(function(response) {
 
                                     self.appMetrics = response.data;
@@ -474,9 +537,7 @@
                         },
                         setInterval: function () {
 
-                            console.log('hit setInterval');
-
-                            let tmpInterval = this.refreshInterval * 6000;
+                            let tmpInterval = this.refreshInterval * 60000;
                             this.intervalEventId = setInterval(function () {
                                 this.getAllMetrics();
                             }.bind(this), tmpInterval);
@@ -484,11 +545,12 @@
                     },
                     mounted: function () {
 
-                        console.log('hit ready');
+                        this.getAllMetrics();
                         this.setInterval();
                     },
 
                     beforeDestroy: function(){
+
                         clearInterval(this.intervalEventId);
                     }
                 },

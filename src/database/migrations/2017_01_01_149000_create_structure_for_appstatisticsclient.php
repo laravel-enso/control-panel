@@ -19,6 +19,7 @@ class CreateStructureForAppStatisticsClient extends StructureMigration
         ['name' => 'statistics.get', 'description' => 'Get specific metric', 'type' => 0],
         ['name' => 'statistics.getAll', 'description' => 'Get all possible metrics for one app', 'type' => 0],
         ['name' => 'statistics.getConsolidated', 'description' => 'Get all metrics for all apps', 'type' => 0],
+        ['name' => 'statistics.clearLaravelLog', 'description' => 'Clear laravel log for one app', 'type' => 1],
     ];
 
     protected $menu = [

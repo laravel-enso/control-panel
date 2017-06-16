@@ -8,6 +8,7 @@ Route::group(['namespace'  => 'LaravelEnso\AppStatisticsClient\app\Http\Controll
     Route::get('get/{subscribedApp}', 'AppStatisticsClientController@get')->name('get');
     Route::get('getAll/{subscribedApp}', 'AppStatisticsClientController@getAll')->name('getAll');
     Route::get('getConsolidated', 'AppStatisticsClientController@getConsolidated')->name('getConsolidated');
+    Route::delete('clearLaravelLog/{subscribedApp}', 'AppStatisticsClientController@clearLaravelLog')->name('clearLaravelLog');
 });
 
 Route::group(['namespace'  => 'LaravelEnso\AppStatisticsClient\app\Http\Controllers',

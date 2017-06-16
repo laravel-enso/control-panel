@@ -25,6 +25,8 @@ class StatisticsResponseGetter {
 
     public static function retrieveEnsoGetAllResponse(Request $request, SubscribedApp $subscribedApp) {
 
+        $filters = (object) json_decode($request->get('filters'),true);
+
         $client = new Client();
 
         $url = $subscribedApp->url;
@@ -35,8 +37,9 @@ class StatisticsResponseGetter {
         ];
 
         $query = [
-            'startDate' => $request->get('startDate'),
-            'endDate'   => $request->get('endDate'),
+            'startDate' => $filters->startDate,
+            'endDate'   => $filters->endDate,
+            'dataTypes' => $request->get('dataTypes')
         ];
 
         $response = $client->request('GET', $url . '/api/v1/statistics',
@@ -51,6 +54,8 @@ class StatisticsResponseGetter {
 
     public static function retrieveLegacyGetAllResponse(Request $request, SubscribedApp $subscribedApp) {
 
+        $filters = (object) json_decode($request->get('filters'),true);
+
         $client = new Client();
 
         $url = $subscribedApp->url;
@@ -60,16 +65,43 @@ class StatisticsResponseGetter {
         ];
 
         $query = [
-            'start_date' => $request->get('startDate'),
-            'end_date'   => $request->get('endDate'),
+            'startDate' => $filters->startDate,
+            'endDate'   => $filters->endDate,
+            'dataTypes' => $request->get('dataTypes')
         ];
 
         $response = $client->request('GET', $url . '/api/statistics',
             [
                 'headers' => $headers,
+                'cookies' => ['XDEBUG_SESSION'=>'PHPSTORM'],
                 'query'   => $query,
                 'timeout' => 3,
                 'connect_timeout' => 3
+            ]
+        );
+
+        return $response;
+    }
+
+    public static function retrieveClearLaravelLogResponse($request, $subscribedApp) {
+
+        $client = new Client();
+
+        $url = $subscribedApp->url;
+
+        $headers = [
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bearer ' . $subscribedApp->token,
+        ];
+
+        $query = [
+
+        ];
+
+        $response = $client->request('DELETE', $url . '/api/v1/clearLaravelLog',
+            [
+                'headers' => $headers,
+                'query'   => $query,
             ]
         );
 
