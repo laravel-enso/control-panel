@@ -52,7 +52,7 @@ class AppStatisticsClientController extends Controller
 
     public function getAll(Request $request, SubscribedApp $subscribedApp)
     {
-        $result = new ResponseDataWrapper($subscribedApp->id, $subscribedApp->name);
+        $result = new ResponseDataWrapper($subscribedApp->id, $subscribedApp->name, $subscribedApp->type);
 
         try {
             $response = StatisticsRequestHub::getAll($request, $subscribedApp);
@@ -75,16 +75,6 @@ class AppStatisticsClientController extends Controller
         }
 
         return $result;
-    }
-
-    public function get()
-    {
-        return 'get';
-    }
-
-    public function show()
-    {
-        return 'show';
     }
 
     private function deleteToken($id)

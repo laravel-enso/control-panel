@@ -14,14 +14,16 @@ class ResponseDataWrapper extends Object
 {
     public $id = 0;
     public $appName = '';
+    public $appType = 2;
     public $status = 'green';
     public $data = [];
     public $errors = [];
 
-    public function __construct($id, string $name)
+    public function __construct($id, string $name, $type)
     {
         $this->id = $id;
         $this->appName = $name;
+        $this->appType = $type;
     }
 
     public function addError(string $message)

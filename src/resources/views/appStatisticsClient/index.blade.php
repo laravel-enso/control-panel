@@ -335,14 +335,14 @@
                                         <div class="form-group">
                                             <label for="">{{ __("Refresh Interval (minutes)") }}</label>
                                             <div class="input-group">
-                                                <input type="number"
+                                                <input type="number" min="1"
                                                        @change="updateInterval"
                                                        v-model="refreshInterval">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row" v-if="appMetrics.appType == 2">
                                         <div class="col-md-12">
                                             <button class="btn btn-danger btn-block margin-top-24"
                                                     @click="clearLaravelLog">
@@ -435,7 +435,7 @@
                     },
                     data: function () {
                         return {
-                            name: 'test'
+
                         };
                     },
                     methods: {
@@ -444,6 +444,7 @@
                             let data = {
                                 id: this.application.id,
                                 "appName": this.application.name,
+                                "appType": this.application.type,
                                 "status": "loading",
                                 "data": [],
                                 "errors": [],
