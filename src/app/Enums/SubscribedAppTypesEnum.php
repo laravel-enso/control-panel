@@ -20,14 +20,13 @@ class SubscribedAppTypesEnum extends AbstractEnum
         ];
     }
 
-    public function getJsonKVData() {
-
+    public function getJsonKVData()
+    {
         $tmp = [];
         foreach ($this->data as $key=>$value) {
-
             $tmp[] = [
-                'key' => $key,
-                'value' => $value
+                'key'   => $key,
+                'value' => $value,
             ];
         }
 

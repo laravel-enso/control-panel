@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: mihai
  * Date: 13.06.2017
- * Time: 17:39
+ * Time: 17:39.
  */
 
 namespace LaravelEnso\AppStatisticsClient\app\Classes;
@@ -12,26 +12,23 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
 
-class StatisticsResponseGetter {
-
-    private static $clientParams = array(
-        'request.options' => array(
+class StatisticsResponseGetter
+{
+    private static $clientParams = [
+        'request.options' => [
             'timeout'         => 6,
             'connect_timeout' => 6,
-        ));
+        ], ];
 
-
-
-
-    public static function retrieveEnsoGetAllResponse(Request $request, SubscribedApp $subscribedApp) {
-
+    public static function retrieveEnsoGetAllResponse(Request $request, SubscribedApp $subscribedApp)
+    {
         $client = new Client();
 
         $url = $subscribedApp->url;
 
         $headers = [
             'Accept'        => 'application/json',
-            'Authorization' => 'Bearer ' . $subscribedApp->token,
+            'Authorization' => 'Bearer '.$subscribedApp->token,
         ];
 
         $query = [
@@ -39,7 +36,7 @@ class StatisticsResponseGetter {
             'endDate'   => $request->get('endDate'),
         ];
 
-        $response = $client->request('GET', $url . '/api/v1/statistics',
+        $response = $client->request('GET', $url.'/api/v1/statistics',
             [
                 'headers' => $headers,
                 'query'   => $query,
@@ -49,8 +46,8 @@ class StatisticsResponseGetter {
         return $response;
     }
 
-    public static function retrieveLegacyGetAllResponse(Request $request, SubscribedApp $subscribedApp) {
-
+    public static function retrieveLegacyGetAllResponse(Request $request, SubscribedApp $subscribedApp)
+    {
         $client = new Client();
 
         $url = $subscribedApp->url;
@@ -64,16 +61,15 @@ class StatisticsResponseGetter {
             'end_date'   => $request->get('endDate'),
         ];
 
-        $response = $client->request('GET', $url . '/api/statistics',
+        $response = $client->request('GET', $url.'/api/statistics',
             [
-                'headers' => $headers,
-                'query'   => $query,
-                'timeout' => 3,
-                'connect_timeout' => 3
+                'headers'         => $headers,
+                'query'           => $query,
+                'timeout'         => 3,
+                'connect_timeout' => 3,
             ]
         );
 
         return $response;
     }
-
 }
