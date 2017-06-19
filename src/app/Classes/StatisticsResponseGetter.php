@@ -61,12 +61,12 @@ class StatisticsResponseGetter
             'startDate' => $filters->startDate,
             'endDate'   => $filters->endDate,
             'dataTypes' => $request->get('dataTypes'),
+            'secret'    => $subscribedApp->secret,
         ];
 
         $response = $client->request('GET', $url.'/api/statistics',
             [
                 'headers'         => $headers,
-                'cookies'         => ['XDEBUG_SESSION' => 'PHPSTORM'],
                 'query'           => $query,
                 'timeout'         => 3,
                 'connect_timeout' => 3,

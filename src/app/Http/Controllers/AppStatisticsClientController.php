@@ -16,6 +16,28 @@ use LaravelEnso\Core\app\Exceptions\EnsoException;
 
 class AppStatisticsClientController extends Controller
 {
+    
+    public function destroy(SubscribedApp $subscribedApp)
+    {
+
+        DB::transaction(function () use ($subscribedApp) {
+
+            $subscribedApp->delete();
+            $tokenResponseData = TokenRequestHub::deleteToken(
+                $subscribedApp->type,
+                $subscribedApp->url,
+                $subscribedApp->token
+            );
+
+            $responseStatusCode = $tokenResponseData->getStatusCode();
+            if($responseStatusCode !== 200) {
+                throw new EnsoException(__('Could not delete token'));
+            }
+
+            return 'Deleted';
+        });
+    }
+
     public function index()
     {
         $activeApps = json_encode(SubscribedApp::all());
@@ -44,13 +66,15 @@ class AppStatisticsClientController extends Controller
             });
 
             return $newSubscribedApp;
+
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
-            $this->deleteToken($tokenResponseData->id);
+            $this->deleteToken($request->get('url'), $tokenResponseData->access_token);
+            return response('Server Error', 500);
         }
     }
 
-    public function getAll(Request $request, SubscribedApp $subscribedApp)
+    public function get(Request $request, SubscribedApp $subscribedApp)
     {
         $result = new ResponseDataWrapper($subscribedApp->id, $subscribedApp->name, $subscribedApp->type);
 
@@ -71,31 +95,10 @@ class AppStatisticsClientController extends Controller
         $result = [];
 
         foreach ($activeApps as $app) {
-            $result[] = $this->getAll($request, $app);
+            $result[] = $this->get($request, $app);
         }
 
         return $result;
-    }
-
-    private function deleteToken($id)
-    {
-
-        //not supported by laravel
-
-        /*
-        $client = new Client();
-
-        $headers = [
-            'Accept'=>'application/json'
-        ];
-
-        $res = $client->request('DELETE', 'http://enso.dev/oauth/tokens/' . $id);
-
-        $responseStatusCode = $res->getStatusCode();
-        if($responseStatusCode !== 200) {
-            throw new EnsoException(__('Could not delete token'));
-        }
-        */
     }
 
     public function clearLaravelLog(Request $request, SubscribedApp $subscribedApp)

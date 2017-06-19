@@ -25,4 +25,17 @@ class TokenRequestHub
 
         throw new EnsoException(__('Unsupported Application Type'));
     }
+
+    public static function deleteToken($appType, string $url, string $token)
+    {
+        if ($appType == 1) {
+            return response('Deleted', 200);
+        }
+
+        if ($appType == 2) {
+            return TokenResponseGetter::deleteEnsoAppToken($url, $token);
+        }
+
+        throw new EnsoException(__('Unsupported Application Type'));
+    }
 }

@@ -49,4 +49,29 @@ class TokenResponseGetter
 
         return $responseObj;
     }
+
+    public static function deleteEnsoAppToken($url, $token)
+    {
+        $client = new Client();
+
+        $headers = [
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bearer '.$token,
+        ];
+
+        $response = $client->request('DELETE', $url.'/api/v1/token',
+            [
+                'headers'         => $headers,
+                'timeout'         => 6,
+                'connect_timeout' => 6,
+            ]
+        );
+
+        $responseStatusCode = $response->getStatusCode();
+        if($responseStatusCode !== 200) {
+            throw new EnsoException(__('Could not delete token'));
+        }
+
+        return response('Deleted', 200);
+    }
 }

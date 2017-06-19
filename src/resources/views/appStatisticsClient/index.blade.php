@@ -229,8 +229,8 @@
                                 </div>
 
                                 <div class="col-md-3 col-sm-6 col-xs-12" v-for="app in activeApps">
-                                    <subscribed-application :application="app"
-                                        @sent-app-metrics="showAppMetric" :filters="filters"/>
+                                    <subscribed-application :application="app" :filters="filters"
+                                        @sent-app-metrics="showAppMetric" @remove-subscribed-app="removeApp" />
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,8 @@
 
             <div class="innner">
 
-                <address style="padding-left: 20px; padding-top: 15px;" v-tooltip="application.description">
+                <address style="padding-left: 20px; padding-top: 15px;"
+                         v-tooltip="application.description" >
                     {{ __("Name") }}: <strong><span v-html="application.name"></span></strong><br>
                     {{ __("URL") }}: <strong><span v-html="application.url"></span></strong><br>
                     {{ __("Client Id") }}: <span v-html="application.client_id"></span><br>
@@ -259,11 +260,11 @@
                 </address>
 
             </div>
-            <div class="icon">
+            <div class="icon" @click="showAppStatistics" style="cursor: pointer;">
                 <i class="fa fa-ravelry"></i>
             </div>
-            <a class="small-box-footer" href="#" @click="showAppStatistics">
-                <i class="fa fa-arrow-circle-right  "></i>
+            <a class="small-box-footer" href="#" @click="deleteSubscribedApplication">
+                <i class="fa fa-trash-o"></i>
             </a>
         </div>
     </script>
@@ -395,8 +396,14 @@
             },
             methods: {
                 getAllMetrics: function () {
+
+                    let payload = {
+                        filters: this.filters,
+                        dataTypes: this.dataTypes
+                    };
+
                     let self = this;
-                    axios.get('/statistics/getConsolidated', {params:this.filters}).then(function(response) {
+                    axios.get('/statistics/getConsolidated', {params:payload}).then(function(response) {
 
                         self.appMetrics = response.data;
                     });
@@ -406,12 +413,17 @@
                     this.appMetrics.push(payload);
                 },
                 subscribeToApp: function () {
-                    let self = this;
 
+                    let self = this;
                     axios.post('/statistics', this.newApp).then(function(response) {
                         self.activeApps.push(response.data);
                     }).then(function(response) {
                         self.newApp = new StatisticsApp();
+                    });
+                },
+                removeApp: function (appId) {
+                    this.activeApps = this.activeApps.filter(function (app) {
+                        return app.id !== appId;
                     });
                 }
             },
@@ -451,6 +463,15 @@
                             };
 
                             this.$emit('sent-app-metrics', data);
+                        },
+                        deleteSubscribedApplication: function() {
+
+                            let self = this;
+                            axios.delete('/statistics/' + this.application.id)
+                                .then(function(response) {
+
+                                    self.$emit('remove-subscribed-app', self.application.id);
+                                });
                         }
                     }
                 },
@@ -523,13 +544,18 @@
                             let payload = this.buildRequestPayload();
 
                             let self = this;
-                            axios.get('/statistics/getAll/' + this.initialMetrics.id, {params:payload})
+                            axios.get('/statistics/get/' + this.initialMetrics.id, {params:payload})
                                 .then(function(response) {
 
                                     self.appMetrics = response.data;
                                 });
                         },
                         updateInterval: function () {
+
+                            if(this.refreshInterval<1) {
+                                this.refreshInterval = 1;
+                            }
+
                             this.resetInterval();
                             this.setInterval();
                         },
