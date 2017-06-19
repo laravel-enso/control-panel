@@ -16,12 +16,9 @@ use LaravelEnso\Core\app\Exceptions\EnsoException;
 
 class AppStatisticsClientController extends Controller
 {
-    
     public function destroy(SubscribedApp $subscribedApp)
     {
-
         DB::transaction(function () use ($subscribedApp) {
-
             $subscribedApp->delete();
             $tokenResponseData = TokenRequestHub::deleteToken(
                 $subscribedApp->type,
@@ -30,7 +27,7 @@ class AppStatisticsClientController extends Controller
             );
 
             $responseStatusCode = $tokenResponseData->getStatusCode();
-            if($responseStatusCode !== 200) {
+            if ($responseStatusCode !== 200) {
                 throw new EnsoException(__('Could not delete token'));
             }
 
@@ -66,10 +63,10 @@ class AppStatisticsClientController extends Controller
             });
 
             return $newSubscribedApp;
-
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
             $this->deleteToken($request->get('url'), $tokenResponseData->access_token);
+
             return response('Server Error', 500);
         }
     }

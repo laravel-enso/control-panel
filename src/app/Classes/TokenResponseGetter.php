@@ -68,7 +68,7 @@ class TokenResponseGetter
         );
 
         $responseStatusCode = $response->getStatusCode();
-        if($responseStatusCode !== 200) {
+        if ($responseStatusCode !== 200) {
             throw new EnsoException(__('Could not delete token'));
         }
 
