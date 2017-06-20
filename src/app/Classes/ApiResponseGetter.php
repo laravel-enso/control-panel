@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use LaravelEnso\ControlPanel\app\Models\SubscribedApp;
 
-class StatisticsResponseGetter
+class ApiResponseGetter
 {
     public static function retrieveEnsoGetAllResponse(Request $request, SubscribedApp $subscribedApp)
     {
@@ -30,7 +30,7 @@ class StatisticsResponseGetter
         $query = [
             'startDate' => $filters->startDate,
             'endDate'   => $filters->endDate,
-            'dataTypes' => $request->get('dataTypes'),
+            'dataTypes' => $subscribedApp->preferences->dataTypes,
         ];
 
         $response = $client->request('GET', $url.'/api/v1/statistics',
@@ -60,7 +60,7 @@ class StatisticsResponseGetter
         $query = [
             'startDate' => $filters->startDate,
             'endDate'   => $filters->endDate,
-            'dataTypes' => $request->get('dataTypes'),
+            'dataTypes' => $subscribedApp->preferences->dataTypes,
             'secret'    => $subscribedApp->secret,
         ];
 
@@ -87,11 +87,34 @@ class StatisticsResponseGetter
             'Authorization' => 'Bearer '.$subscribedApp->token,
         ];
 
-        $query = [
-
-        ];
+        $query = [   ];
 
         $response = $client->request('DELETE', $url.'/api/v1/clearLaravelLog',
+            [
+                'headers'         => $headers,
+                'query'           => $query,
+                'timeout'         => 3,
+                'connect_timeout' => 3,
+            ]
+        );
+
+        return $response;
+    }
+
+    public static function retrieveSetMaintenanceModeResponse($request, $subscribedApp)
+    {
+        $client = new Client();
+
+        $url = $subscribedApp->url;
+
+        $headers = [
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bearer '.$subscribedApp->token,
+        ];
+
+        $query = [  ];
+
+        $response = $client->request('POST', $url.'/api/v1/setMaintenanceMode',
             [
                 'headers'         => $headers,
                 'query'           => $query,

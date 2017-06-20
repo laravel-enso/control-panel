@@ -22,6 +22,7 @@ class CreateSubscribedAppsTable extends Migration
             $table->string('client_id')->nullable();
             $table->string('secret')->nullable();
             $table->text('token');
+            $table->json('preferences');
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
             $table->integer('updated_by')->unsigned();

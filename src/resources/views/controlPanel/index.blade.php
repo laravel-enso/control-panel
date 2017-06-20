@@ -202,11 +202,11 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3" v-for="metric in appMetrics">
+                                <div class="col-xs-12 col-sm-6 col-md-3" v-for="metric in appMetrics">
 
                                     <application-metrics :initial-metrics="metric"
-                                                         :filters="filters"
-                                                         :initial-data-types="dataTypes">
+                                        :all-data-types="dataTypes"
+                                        :filters="filters">
                                     </application-metrics>
 
                                 </div>
@@ -289,17 +289,25 @@
                             </button>
                         </h4>
 
-                        <ul>
-                            <li v-for="metric in appMetrics.data">
-                                <span v-html="metric.key"></span>: <span v-html="metric.value"></span>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li v-for="metric in appMetrics.data">
+                                        <span v-html="metric.key"></span>: <span v-html="metric.value"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-                        <ul v-if="appMetrics.errors.length">
-                            <li v-for="error in appMetrics.errors">
-                                <span v-html="error"></span>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul v-if="appMetrics.errors.length">
+                                    <li v-for="error in appMetrics.errors">
+                                        <span v-html="error"></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -323,10 +331,13 @@
                             <div class="row">
                                 <div class="col-md-12">
 
-                                    <div class="row" v-for="dataType in initialDataTypes">
-                                        <input type="checkbox" :id="dataType" :value="dataType" v-model="dataTypes">
-                                        <label for="dataType">
-                                            <span v-html="dataType"></span>
+                                    <div class="row" v-for="dataType in allDataTypes">
+                                        <input type="checkbox" :id="dataType" :value="dataType.key"
+                                            @change="updatePreferences"
+                                            v-model="preferences.dataTypes">
+
+                                        <label :for="dataType">
+                                            <span v-html="dataType.value"></span>
                                         </label>
                                     </div>
 
@@ -338,7 +349,7 @@
                                             <div class="input-group">
                                                 <input type="number" min="1"
                                                        @change="updateInterval"
-                                                       v-model="refreshInterval">
+                                                       v-model="preferences.refreshInterval">
                                             </div>
                                         </div>
                                     </div>
@@ -351,14 +362,26 @@
                                             </button>
                                         </div>
                                     </div>
+
+                                    <div class="row" v-if="appMetrics.appType == 2">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-danger btn-block margin-top-24"
+                                                    @click="showModal=true">
+                                                {{ __('Take Down') }}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <modal :show="showModal" @cancel-action="showModal = false" @commit-action="setMaintenanceMode">
+                @include('laravel-enso/core::partials.modal')
+            </modal>
         </div>
+
     </script>
 
     <script type="text/javascript">
@@ -395,18 +418,28 @@
 
             },
             methods: {
-                getAllMetrics: function () {
 
-                    let payload = {
-                        filters: this.filters,
-                        dataTypes: this.dataTypes
+                buildPayload: function (application) {
+
+                    let data = {
+                        id: application.id,
+                        appName: application.name,
+                        appType: application.type,
+                        status: "loading",
+                        data: [],
+                        errors: [],
+                        preferences: application.preferences,
                     };
 
-                    let self = this;
-                    axios.get('/controlPanel/getConsolidated', {params:payload}).then(function(response) {
+                    return data;
+                },
+                getAllMetrics: function () {
 
-                        self.appMetrics = response.data;
-                    });
+                    this.appMetrics = [];
+                    for (let i = 0; i < this.activeApps.length; ++i) {
+                        let payload = this.buildPayload(this.activeApps[i]);
+                        this.appMetrics.push(payload);
+                    }
                 },
                 showAppMetric: function (payload) {
                     this.appMetrics = [];
@@ -455,11 +488,12 @@
 
                             let data = {
                                 id: this.application.id,
-                                "appName": this.application.name,
-                                "appType": this.application.type,
-                                "status": "loading",
-                                "data": [],
-                                "errors": [],
+                                appName: this.application.name,
+                                appType: this.application.type,
+                                status: "loading",
+                                data: [],
+                                errors: [],
+                                preferences: this.application.preferences,
                             };
 
                             this.$emit('sent-app-metrics', data);
@@ -490,20 +524,21 @@
                                             value:""
                                         }
                                     ],
-                                    errors: []
+                                    errors: [],
+                                    preferences: []
                                 }
-                            }
-                        },
-                        initialDataTypes: {
-                            type: Array,
-                            default: function () {
-                                return [];
                             }
                         },
                         filters: {
                             type: Object,
                             default: function () {
                                 return {};
+                            }
+                        },
+                        allDataTypes: {
+                            type: Array,
+                            default: function () {
+                                return [];
                             }
                         }
                     },
@@ -515,18 +550,35 @@
                             refreshInterval: 1,
                             intervalEventId: null,
                             appMetrics: this.initialMetrics,
-                            dataTypes: this.initialDataTypes
+                            preferences: this.initialMetrics.preferences,
+                            showModal: false
                         }
                     },
                     methods: {
 
+                        updatePreferences: function () {
+                            axios.post('/controlPanel/updatePreferences/' + this.initialMetrics.id, {preferences: this.preferences})
+                                .then(function(response) {
+
+                                    toastr['success'](response.data.message);
+                                });
+                        },
+                        setMaintenanceMode: function () {
+
+                            axios.post('/controlPanel/setMaintenanceMode/' + this.initialMetrics.id)
+                                .then(function(response) {
+
+                                    toastr['success'](response.data.message);
+                                });
+
+                            this.showModal = false;
+                        },
                         buildRequestPayload: function () {
 
                             return {
                                 filters: this.filters,
-                                dataTypes: this.dataTypes
+                                dataTypes: this.preferences.dataTypes
                             }
-
                         },
                         clearLaravelLog: function () {
 
@@ -536,7 +588,7 @@
                             axios.delete('/controlPanel/clearLaravelLog/' + this.initialMetrics.id, {params:payload})
                                 .then(function(response) {
 
-                                    console.log('ok');
+                                    toastr['success'](response.data.message);
                                 });
                         },
                         getAllMetrics: function () {
@@ -558,6 +610,8 @@
 
                             this.resetInterval();
                             this.setInterval();
+
+                            this.updatePreferences();
                         },
                         resetInterval: function () {
                             clearInterval(this.intervalEventId);

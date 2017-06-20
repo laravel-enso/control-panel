@@ -12,25 +12,28 @@ use LaravelEnso\Helpers\Classes\AbstractEnum;
 
 class DataTypesEnum extends AbstractEnum
 {
+
     public function __construct()
     {
+
         $this->data = [
-            'logins'        => 'logins',
-            'actions'       => 'actions',
-            'failedJobs'    => 'failed jobs',
-            'activeSessions'=> 'active sessions',
-            'serverTime'    => 'server time',
-            'logSize'       => 'log size',
+            'loginsCount'         => __('logins'),
+            'actionsCount'        => __('actions'),
+            'failedJobsCount'     => __('failed jobs'),
+            'activeSessionsCount' => __('active sessions'),
+            'serverTime'          => __('server time'),
+            'logFileSize'         => __('log size'),
         ];
     }
 
     public function getJsonKVData()
     {
+
         $tmp = [];
-        foreach ($this->data as $key=>$value) {
+        foreach ($this->data as $key => $value) {
             $tmp[] = [
                 'key'   => $key,
-                'value' => __($value),
+                'value' => $value,
             ];
         }
 

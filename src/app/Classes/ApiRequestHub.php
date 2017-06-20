@@ -12,16 +12,16 @@ use Illuminate\Http\Request;
 use LaravelEnso\ControlPanel\app\Models\SubscribedApp;
 use LaravelEnso\Core\app\Exceptions\EnsoException;
 
-class StatisticsRequestHub
+class ApiRequestHub
 {
     public static function getAll(Request $request, SubscribedApp $subscribedApp)
     {
         if ($subscribedApp->type == 1) {
-            return StatisticsResponseGetter::retrieveLegacyGetAllResponse($request, $subscribedApp);
+            return ApiResponseGetter::retrieveLegacyGetAllResponse($request, $subscribedApp);
         }
 
         if ($subscribedApp->type == 2) {
-            return StatisticsResponseGetter::retrieveEnsoGetAllResponse($request, $subscribedApp);
+            return ApiResponseGetter::retrieveEnsoGetAllResponse($request, $subscribedApp);
         }
 
         throw new EnsoException(__('Unsupported Application Type'));
@@ -30,7 +30,16 @@ class StatisticsRequestHub
     public static function clearLaravelLog(Request $request, SubscribedApp $subscribedApp)
     {
         if ($subscribedApp->type == 2) {
-            return StatisticsResponseGetter::retrieveClearLaravelLogResponse($request, $subscribedApp);
+            return ApiResponseGetter::retrieveClearLaravelLogResponse($request, $subscribedApp);
+        }
+
+        throw new EnsoException(__('Unsupported Application Type'));
+    }
+
+    public static function setMaintenanceMode(Request $request, SubscribedApp $subscribedApp)
+    {
+        if ($subscribedApp->type == 2) {
+            return ApiResponseGetter::retrieveSetMaintenanceModeResponse($request, $subscribedApp);
         }
 
         throw new EnsoException(__('Unsupported Application Type'));

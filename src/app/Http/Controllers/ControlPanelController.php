@@ -5,8 +5,9 @@ namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use LaravelEnso\ControlPanel\app\Classes\ApiRequestHub;
+use LaravelEnso\ControlPanel\app\Classes\PreferencesStructureBuilder;
 use LaravelEnso\ControlPanel\app\Classes\ResponseDataWrapper;
-use LaravelEnso\ControlPanel\app\Classes\StatisticsRequestHub;
 use LaravelEnso\ControlPanel\app\Classes\TokenRequestHub;
 use LaravelEnso\ControlPanel\app\Enums\DataTypesEnum;
 use LaravelEnso\ControlPanel\app\Enums\SubscribedAppTypesEnum;
@@ -15,9 +16,29 @@ use LaravelEnso\Core\app\Exceptions\EnsoException;
 
 class ControlPanelController extends Controller
 {
+
+    public function updatePreferences(Request $request, SubscribedApp $subscribedApp)
+    {
+
+        $subscribedApp->preferences = json_encode($request->get('preferences'));
+        $subscribedApp->save();
+    }
+
+    public function setMaintenanceMode(Request $request, SubscribedApp $subscribedApp)
+    {
+
+        $exitCode = ApiRequestHub::setMaintenanceMode($request, $subscribedApp);
+
+        return [
+            'message' => __('Application is now in maintenance mode'),
+        ];
+    }
+
     public function destroy(SubscribedApp $subscribedApp)
     {
+
         DB::transaction(function () use ($subscribedApp) {
+
             $subscribedApp->delete();
             $tokenResponseData = TokenRequestHub::deleteToken(
                 $subscribedApp->type,
@@ -36,9 +57,10 @@ class ControlPanelController extends Controller
 
     public function index()
     {
+
         $activeApps = json_encode(SubscribedApp::all());
         $subscribedAppTypes = (new SubscribedAppTypesEnum())->getJsonKVData();
-        $dataTypes = json_encode((new DataTypesEnum())->getKeys());
+        $dataTypes = (new DataTypesEnum())->getJsonKVData();
 
         return view('laravel-enso/controlpanel::controlPanel.index',
             compact('activeApps', 'subscribedAppTypes', 'dataTypes'));
@@ -46,6 +68,7 @@ class ControlPanelController extends Controller
 
     public function store(Request $request)
     {
+
         $tokenResponseData = TokenRequestHub::requestNewToken($request);
 
         if (!$tokenResponseData) {
@@ -56,15 +79,20 @@ class ControlPanelController extends Controller
             $newSubscribedApp = null;
 
             DB::transaction(function () use ($request, $tokenResponseData, &$newSubscribedApp) {
+
                 $newSubscribedApp = new SubscribedApp($request->all());
                 $newSubscribedApp->token = $tokenResponseData->access_token;
+                $newSubscribedApp->preferences = PreferencesStructureBuilder::build($request->get('type'));
                 $newSubscribedApp->save();
             });
 
             return $newSubscribedApp;
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
-            $this->deleteToken($request->get('url'), $tokenResponseData->access_token);
+            TokenRequestHub::deleteToken(
+                $request->get('type'),
+                $request->get('url'),
+                $tokenResponseData->access_token);
 
             return response('Server Error', 500);
         }
@@ -72,11 +100,13 @@ class ControlPanelController extends Controller
 
     public function get(Request $request, SubscribedApp $subscribedApp)
     {
+
         $result = new ResponseDataWrapper($subscribedApp->id, $subscribedApp->name, $subscribedApp->type);
 
         try {
-            $response = StatisticsRequestHub::getAll($request, $subscribedApp);
-            $result->data = json_decode($response->getBody(), true);
+            $response = ApiRequestHub::getAll($request, $subscribedApp);
+            $originalData = json_decode($response->getBody(), true);
+            $result->data = $this->translateData($originalData);
         } catch (\Exception $e) {
             $result->addError($e->getMessage());
         }
@@ -84,23 +114,27 @@ class ControlPanelController extends Controller
         return $result;
     }
 
-    public function getConsolidated(Request $request)
-    {
-        $activeApps = SubscribedApp::all();
-
-        $result = [];
-
-        foreach ($activeApps as $app) {
-            $result[] = $this->get($request, $app);
-        }
-
-        return $result;
-    }
-
     public function clearLaravelLog(Request $request, SubscribedApp $subscribedApp)
     {
-        $response = StatisticsRequestHub::clearLaravelLog($request, $subscribedApp);
 
-        return $response->getStatusCode();
+        $response = ApiRequestHub::clearLaravelLog($request, $subscribedApp);
+
+        return [
+            'message' => __('Application Log deleted!'),
+        ];
+    }
+
+    private function translateData($originalData)
+    {
+
+        $types = (new DataTypesEnum())->getData();
+        $translatedData = json_decode(json_encode($originalData), true);
+
+        for ($i = 0; $i < count($translatedData); $i++) {
+            $key = $translatedData[$i]['key'];
+            $translatedData[$i]['key'] = $types[$key];
+        }
+
+        return $translatedData;
     }
 }

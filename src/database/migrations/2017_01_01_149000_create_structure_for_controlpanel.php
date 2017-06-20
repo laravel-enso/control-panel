@@ -4,6 +4,7 @@ use LaravelEnso\Core\app\Classes\StructureManager\StructureMigration;
 
 class CreateStructureForControlPanel extends StructureMigration
 {
+
     protected $permissionsGroup = [
         'name' => 'controlPanel', 'description' => 'Control Panel Group',
     ];
@@ -18,8 +19,9 @@ class CreateStructureForControlPanel extends StructureMigration
         ['name' => 'controlPanel.show', 'description' => 'Temp for Control Panel', 'type' => 0, 'default' => false],
         ['name' => 'controlPanel.get', 'description' => 'Get metrics for one app', 'type' => 0, 'default' => false],
         ['name' => 'controlPanel.getAll', 'description' => 'Get all possible metrics for one app', 'type' => 0, 'default' => false],
-        ['name' => 'controlPanel.getConsolidated', 'description' => 'Get all metrics for all apps', 'type' => 0, 'default' => false],
         ['name' => 'controlPanel.clearLaravelLog', 'description' => 'Clear laravel log for one app', 'type' => 1, 'default' => false],
+        ['name' => 'controlPanel.setMaintenanceMode', 'description' => 'Set maintenance mode for one app', 'type' => 1, 'default' => false],
+        ['name' => 'controlPanel.updatePreferences', 'description' => 'Update preferences for one app', 'type' => 1, 'default' => false],
     ];
 
     protected $menu = [

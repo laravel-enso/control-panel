@@ -11,11 +11,17 @@ class SubscribedApp extends Model
 {
     use CreatedBy, UpdatedBy;
 
-    protected $fillable = ['url', 'client_id', 'secret', 'token', 'name', 'description', 'type'];
+    protected $fillable = ['url', 'client_id', 'secret', 'token', 'name', 'description', 'type', 'preferences'];
     protected $hidden = ['secret', 'token'];
 
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getPreferencesAttribute($value)
+    {
+
+        return (object) json_decode($value, true);
     }
 }
