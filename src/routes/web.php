@@ -1,18 +1,18 @@
 <?php
 
-Route::group(['namespace'  => 'LaravelEnso\AppStatisticsClient\app\Http\Controllers',
-              'prefix'     => 'statistics',
-              'as'         => 'statistics.',
+Route::group(['namespace'  => 'LaravelEnso\ControlPanel\app\Http\Controllers',
+              'prefix'     => 'controlPanel',
+              'as'         => 'controlPanel.',
               'middleware' => ['web', 'auth', 'core'], ], function () {
-                  Route::get('get/{subscribedApp}', 'AppStatisticsClientController@get')->name('get');
-                  Route::get('getConsolidated', 'AppStatisticsClientController@getConsolidated')->name('getConsolidated');
-                  Route::delete('clearLaravelLog/{subscribedApp}', 'AppStatisticsClientController@clearLaravelLog')->name('clearLaravelLog');
-                  Route::post('', 'AppStatisticsClientController@store')->name('store');
-                  Route::get('', 'AppStatisticsClientController@index')->name('index');
-                  Route::delete('{subscribedApp}', 'AppStatisticsClientController@destroy')->name('destroy');
+                  Route::get('get/{subscribedApp}', 'ControlPanelController@get')->name('get');
+                  Route::get('getConsolidated', 'ControlPanelController@getConsolidated')->name('getConsolidated');
+                  Route::delete('clearLaravelLog/{subscribedApp}', 'ControlPanelController@clearLaravelLog')->name('clearLaravelLog');
+                  Route::post('', 'ControlPanelController@store')->name('store');
+                  Route::get('', 'ControlPanelController@index')->name('index');
+                  Route::delete('{subscribedApp}', 'ControlPanelController@destroy')->name('destroy');
               });
 
-//Route::group(['namespace'  => 'LaravelEnso\AppStatisticsClient\app\Http\Controllers',
+//Route::group(['namespace'  => 'LaravelEnso\ControlPanel\app\Http\Controllers',
 //              'middleware' => ['web', 'auth', 'core'], ], function () {
-//                  Route::resource('subscribedApp', 'AppStatisticsClientController');
+//                  Route::resource('subscribedApp', 'ControlPanelController');
 //              });

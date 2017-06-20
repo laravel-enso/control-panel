@@ -6,11 +6,11 @@
  * Time: 17:39.
  */
 
-namespace LaravelEnso\AppStatisticsClient\app\Classes;
+namespace LaravelEnso\ControlPanel\app\Classes;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
+use LaravelEnso\ControlPanel\app\Models\SubscribedApp;
 
 class StatisticsResponseGetter
 {

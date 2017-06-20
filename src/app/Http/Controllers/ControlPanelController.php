@@ -1,20 +1,20 @@
 <?php
 
-namespace LaravelEnso\AppStatisticsClient\app\Http\Controllers;
+namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use LaravelEnso\AppStatisticsClient\app\Classes\ResponseDataWrapper;
-use LaravelEnso\AppStatisticsClient\app\Classes\StatisticsRequestHub;
-use LaravelEnso\AppStatisticsClient\app\Classes\TokenRequestHub;
-use LaravelEnso\AppStatisticsClient\app\Enums\DataTypesEnum;
-use LaravelEnso\AppStatisticsClient\app\Enums\SubscribedAppTypesEnum;
-use LaravelEnso\AppStatisticsClient\app\Models\SubscribedApp;
+use LaravelEnso\ControlPanel\app\Classes\ResponseDataWrapper;
+use LaravelEnso\ControlPanel\app\Classes\StatisticsRequestHub;
+use LaravelEnso\ControlPanel\app\Classes\TokenRequestHub;
+use LaravelEnso\ControlPanel\app\Enums\DataTypesEnum;
+use LaravelEnso\ControlPanel\app\Enums\SubscribedAppTypesEnum;
+use LaravelEnso\ControlPanel\app\Models\SubscribedApp;
 use LaravelEnso\Core\app\Exceptions\EnsoException;
 
-class AppStatisticsClientController extends Controller
+class ControlPanelController extends Controller
 {
     public function destroy(SubscribedApp $subscribedApp)
     {
@@ -41,7 +41,7 @@ class AppStatisticsClientController extends Controller
         $subscribedAppTypes = (new SubscribedAppTypesEnum())->getJsonKVData();
         $dataTypes = json_encode((new DataTypesEnum())->getKeys());
 
-        return view('laravel-enso/app-statistics-client::appStatisticsClient.index',
+        return view('laravel-enso/controlpanel::controlPanel.index',
             compact('activeApps', 'subscribedAppTypes', 'dataTypes'));
     }
 

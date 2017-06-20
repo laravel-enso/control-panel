@@ -403,7 +403,7 @@
                     };
 
                     let self = this;
-                    axios.get('/statistics/getConsolidated', {params:payload}).then(function(response) {
+                    axios.get('/controlPanel/getConsolidated', {params:payload}).then(function(response) {
 
                         self.appMetrics = response.data;
                     });
@@ -415,7 +415,7 @@
                 subscribeToApp: function () {
 
                     let self = this;
-                    axios.post('/statistics', this.newApp).then(function(response) {
+                    axios.post('/controlPanel', this.newApp).then(function(response) {
                         self.activeApps.push(response.data);
                     }).then(function(response) {
                         self.newApp = new StatisticsApp();
@@ -467,7 +467,7 @@
                         deleteSubscribedApplication: function() {
 
                             let self = this;
-                            axios.delete('/statistics/' + this.application.id)
+                            axios.delete('/controlPanel/' + this.application.id)
                                 .then(function(response) {
 
                                     self.$emit('remove-subscribed-app', self.application.id);
@@ -533,7 +533,7 @@
 
                             let payload = this.buildRequestPayload();
 
-                            axios.delete('/statistics/clearLaravelLog/' + this.initialMetrics.id, {params:payload})
+                            axios.delete('/controlPanel/clearLaravelLog/' + this.initialMetrics.id, {params:payload})
                                 .then(function(response) {
 
                                     console.log('ok');
@@ -544,7 +544,7 @@
                             let payload = this.buildRequestPayload();
 
                             let self = this;
-                            axios.get('/statistics/get/' + this.initialMetrics.id, {params:payload})
+                            axios.get('/controlPanel/get/' + this.initialMetrics.id, {params:payload})
                                 .then(function(response) {
 
                                     self.appMetrics = response.data;

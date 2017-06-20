@@ -6,7 +6,7 @@
  * Time: 12:04.
  */
 
-namespace LaravelEnso\AppStatisticsClient\app\Classes;
+namespace LaravelEnso\ControlPanel\app\Classes;
 
 use LaravelEnso\Helpers\Classes\Object;
 

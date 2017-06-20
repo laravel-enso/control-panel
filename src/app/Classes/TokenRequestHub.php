@@ -6,7 +6,7 @@
  * Time: 17:39.
  */
 
-namespace LaravelEnso\AppStatisticsClient\app\Classes;
+namespace LaravelEnso\ControlPanel\app\Classes;
 
 use Illuminate\Http\Request;
 use LaravelEnso\Core\app\Exceptions\EnsoException;

@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\AppStatisticsClient\app\Http\Requests;
+namespace LaravelEnso\ControlPanel\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateSubscriptionRequest extends FormRequest
+class ValidateAppSubscriptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

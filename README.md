@@ -1,6 +1,7 @@
 # StatisticsManager
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/16b923e371364c2da8655c84a0455007)](https://www.codacy.com/app/laravel-enso/StatisticsManager?utm_source=github.com&utm_medium=referral&utm_content=laravel-enso/StatisticsManager&utm_campaign=badger)
+[![StyleCI](https://styleci.io/repos/94111370/shield?branch=master)](https://styleci.io/repos/94111370)
 
 The package depends on the Laravel/Passport official package.
 

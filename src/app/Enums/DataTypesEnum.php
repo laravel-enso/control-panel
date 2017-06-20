@@ -6,7 +6,7 @@
  * Time: 9:19.
  */
 
-namespace LaravelEnso\AppStatisticsClient\app\Enums;
+namespace LaravelEnso\ControlPanel\app\Enums;
 
 use LaravelEnso\Helpers\Classes\AbstractEnum;
 

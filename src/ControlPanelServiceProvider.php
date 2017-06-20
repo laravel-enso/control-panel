@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\AppStatisticsClient;
+namespace LaravelEnso\ControlPanel;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppStatisticsClientServiceProvider extends ServiceProvider
+class ControlPanelServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -15,7 +15,7 @@ class AppStatisticsClientServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-enso/app-statistics-client');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'laravel-enso/controlpanel');
     }
 
     /**
