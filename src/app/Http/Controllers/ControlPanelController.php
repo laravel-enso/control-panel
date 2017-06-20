@@ -3,7 +3,6 @@
 namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LaravelEnso\ControlPanel\app\Classes\ResponseDataWrapper;

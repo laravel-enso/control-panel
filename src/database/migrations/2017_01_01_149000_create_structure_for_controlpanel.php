@@ -4,7 +4,6 @@ use LaravelEnso\Core\app\Classes\StructureManager\StructureMigration;
 
 class CreateStructureForControlPanel extends StructureMigration
 {
-
     protected $permissionsGroup = [
         'name' => 'controlPanel', 'description' => 'Control Panel Group',
     ];
