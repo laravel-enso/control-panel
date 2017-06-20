@@ -16,17 +16,14 @@ use LaravelEnso\Core\app\Exceptions\EnsoException;
 
 class ControlPanelController extends Controller
 {
-
     public function updatePreferences(Request $request, SubscribedApp $subscribedApp)
     {
-
         $subscribedApp->preferences = json_encode($request->get('preferences'));
         $subscribedApp->save();
     }
 
     public function setMaintenanceMode(Request $request, SubscribedApp $subscribedApp)
     {
-
         $exitCode = ApiRequestHub::setMaintenanceMode($request, $subscribedApp);
 
         return [
@@ -36,9 +33,7 @@ class ControlPanelController extends Controller
 
     public function destroy(SubscribedApp $subscribedApp)
     {
-
         DB::transaction(function () use ($subscribedApp) {
-
             $subscribedApp->delete();
             $tokenResponseData = TokenRequestHub::deleteToken(
                 $subscribedApp->type,
@@ -57,7 +52,6 @@ class ControlPanelController extends Controller
 
     public function index()
     {
-
         $activeApps = json_encode(SubscribedApp::all());
         $subscribedAppTypes = (new SubscribedAppTypesEnum())->getJsonKVData();
         $dataTypes = (new DataTypesEnum())->getJsonKVData();
@@ -68,7 +62,6 @@ class ControlPanelController extends Controller
 
     public function store(Request $request)
     {
-
         $tokenResponseData = TokenRequestHub::requestNewToken($request);
 
         if (!$tokenResponseData) {
@@ -79,7 +72,6 @@ class ControlPanelController extends Controller
             $newSubscribedApp = null;
 
             DB::transaction(function () use ($request, $tokenResponseData, &$newSubscribedApp) {
-
                 $newSubscribedApp = new SubscribedApp($request->all());
                 $newSubscribedApp->token = $tokenResponseData->access_token;
                 $newSubscribedApp->preferences = PreferencesStructureBuilder::build($request->get('type'));
@@ -100,7 +92,6 @@ class ControlPanelController extends Controller
 
     public function get(Request $request, SubscribedApp $subscribedApp)
     {
-
         $result = new ResponseDataWrapper($subscribedApp->id, $subscribedApp->name, $subscribedApp->type);
 
         try {
@@ -116,7 +107,6 @@ class ControlPanelController extends Controller
 
     public function clearLaravelLog(Request $request, SubscribedApp $subscribedApp)
     {
-
         $response = ApiRequestHub::clearLaravelLog($request, $subscribedApp);
 
         return [
@@ -126,7 +116,6 @@ class ControlPanelController extends Controller
 
     private function translateData($originalData)
     {
-
         $types = (new DataTypesEnum())->getData();
         $translatedData = json_decode(json_encode($originalData), true);
 

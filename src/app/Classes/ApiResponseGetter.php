@@ -87,7 +87,7 @@ class ApiResponseGetter
             'Authorization' => 'Bearer '.$subscribedApp->token,
         ];
 
-        $query = [   ];
+        $query = [];
 
         $response = $client->request('DELETE', $url.'/api/v1/clearLaravelLog',
             [
@@ -112,7 +112,7 @@ class ApiResponseGetter
             'Authorization' => 'Bearer '.$subscribedApp->token,
         ];
 
-        $query = [  ];
+        $query = [];
 
         $response = $client->request('POST', $url.'/api/v1/setMaintenanceMode',
             [

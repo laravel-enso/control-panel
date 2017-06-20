@@ -21,7 +21,6 @@ class SubscribedApp extends Model
 
     public function getPreferencesAttribute($value)
     {
-
         return (object) json_decode($value, true);
     }
 }
