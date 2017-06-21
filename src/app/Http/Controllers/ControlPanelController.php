@@ -86,7 +86,6 @@ class ControlPanelController extends Controller
             });
 
             return $newSubscribedApp;
-
         } catch (\Exception $e) {
             \Log::info($e->getMessage());
             TokenRequestHub::deleteToken(
