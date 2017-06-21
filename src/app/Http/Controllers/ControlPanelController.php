@@ -5,12 +5,14 @@ namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use LaravelEnso\ControlPanel\app\Classes\ApiRequestHub;
 use LaravelEnso\ControlPanel\app\Classes\PreferencesStructureBuilder;
 use LaravelEnso\ControlPanel\app\Classes\ResponseDataWrapper;
 use LaravelEnso\ControlPanel\app\Classes\TokenRequestHub;
 use LaravelEnso\ControlPanel\app\Enums\DataTypesEnum;
 use LaravelEnso\ControlPanel\app\Enums\SubscribedAppTypesEnum;
+use LaravelEnso\ControlPanel\app\Http\Requests\ValidateAppSubscriptionRequest;
 use LaravelEnso\ControlPanel\app\Models\SubscribedApp;
 use LaravelEnso\Core\app\Exceptions\EnsoException;
 
@@ -68,6 +70,12 @@ class ControlPanelController extends Controller
 
     public function store(Request $request)
     {
+
+        $validator = $this->validateRequest($request);
+        if ($validator->fails()) {
+            throw new EnsoException("The form has errors", 'error', $validator->errors()->toArray(), 422);
+        }
+
 
         $tokenResponseData = TokenRequestHub::requestNewToken($request);
 
@@ -137,4 +145,13 @@ class ControlPanelController extends Controller
 
         return $translatedData;
     }
+
+    private function validateRequest(Request $request)
+    {
+        $rules = (new ValidateAppSubscriptionRequest())->rules();
+        $validator = Validator::make($request->all(), $rules);
+
+        return $validator;
+    }
+
 }

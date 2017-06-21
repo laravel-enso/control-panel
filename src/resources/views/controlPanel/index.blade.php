@@ -93,7 +93,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group" :class="{'has-error' : errorBag.name}">
                                             <label>{{ __('Name') }}</label>
                                             <div class="input-group">
                                                 <input type="text"
@@ -104,7 +104,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group" :class="{'has-error' : errorBag.url}">
                                             <label>{{ __('URL') }}</label>
                                             <div class="input-group">
                                                 <input type="text"
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2">
-                                        <div class="form-group">
+                                        <div class="form-group" :class="{'has-error' : errorBag.client_id}">
                                             <label>{{ __('Client ID') }}</label>
                                             <div class="input-group">
                                                 <input type="text"
@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2">
-                                        <div class="form-group">
+                                        <div class="form-group" :class="{'has-error' : errorBag.secret}">
                                             <label>{{ __('Secret') }}</label>
                                             <div class="input-group">
                                                 <input type="password"
@@ -411,7 +411,8 @@
                     filters: {
                         startDate: "01-01-2017",
                         endDate: "01-01-2025"
-                    }
+                    },
+                    errorBag: {}
                 }
             },
             computed: {
@@ -452,6 +453,11 @@
                         self.activeApps.push(response.data);
                     }).then(function(response) {
                         self.newApp = new StatisticsApp();
+                    }).catch(function (error) {
+                        if (error.response.data.level) {
+                            self.errorBag = error.response.data.errorBag;
+                            toastr[error.response.data.level](error.response.data.message);
+                        }
                     });
                 },
                 removeApp: function (appId) {
