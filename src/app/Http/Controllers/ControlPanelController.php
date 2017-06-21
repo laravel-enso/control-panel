@@ -66,7 +66,7 @@ class ControlPanelController extends Controller
     {
         $validator = $this->validateRequest($request);
         if ($validator->fails()) {
-            throw new EnsoException("The form has errors", 'error', $validator->errors()->toArray(), 422);
+            throw new EnsoException('The form has errors', 'error', $validator->errors()->toArray(), 422);
         }
 
         $tokenResponseData = TokenRequestHub::requestNewToken($request);
@@ -141,5 +141,4 @@ class ControlPanelController extends Controller
 
         return $validator;
     }
-
 }
