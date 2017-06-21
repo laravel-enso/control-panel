@@ -3,7 +3,6 @@
 @section('pageTitle', __("App Statistics"))
 
 @section('includesCss')
-
     <style>
 
         ul.errors, ul.errors ul {
@@ -75,100 +74,33 @@
         }
 
     </style>
-
 @endsection
 
 @section('content')
-
     <section class="content-header">
         @include('laravel-enso/core::partials.breadcrumbs')
     </section>
+    
     <section class="content" v-cloak >
 
+        <modal :show="isAddAppModalVisible" cancel-only header max-width="500"
+            @cancel-action="isAddAppModalVisible=false">
+                <span slot="modal-header">{{ __("Subscribe to a new app") }}</span>
+                <span slot="modal-body">
+                    <app-subscriber :app-types="appTypes" @app-subscribed="pushNewApp"/>
+                </span>
+                <span slot="modal-cancel">{{ __("Cancel") }}</span>
+        </modal>
+
         <transition-group name="fadeUp" mode="out-in" tag="div">
-            <div class="row" key="newRow">
-                <div class="col-md-12">
-                    <div class="box box-primary" v-cloak>
-                        <div class="box-body">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4">
-                                        <div class="form-group" :class="{'has-error' : errorBag.name}">
-                                            <label>{{ __('Name') }}</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                       v-model="newApp.name"
-                                                       class="form-control">
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-4">
-                                        <div class="form-group" :class="{'has-error' : errorBag.url}">
-                                            <label>{{ __('URL') }}</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                       v-model="newApp.url"
-                                                       class="form-control">
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2">
-                                        <div class="form-group" :class="{'has-error' : errorBag.client_id}">
-                                            <label>{{ __('Client ID') }}</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                       v-model="newApp.client_id"
-                                                       class="form-control">
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2">
-                                        <div class="form-group" :class="{'has-error' : errorBag.secret}">
-                                            <label>{{ __('Secret') }}</label>
-                                            <div class="input-group">
-                                                <input type="password"
-                                                       v-model="newApp.secret"
-                                                       class="form-control">
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-lg-2 col-md-2">
-                                        <div class="form-group disabled-select-white-bg">
-                                            <label>{{ __("App Type") }}</label>
-                                            <vue-select :options="appTypes"
-                                                        v-model="newApp.type"
-                                                        selected="2"
-                                                        >
-                                            </vue-select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2 col-md-4">
-                                        <button class="btn btn-primary btn-block margin-top-24"
-                                            @click="subscribeToApp">
-                                            {{ __('Subscribe') }}
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" key="newRow">
+            <div class="row" key="dates">
                 <div class="col-md-12">
                     <div class="box box-primary" v-cloak>
                         <div class="box-body">
 
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">{{ __("Start Date") }}</label>
                                         <div class="input-group">
@@ -178,7 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                     <div class="form-group">
                                         <label for="">{{ __("End Date") }}</label>
                                         <div class="input-group">
@@ -188,10 +120,22 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-2 col-md-4 pull-right">
-                                    <button class="btn btn-success btn-block margin-top-24"
-                                            @click="getAllMetrics">
-                                        {{ __('Get All Metrics') }}
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="">{{ __("Filter") }}</label>
+
+                                        <input type="text"
+                                           class="form-control"
+                                           size=15
+                                           v-model="query"
+                                           v-if="activeApps.length > 0">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 pull-right">
+                                    <button class="btn btn-primary btn-block margin-top-24"
+                                            @click="isAddAppModalVisible=true">
+                                        {{ __('Add App') }}
                                     </button>
                                 </div>
 
@@ -202,9 +146,10 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-3" v-for="metric in appMetrics">
+                                <div class="col-xs-12 col-sm-6 col-md-3" v-for="app in filteredApps">
 
-                                    <application-metrics :initial-metrics="metric"
+                                    <application-metrics
+                                        :application-entity="app"
                                         :all-data-types="dataTypes"
                                         :filters="filters">
                                     </application-metrics>
@@ -212,27 +157,6 @@
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" key="newRow">
-                <div class="col-md-12">
-                    <div class="box box-primary" v-cloak>
-                        <div class="box-body">
-
-                            <div class="row" v-if="activeApps" >
-
-                                <div class="col-md-12" v-if="!activeApps.length" >
-                                    {{__('No apps defined')}}
-                                </div>
-
-                                <div class="col-md-3 col-sm-6 col-xs-12" v-for="app in activeApps">
-                                    <subscribed-application :application="app" :filters="filters"
-                                        @sent-app-metrics="showAppMetric" @remove-subscribed-app="removeApp" />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -263,9 +187,7 @@
             <div class="icon" @click="showAppStatistics" style="cursor: pointer;">
                 <i class="fa fa-ravelry"></i>
             </div>
-            <a class="small-box-footer" href="#" @click="deleteSubscribedApplication">
-                <i class="fa fa-trash-o"></i>
-            </a>
+
         </div>
     </script>
 
@@ -371,6 +293,11 @@
                                             </button>
                                         </div>
                                     </div>
+
+                                    <a class="small-box-footer" href="#" @click="deleteSubscribedApplication">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -384,42 +311,115 @@
 
     </script>
 
+    <script type="text/x-template" id="app-subscriber">
+        <div class="col-md-12">
+            <br>
+            <div class="row">
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group" :class="{'has-error' : errorBag.name}">
+                        <label>{{ __('Name') }}</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   v-model="newApp.name"
+                                   class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group" :class="{'has-error' : errorBag.url}">
+                        <label>{{ __('URL') }}</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   v-model="newApp.url"
+                                   class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group" :class="{'has-error' : errorBag.client_id}">
+                        <label>{{ __('Client ID') }}</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   v-model="newApp.client_id"
+                                   class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group" :class="{'has-error' : errorBag.secret}">
+                        <label>{{ __('Secret') }}</label>
+                        <div class="input-group">
+                            <input type="password"
+                                   v-model="newApp.secret"
+                                   class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group disabled-select-white-bg">
+                        <label>{{ __("App Type") }}</label>
+                        <vue-select :options="appTypes"
+                                    v-model="newApp.type"
+                                    selected="2"
+                        >
+                        </vue-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 col-lg-offset-3 col-md-offset-4 col-sm-offset-3">
+                    <button class="btn btn-success btn-block margin-top-24"
+                            @click="subscribeToApp">
+                        {{ __('Subscribe') }}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </script>
+
+    {{-- app subscriber --}}
     <script type="text/javascript">
-
-        class StatisticsApp {
-
-            constructor(name=null, description=null, url=null, client_id=null, secret=null, token=null ) {
-                this.name=name;
-                this.description=description;
-                this.url=url;
-                this.type=2;
-                this.client_id=client_id;
-                this.secret=secret;
-                this.token=token;
-            }
-        }
-
         let vm = new Vue({
             el: "#app",
             data: function() {
                 return {
-                    newApp: new StatisticsApp(),
+                    isAddAppModalVisible: false,
                     activeApps: JSON.parse('{!! $activeApps  !!}'),
                     appTypes: JSON.parse('{!! $subscribedAppTypes !!}'),
                     dataTypes: JSON.parse('{!! $dataTypes !!}'),
-                    appMetrics: [],
+
                     filters: {
                         startDate: "01-01-2017",
                         endDate: "01-01-2025"
                     },
-                    errorBag: {}
+                    errorBag: {},
+                    query: null
                 }
             },
             computed: {
-
+                filteredApps: function() {
+                    if (this.query) {
+                        let self = this;
+                        return this.activeApps.filter( function(app) {
+                            return app.name.toLowerCase().indexOf(self.query.toLowerCase()) > -1;
+                        })
+                    }
+                    return this.activeApps;
+                },
             },
             methods: {
 
+                pushNewApp: function(newApp) {
+
+                    this.activeApps.push(newApp);
+                },
                 buildPayload: function (application) {
 
                     let data = {
@@ -446,20 +446,7 @@
                     this.appMetrics = [];
                     this.appMetrics.push(payload);
                 },
-                subscribeToApp: function () {
 
-                    let self = this;
-                    axios.post('/controlPanel', this.newApp).then(function(response) {
-                        self.activeApps.push(response.data);
-                    }).then(function(response) {
-                        self.newApp = new StatisticsApp();
-                    }).catch(function (error) {
-                        if (error.response.data.level) {
-                            self.errorBag = error.response.data.errorBag;
-                            toastr[error.response.data.level](error.response.data.message);
-                        }
-                    });
-                },
                 removeApp: function (appId) {
                     this.activeApps = this.activeApps.filter(function (app) {
                         return app.id !== appId;
@@ -469,6 +456,58 @@
             created: function() {
             },
             components: {
+                appSubscriber: {
+                    template: '#app-subscriber',
+                    props: {
+                        appTypes: {
+                            type: Array,
+                            default: function () {
+                                return [];
+                            }
+                        },
+                        dataTypes: {
+                            type: Array,
+                            default: function () {
+                                return [];
+                            }
+                        }
+                    },
+                    data: function () {
+                        return {
+                            newApp: this.newAppBuilder(),
+                            errorBag: []
+                        }
+                    },
+                    methods: {
+                        newAppBuilder: function () {
+                            return {
+                                name: null,
+                                description: null,
+                                url:  null,
+                                type:  null,
+                                client_id:  null,
+                                secret:  null,
+                                token:  null
+                            }
+                        },
+
+                        subscribeToApp: function () {
+
+                            let self = this;
+                            axios.post('/controlPanel', this.newApp).then(function(response) {
+                                self.$emit('app-subscribed', response.data);
+                            }).then(function(response) {
+                                self.newApp =  self.newAppBuilder();
+                            }).catch(function (error) {
+                                console.log(error);
+                                if (error.response.data.level) {
+                                    self.errorBag = error.response.data.errorBag;
+                                    toastr[error.response.data.level](error.response.data.message);
+                                }
+                            });
+                        },
+                    }
+                },
                 subscribedApplication: {
                     template: '#subscribed-app',
                     props: {
@@ -504,21 +543,13 @@
 
                             this.$emit('sent-app-metrics', data);
                         },
-                        deleteSubscribedApplication: function() {
 
-                            let self = this;
-                            axios.delete('/controlPanel/' + this.application.id)
-                                .then(function(response) {
-
-                                    self.$emit('remove-subscribed-app', self.application.id);
-                                });
-                        }
                     }
                 },
                 applicationMetrics: {
                     template: '#subscribed-app-metrics',
                     props: {
-                        initialMetrics: {
+                        applicationEntity: {
                             type: Object,
                             default: function () {
                                 return {
@@ -555,15 +586,31 @@
                             flipped: false,
                             refreshInterval: 1,
                             intervalEventId: null,
-                            appMetrics: this.initialMetrics,
-                            preferences: this.initialMetrics.preferences,
+                            appMetrics: {
+                                id: this.applicationEntity.id,
+                                type: this.applicationEntity.type,
+                                name: this.applicationEntity.name,
+                                data: [],
+                                errors: [],
+                                status: 'loading'
+                            },
+                            preferences: this.applicationEntity.preferences,
                             showModal: false
                         }
                     },
                     methods: {
 
+                        deleteSubscribedApplication: function() {
+
+                            let self = this;
+                            axios.delete('/controlPanel/' + this.application.id)
+                                .then(function(response) {
+
+                                    self.$emit('remove-subscribed-app', self.application.id);
+                                });
+                        },
                         updatePreferences: function () {
-                            axios.post('/controlPanel/updatePreferences/' + this.initialMetrics.id, {preferences: this.preferences})
+                            axios.post('/controlPanel/updatePreferences/' + this.applicationEntity.id, {preferences: this.preferences})
                                 .then(function(response) {
 
                                     toastr['success'](response.data.message);
@@ -571,7 +618,7 @@
                         },
                         setMaintenanceMode: function () {
 
-                            axios.post('/controlPanel/setMaintenanceMode/' + this.initialMetrics.id)
+                            axios.post('/controlPanel/setMaintenanceMode/' + this.applicationEntity.id)
                                 .then(function(response) {
 
                                     toastr['success'](response.data.message);
@@ -591,7 +638,7 @@
 
                             let payload = this.buildRequestPayload();
 
-                            axios.delete('/controlPanel/clearLaravelLog/' + this.initialMetrics.id, {params:payload})
+                            axios.delete('/controlPanel/clearLaravelLog/' + this.applicationEntity.id, {params:payload})
                                 .then(function(response) {
 
                                     toastr['success'](response.data.message);
@@ -602,7 +649,7 @@
                             let payload = this.buildRequestPayload();
 
                             let self = this;
-                            axios.get('/controlPanel/get/' + this.initialMetrics.id, {params:payload})
+                            axios.get('/controlPanel/get/' + this.applicationEntity.id, {params:payload})
                                 .then(function(response) {
 
                                     self.appMetrics = response.data;

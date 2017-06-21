@@ -39,7 +39,7 @@ class ValidateAppSubscriptionRequest extends FormRequest
             'type'        => 'required',
             'secret'      => 'required',
             'name'        => 'required',
-            'description' => 'required',
+            'description' => 'nullable',
         ];
     }
 }
