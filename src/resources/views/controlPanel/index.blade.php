@@ -18,8 +18,10 @@
         span.error {
             color:red;
         }
-        .margin-top-24 {
-            margin-top: 24px;
+        .margin-top-7 {
+            margin-top: 7px;
+            margin-left: 2px;
+            margin-right: 2px;
         }
 
         .my-box {
@@ -27,8 +29,6 @@
             display: block;
             margin-bottom: 20px;
         }
-
-
 
         .bg-white {
             background: white;
@@ -44,6 +44,10 @@
         .footer-button {
             margin: 6px;
             background-color: #ECECEC;
+        }
+
+        .inner {
+            height:265px; background-color: white;
         }
 
         .inner h4 {
@@ -186,7 +190,7 @@
         .square-container {
 
             position: relative;
-            top: 50%;
+            top: 43%;
 
             -ms-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
             transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
@@ -208,7 +212,7 @@
         .square-container2 {
 
             position: relative;
-            top: 50%;
+            top: 43%;
 
             -ms-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
             transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
@@ -257,44 +261,6 @@
         .align-center {
             margin: 0 auto;
         }
-        .kallyas-button {
-            display: block;
-            width: 160px;
-            padding: 18px 30px;
-            font-family: "Open Sans";
-            font-weight: 600;
-            color: #fff;
-            background: #FF2024;
-            margin: 0 auto;
-            border-radius: 2px;
-            text-decoration: none;
-
-            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffa067+0,ff2959+49,ff2024+100 */
-            background: #ffa067; /* Old browsers */
-            background: -moz-linear-gradient(
-                    -45deg,
-                    #ffa067 0%,
-                    #ff2959 49%,
-                    #ff2024 100%
-            ); /* FF3.6-15 */
-            background: -webkit-linear-gradient(
-                    -45deg,
-                    #ffa067 0%,
-                    #ff2959 49%,
-                    #ff2024 100%
-            ); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(
-                    135deg,
-                    #ffa067 0%,
-                    #ff2959 49%,
-                    #ff2024 100%
-            ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient(
-                    startColorstr='#ffa067',
-                    endColorstr='#ff2024',
-                    GradientType=1
-            ); /* IE6-9 fallback on horizontal gradient */
-        }
 
         /*ADD SHADOWS OPTIONAL*/
         .square-flip .square .boxshadow,
@@ -307,14 +273,14 @@
         }
 
         .square-flip .square .boxshadow {
-            -webkit-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            -moz-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            -moz-box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
         }
         .square-flip .square .textshadow {
-            -webkit-text-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            -moz-text-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            text-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -webkit-text-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            -moz-text-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            text-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
         }
         .square-flip.flipped .square .boxshadow, .square-flip.flipped .square .textshadow {
             -webkit-box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
@@ -334,9 +300,9 @@
         }
         .square-flip.flipped .square2 .boxshadow,
         .square-flip.flipped .square2 .textshadow {
-            -webkit-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            -moz-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            -moz-box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
         }
 
         .clearfix {
@@ -344,16 +310,66 @@
         }
 
         .shadow {
-            -webkit-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            -moz-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
-            box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            -moz-box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+            box-shadow: 2px 4px 58px -8px rgba(0, 0, 0, 0.18);
+        }
+
+        /* profile used for data display */
+        .profiles {
+            display: inline-block;
+            width: 100%;
+            padding: 0 20px 0 20px;
+        }
+
+        .profile {
+            width: 50%;
+            height: auto;
+            transform: translate(0px, -10px);
+            float: left;
+            margin: 4px auto;
+            overflow: hidden;
+            z-index: 2;
+            transition: 0.2s cubic-bezier(.55, 0, .1, 1);
+            color: #37474f;
+        }
+
+        .profile>span {
+            line-height: 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            display: block;
+            font-style: none;
+            color: #37474f;
+        }
+
+        .scroll-port {
+            overflow: auto;
+            height: 202px;
         }
 
     </style>
 @endsection
 
 @section('content')
+
     <section class="content-header">
+
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+            <a class="btn btn-primary" href="#" @click="isAddAppModalVisible=true">
+                {{ __("Add App") }}
+            </a>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+
+            <input type="text" placeholder="{{__('Filter')}}"
+                   size=15
+                   v-model="query"
+                   v-if="activeApps.length > 0">
+
+        </div>
+
         @include('laravel-enso/core::partials.breadcrumbs')
     </section>
 
@@ -371,59 +387,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary" v-cloak>
-                    <div class="box-body">
-
-                        <div class="row">
-                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="">{{ __("Start Date") }}</label>
-                                    <div class="input-group">
-                                        <datepicker v-model="filters.startDate"
-                                                    clear-button>
-                                        </datepicker>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="">{{ __("End Date") }}</label>
-                                    <div class="input-group">
-                                        <datepicker v-model="filters.endDate" clear-button>
-                                        </datepicker>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label for="">{{ __("Filter") }}</label>
-
-                                    <input type="text"
-                                       class="form-control"
-                                       size=15
-                                       v-model="query"
-                                       v-if="activeApps.length > 0">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 pull-right">
-                                <button class="btn btn-primary btn-block margin-top-24"
-                                        @click="isAddAppModalVisible=true">
-                                    {{ __('Add App') }}
-                                </button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-primary" v-cloak>
-                    <div class="box-body">
+                    <div class="box-body" style="background-color: #EFEFEF;">
 
                         <div class="row">
 
@@ -466,7 +430,7 @@
 
                     <div class="square-container">
 
-                        <div class="inner" style="height:210px; background-color: white;">
+                        <div class="inner">
 
                             <h4>
                                 <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
@@ -480,14 +444,16 @@
 
                             <br>
                             <div class="row">
-                                <div class="col-md-11">
-                                    <ul>
-                                        <li v-for="metric in appMetrics.data">
-                                            <span v-html="metric.key"></span>: <span v-html="metric.value"></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-1">
+                                <div class="col-md-12">
+
+
+                                    <div class="profiles">
+                                        <div v-for="metric in appMetrics.data"
+                                                class="profile">
+                                            <span v-html="metric.value"></span> @{{ metric.key }}
+                                        </div>
+
+                                    </div>
 
                                 </div>
                             </div>
@@ -519,7 +485,7 @@
 
                     <div class="square-container2">
 
-                        <div class="inner" style="height:210px; background-color: white;">
+                        <div class="inner">
                             <h4>
                                 <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
                                 <span v-html="applicationEntity.name"></span>
@@ -528,9 +494,9 @@
                                 </button>
                             </h4>
                             <br>
-                            <div class="col-md-12" style="overflow: auto; height: 130px;">
+                            <div class="col-md-12 scroll-port">
                                 <div class="row">
-                                    <div class="col-md-11">
+                                    <div class="col-md-12" style="padding: 0 20px 0 20px;">
                                         <div class="row" v-for="dataType in allDataTypes">
                                             <input type="checkbox" :id="dataType" :value="dataType.key"
                                                    @change="updatePreferences"
@@ -554,29 +520,29 @@
                                             </div>
                                         </div>
 
-                                        <div class="row" v-if="appMetrics.appType == 2">
-                                            <div class="col-md-12">
-                                                <button class="btn btn-danger btn-block margin-top-24"
-                                                        @click="clearLaravelLog">
-                                                    {{ __('Clear Laravel Log') }}
-                                                </button>
-                                            </div>
-                                        </div>
 
-                                        <div class="row" v-if="appMetrics.appType == 2">
-                                            <div class="col-md-12">
-                                                <button class="btn btn-danger btn-block margin-top-24"
-                                                        @click="showModal=true">
-                                                    {{ __('Take Down') }}
-                                                </button>
-                                            </div>
-                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
+                        <div class="footer" style="height:40px;">
+                            <div class="row" v-if="appMetrics.appType == 2">
+                                <div class="col-md-6">
+                                    <button class="btn btn-danger btn-block margin-top-7"
+                                            @click="clearLaravelLog">
+                                        {{ __('Clear Log') }}
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-danger btn-block margin-top-7"
+                                            @click="showModal=true">
+                                        {{ __('Take Down') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
