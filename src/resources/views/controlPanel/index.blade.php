@@ -28,53 +28,7 @@
             margin-bottom: 20px;
         }
 
-        .flip-container {
-            perspective: 1000px;
-        }
-        /* flip the pane when hovered */
 
-        .flip-container.flip .flipper {
-            transform: rotateY(180deg);
-        }
-
-        .flip-container, .front, .back {
-            
-            width: 100%;
-            height: 250px;
-        }
-
-        /* flip speed goes here */
-        .flipper {
-            transition: 0.6s;
-            transform-style: preserve-3d;
-
-            position: relative;
-        }
-
-        /* hide back of pane during swap */
-        .front, .back {
-            backface-visibility: hidden;
-            //box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* front pane, placed above back */
-        .front {
-            z-index: 2;
-            /* for firefox 31 */
-            transform: rotateY(0deg);
-        }
-
-        /* back, initially hidden pane */
-        .back {
-            transform: rotateY(180deg);
-        }
-
-        .inherit-color-hover:hover {
-            color: inherit;
-        }
 
         .bg-white {
             background: white;
@@ -92,27 +46,27 @@
             background-color: #ECECEC;
         }
 
-        h4 {
-            font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+        .inner h4 {
+            font: 400 30px/1.5 Helvetica, Verdana, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        ul {
+        .inner ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
         }
 
-        li {
+        .inner li {
             font: 120 13px/1.5 Helvetica, Verdana, sans-serif;
         }
 
-        li:last-child {
+        .inner li:last-child {
             border: none;
         }
 
-        li {
+        .inner li {
             text-decoration: none;
             color: #000;
             display: block;
@@ -125,9 +79,274 @@
             transition: font-size 0.3s ease, background-color 0.3s ease;
         }
 
-        li:hover {
+        .inner li:hover {
             font-size: 20px;
             background: #f6f6f6;
+        }
+
+
+
+        .square-flip {
+            -webkit-perspective: 1000;
+            -moz-perspective: 1000;
+            -ms-perspective: 1000;
+            perspective: 1000;
+
+            -webkit-transform: perspective(1000px);
+            -moz-transform: perspective(1000px);
+            -ms-transform: perspective(1000px);
+            transform: perspective(1000px);
+
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+
+            /*border:1px solid #efefef;*/
+
+            position: relative;
+            float: left;
+            margin: 20px;
+        }
+        .square-flip {
+            width: 340px;
+            height: 310px;
+        }
+        .square, .square2 {
+            width: 100%;
+            height: 100%;
+        }
+        .square {
+            background-size: cover;
+            background-position: center center;
+
+            -ms-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            -webkit-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            overflow: hidden;
+
+            position: absolute;
+            top: 0;
+
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .square-flip .square {
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+        .square-flip.flipped .square {
+            -webkit-transform: rotateY(-180deg);
+            -moz-transform: rotateY(-180deg);
+            -o-transform: rotateY(-180deg);
+            -ms-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+            transform-style: preserve-3d;
+        }
+
+        .square2 {
+            background-size: cover;
+            background-position: center center;
+
+            -ms-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            -webkit-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            overflow: hidden;
+
+            position: absolute;
+            top: 0;
+
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .square-flip .square2 {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+        .square-flip.flipped .square2 {
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+            transform-style: preserve-3d;
+        }
+
+        /*Square content*/
+        .square-container {
+
+            position: relative;
+            top: 50%;
+
+            -ms-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            -webkit-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+
+            -webkit-transform: translateY(-50%) translateX(0px) scale(1);
+            -ms-transform: translateY(-50%) translateX(0px) scale(1);
+            transform: translateY(-50%) translateX(0px) scale(1);
+            transform-style: preserve-3d;
+            z-index: 2;
+        }
+        .square-flip.flipped .square-container {
+            -webkit-transform: translateY(-50%) translateX(-650px) scale(.88);
+            -ms-transform: translateY(-50%) translateX(-650px) scale(.88);
+            transform: translateY(-50%) translateX(-650px) scale(.88);
+            transform-style: preserve-3d;
+        }
+
+        .square-container2 {
+
+            position: relative;
+            top: 50%;
+
+            -ms-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+            -webkit-transition: transform 0.60s cubic-bezier(.5, .3, .3, 1);
+
+            -webkit-transform: translateY(-50%)
+            translateX(650px)
+            translateZ(60px)
+            scale(.88);
+            -ms-transform: translateY(-50%) translateX(650px) translateZ(60px) scale(.88);
+            transform: translateY(-50%) translateX(650px) translateZ(60px) scale(.88);
+
+            transform-style: preserve-3d;
+            z-index: 2;
+        }
+        .square-flip.flipped .square-container2 {
+            -webkit-transform: translateY(-50%) translateX(0px) translateZ(0px) scale(1);
+            -ms-transform: translateY(-50%) translateX(0px) translateZ(0px) scale(1);
+            transform: translateY(-50%) translateX(0px) translateZ(0px) scale(1);
+            transform-style: preserve-3d;
+        }
+
+        /*Style text*/
+        .square-flip h2 {
+            color: white;
+            font-family: "Open Sans";
+            font-weight: 700;
+            font-size: 22px;
+        }
+        .square-flip h3 {
+            color: white;
+            font-family: "Open Sans";
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 26px;
+        }
+        /*Elements*/
+        .flip-overlay {
+            display: block;
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+        }
+        .align-center {
+            margin: 0 auto;
+        }
+        .kallyas-button {
+            display: block;
+            width: 160px;
+            padding: 18px 30px;
+            font-family: "Open Sans";
+            font-weight: 600;
+            color: #fff;
+            background: #FF2024;
+            margin: 0 auto;
+            border-radius: 2px;
+            text-decoration: none;
+
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffa067+0,ff2959+49,ff2024+100 */
+            background: #ffa067; /* Old browsers */
+            background: -moz-linear-gradient(
+                    -45deg,
+                    #ffa067 0%,
+                    #ff2959 49%,
+                    #ff2024 100%
+            ); /* FF3.6-15 */
+            background: -webkit-linear-gradient(
+                    -45deg,
+                    #ffa067 0%,
+                    #ff2959 49%,
+                    #ff2024 100%
+            ); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(
+                    135deg,
+                    #ffa067 0%,
+                    #ff2959 49%,
+                    #ff2024 100%
+            ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(
+                    startColorstr='#ffa067',
+                    endColorstr='#ff2024',
+                    GradientType=1
+            ); /* IE6-9 fallback on horizontal gradient */
+        }
+
+        /*ADD SHADOWS OPTIONAL*/
+        .square-flip .square .boxshadow,
+        .square-flip .square .textshadow,
+        .square-flip .square2 .boxshadow,
+        .square-flip .square2 .textshadow {
+            -ms-transition: 0.60s;
+            transition: 0.60s;
+            -webkit-transition: 0.60s;
+        }
+
+        .square-flip .square .boxshadow {
+            -webkit-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+        }
+        .square-flip .square .textshadow {
+            -webkit-text-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -moz-text-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            text-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+        }
+        .square-flip.flipped .square .boxshadow, .square-flip.flipped .square .textshadow {
+            -webkit-box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+            -moz-box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+            box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+        }
+
+        .square-flip .square2 .boxshadow {
+            -webkit-box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+            -moz-box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+            box-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+        }
+        .square-flip .square2 .textshadow {
+            -webkit-text-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+            -moz-text-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+            text-shadow: 240px 42px 58px -8px rgba(0, 0, 0, 0.0);
+        }
+        .square-flip.flipped .square2 .boxshadow,
+        .square-flip.flipped .square2 .textshadow {
+            -webkit-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+        }
+
+        .clearfix {
+            clear: both;
+        }
+
+        .shadow {
+            -webkit-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
+            box-shadow: 24px 42px 58px -8px rgba(0, 0, 0, 0.3);
         }
 
     </style>
@@ -149,77 +368,86 @@
                 <span slot="modal-cancel">{{ __("Close") }}</span>
         </modal>
 
-        <transition-group name="fadeUp" mode="out-in" tag="div">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary" v-cloak>
+                    <div class="box-body">
 
-            <div class="row" key="dates">
-                <div class="col-md-12">
-                    <div class="box box-primary" v-cloak>
-                        <div class="box-body">
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">{{ __("Start Date") }}</label>
-                                        <div class="input-group">
-                                            <datepicker v-model="filters.startDate"
-                                                        clear-button>
-                                            </datepicker>
-                                        </div>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="">{{ __("Start Date") }}</label>
+                                    <div class="input-group">
+                                        <datepicker v-model="filters.startDate"
+                                                    clear-button>
+                                        </datepicker>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">{{ __("End Date") }}</label>
-                                        <div class="input-group">
-                                            <datepicker v-model="filters.endDate" clear-button>
-                                            </datepicker>
-                                        </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="">{{ __("End Date") }}</label>
+                                    <div class="input-group">
+                                        <datepicker v-model="filters.endDate" clear-button>
+                                        </datepicker>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="form-group">
-                                        <label for="">{{ __("Filter") }}</label>
-
-                                        <input type="text"
-                                           class="form-control"
-                                           size=15
-                                           v-model="query"
-                                           v-if="activeApps.length > 0">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 pull-right">
-                                    <button class="btn btn-primary btn-block margin-top-24"
-                                            @click="isAddAppModalVisible=true">
-                                        {{ __('Add App') }}
-                                    </button>
-                                </div>
-
                             </div>
 
-                            <div class="row">
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="">{{ __("Filter") }}</label>
 
+                                    <input type="text"
+                                       class="form-control"
+                                       size=15
+                                       v-model="query"
+                                       v-if="activeApps.length > 0">
+                                </div>
                             </div>
 
-                            <div class="row">
-                                <div v-for="app in activeApps">
-
-                                    <application-metrics v-show="isVisible(app.id)"
-                                        :application-entity="app"
-                                        :all-data-types="dataTypes"
-                                        :filters="filters"
-                                        @remove-subscribed-app="removeApp">
-                                    </application-metrics>
-
-                                </div>
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 pull-right">
+                                <button class="btn btn-primary btn-block margin-top-24"
+                                        @click="isAddAppModalVisible=true">
+                                    {{ __('Add App') }}
+                                </button>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
             </div>
-        </transition-group>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary" v-cloak>
+                    <div class="box-body">
+
+                        <div class="row">
+
+                            <div class="col-md-12" v-if="!activeApps.length">
+                                <br>
+                                {{__("Not subscribed to any apps")}}
+                            </div>
+
+                            <div v-for="app in activeApps">
+
+                                <application-metrics v-show="isVisible(app.id)"
+                                                     :application-entity="app"
+                                                     :all-data-types="dataTypes"
+                                                     :filters="filters"
+                                @remove-subscribed-app="removeApp">
+                                </application-metrics>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
 
@@ -232,25 +460,23 @@
 
         <div class="col-xs-12 col-sm-6 col-md-3">
 
-            <div class="my-box flip-container inherit-color-hover" :class="{flip: flipped}">
+            <div class="square-flip" :class="{flipped: flipped}">
 
-                <div class="flipper">
+                <div class="square shadow">
 
-                    <div class="front" :class="{flipped: flipped}" style="">
+                    <div class="square-container">
 
                         <div class="inner" style="height:210px; background-color: white;">
 
+                            <h4>
+                                <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
+                                <i v-if="appMetrics.status != 'loading'" class="fa fa-circle-o fa-fw" :style="{color: appMetrics.status}"></i>
 
-                                <h4>
-                                    <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
-                                    <i v-if="appMetrics.status != 'loading'" class="fa fa-circle-o fa-fw" :style="{color: appMetrics.status}"></i>
-
-                                    <span v-html="applicationEntity.name"></span>
-                                    <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
-                                        <i class="fa fa-bars"></i>
-                                    </button>
-                                </h4>
-
+                                <span v-html="applicationEntity.name"></span>
+                                <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </h4>
 
                             <br>
                             <div class="row">
@@ -276,6 +502,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="footer" style="height:40px;">
                             <button class="btn btn-flat bg-white pull-right footer-button" @click="getAllMetrics">
                                 <i class="fa fa-refresh"></i>
@@ -286,26 +513,28 @@
                         </div>
 
                     </div>
+                </div>
 
-                    <div class="back" :class="{flipped: flipped}" >
+                <div class="square2 shadow" :class="{flipped: flipped}" >
 
-                            <div class="inner">
-                                <h4>
-                                    <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
-                                    <span v-html="applicationEntity.name"></span>
-                                    <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
-                                        <i class="fa fa-bars"></i>
-                                    </button>
-                                </h4>
-                            </div>
-                        <br>
+                    <div class="square-container2">
+
+                        <div class="inner" style="height:210px; background-color: white;">
+                            <h4>
+                                <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
+                                <span v-html="applicationEntity.name"></span>
+                                <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </h4>
+                            <br>
                             <div class="col-md-12" style="overflow: auto; height: 130px;">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="row" v-for="dataType in allDataTypes">
                                             <input type="checkbox" :id="dataType" :value="dataType.key"
-                                                @change="updatePreferences"
-                                                v-model="preferences.dataTypes">
+                                                   @change="updatePreferences"
+                                                   v-model="preferences.dataTypes">
 
                                             <label :for="dataType">
                                                 <span v-html="dataType.value"></span>
@@ -345,16 +574,20 @@
                                     </div>
                                 </div>
                             </div>
+
+                        </div>
+
                     </div>
                 </div>
-                <modal :show="showModal" @cancel-action="showModal = false" @commit-action="setMaintenanceMode">
-                    @include('laravel-enso/core::partials.modal')
-                </modal>
             </div>
+            <modal :show="showModal" @cancel-action="showModal = false" @commit-action="setMaintenanceMode">
+                @include('laravel-enso/core::partials.modal')
+            </modal>
         </div>
 
     </script>
 
+    {{-- app subscriber --}}
     <script type="text/x-template" id="app-subscriber">
         <div class="col-md-12">
             <br>
@@ -428,7 +661,6 @@
         </div>
     </script>
 
-    {{-- app subscriber --}}
     <script type="text/javascript">
         let vm = new Vue({
             el: "#app",
@@ -606,6 +838,7 @@
                             type: Object,
                             default: function () {
                                 return {
+                                    id: 0,
                                     appName: "default",
                                     status: 'green',
                                     data:[
@@ -648,6 +881,12 @@
                             showModal: false
                         }
                     },
+                    watch: {
+                        applicationEntity: {
+                            handler: 'getAllMetrics',
+                            deep: true
+                        }
+                    },
                     methods: {
                         deleteSubscribedApplication: function() {
 
@@ -684,6 +923,7 @@
                         },
                         clearLaravelLog: function () {
 
+                            if(!this.applicationEntity.id) return;
 
                             let payload = this.buildRequestPayload();
 
@@ -694,6 +934,8 @@
                                 });
                         },
                         getAllMetrics: function () {
+
+                            this.appMetrics.status = 'loading';
 
                             let payload = this.buildRequestPayload();
 

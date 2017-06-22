@@ -55,7 +55,7 @@ class ControlPanelController extends Controller
 
     public function index()
     {
-        $activeApps = json_encode(SubscribedApp::all());
+        $activeApps = json_encode(SubscribedApp::orderBy('name')->get());
         $subscribedAppTypes = (new SubscribedAppTypesEnum())->getJsonKVData();
         $dataTypes = (new DataTypesEnum())->getJsonKVData();
 
