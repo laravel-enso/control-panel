@@ -22,6 +22,12 @@
             margin-top: 24px;
         }
 
+        .my-box {
+            position: relative;
+            display: block;
+            margin-bottom: 20px;
+        }
+
         .flip-container {
             perspective: 1000px;
         }
@@ -32,8 +38,9 @@
         }
 
         .flip-container, .front, .back {
+            
             width: 100%;
-            height: 215px;
+            height: 250px;
         }
 
         /* flip speed goes here */
@@ -47,7 +54,7 @@
         /* hide back of pane during swap */
         .front, .back {
             backface-visibility: hidden;
-
+            //box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
             position: absolute;
             top: 0;
             left: 0;
@@ -73,6 +80,56 @@
             background: white;
         }
 
+        .footer {
+            height: 40px;
+            position: absolute;
+            width: 100%;
+            background-color: #ECECEC;
+        }
+
+        .footer-button {
+            margin: 6px;
+            background-color: #ECECEC;
+        }
+
+        h4 {
+            font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            font: 120 13px/1.5 Helvetica, Verdana, sans-serif;
+        }
+
+        li:last-child {
+            border: none;
+        }
+
+        li {
+            text-decoration: none;
+            color: #000;
+            display: block;
+            width: 100%;
+
+            -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+            -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+            -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+            -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+            transition: font-size 0.3s ease, background-color 0.3s ease;
+        }
+
+        li:hover {
+            font-size: 20px;
+            background: #f6f6f6;
+        }
+
     </style>
 @endsection
 
@@ -80,7 +137,7 @@
     <section class="content-header">
         @include('laravel-enso/core::partials.breadcrumbs')
     </section>
-    
+
     <section class="content" v-cloak >
 
         <modal :show="isAddAppModalVisible" cancel-only header max-width="500"
@@ -89,7 +146,7 @@
                 <span slot="modal-body">
                     <app-subscriber :app-types="appTypes" @app-subscribed="pushNewApp"/>
                 </span>
-                <span slot="modal-cancel">{{ __("Cancel") }}</span>
+                <span slot="modal-cancel">{{ __("Close") }}</span>
         </modal>
 
         <transition-group name="fadeUp" mode="out-in" tag="div">
@@ -146,12 +203,13 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-3" v-for="app in filteredApps">
+                                <div v-for="app in activeApps">
 
-                                    <application-metrics
+                                    <application-metrics v-show="isVisible(app.id)"
                                         :application-entity="app"
                                         :all-data-types="dataTypes"
-                                        :filters="filters">
+                                        :filters="filters"
+                                        @remove-subscribed-app="removeApp">
                                     </application-metrics>
 
                                 </div>
@@ -169,144 +227,130 @@
 
 @push('scripts')
 
-    {{-- subscribed apps component --}}
-    <script type="text/x-template" id="subscribed-app">
-        <div :class="['small-box', 'bg-light-blue']">
-
-            <div class="innner">
-
-                <address style="padding-left: 20px; padding-top: 15px;"
-                         v-tooltip="application.description" >
-                    {{ __("Name") }}: <strong><span v-html="application.name"></span></strong><br>
-                    {{ __("URL") }}: <strong><span v-html="application.url"></span></strong><br>
-                    {{ __("Client Id") }}: <span v-html="application.client_id"></span><br>
-                    {{ __("Added on") }}: <span v-html="application.created_at"></span><br>
-                </address>
-
-            </div>
-            <div class="icon" @click="showAppStatistics" style="cursor: pointer;">
-                <i class="fa fa-ravelry"></i>
-            </div>
-
-        </div>
-    </script>
-
     {{-- display statistics component --}}
     <script type="text/x-template" id="subscribed-app-metrics">
 
-        <div class="small-box flip-container inherit-color-hover" :class="{flip: flipped}">
+        <div class="col-xs-12 col-sm-6 col-md-3">
 
-            <div class="flipper">
+            <div class="my-box flip-container inherit-color-hover" :class="{flip: flipped}">
 
-                <div class="front" :class="{flipped: flipped}">
+                <div class="flipper">
 
-                    <div class="inner">
-                        <h4>
-                            <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
-                            <i v-if="appMetrics.status != 'loading'" class="fa fa-circle-o fa-fw" :style="{color: appMetrics.status}"></i>
+                    <div class="front" :class="{flipped: flipped}" style="">
 
-                            <span v-html="appMetrics.appName"></span>
-                            <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                        </h4>
+                        <div class="inner" style="height:210px; background-color: white;">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li v-for="metric in appMetrics.data">
-                                        <span v-html="metric.key"></span>: <span v-html="metric.value"></span>
-                                    </li>
-                                </ul>
+
+                                <h4>
+                                    <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
+                                    <i v-if="appMetrics.status != 'loading'" class="fa fa-circle-o fa-fw" :style="{color: appMetrics.status}"></i>
+
+                                    <span v-html="applicationEntity.name"></span>
+                                    <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
+                                        <i class="fa fa-bars"></i>
+                                    </button>
+                                </h4>
+
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <ul>
+                                        <li v-for="metric in appMetrics.data">
+                                            <span v-html="metric.key"></span>: <span v-html="metric.value"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-1">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul v-if="appMetrics.errors.length">
+                                        <li v-for="error in appMetrics.errors">
+                                            <span v-html="error"></span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul v-if="appMetrics.errors.length">
-                                    <li v-for="error in appMetrics.errors">
-                                        <span v-html="error"></span>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="footer" style="height:40px;">
+                            <button class="btn btn-flat bg-white pull-right footer-button" @click="getAllMetrics">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                            <button class="btn btn-flat bg-white pull-left footer-button" @click="deleteSubscribedApplication">
+                                <i class="fa fa-trash-o" style="color:red"></i>
+                            </button>
                         </div>
 
                     </div>
 
-                </div>
+                    <div class="back" :class="{flipped: flipped}" >
 
-                <div class="back" :class="{flipped: flipped}" >
-
-                    <div class="col-md-12">
-                        <br>
                             <div class="inner">
                                 <h4>
                                     <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
-                                    <span v-html="appMetrics.appName"></span>
+                                    <span v-html="applicationEntity.name"></span>
                                     <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
                                         <i class="fa fa-bars"></i>
                                     </button>
                                 </h4>
                             </div>
                         <br>
-                        <div class="col-md-12" style="overflow: auto; height: 130px;">
-                            <div class="row">
-                                <div class="col-md-12">
+                            <div class="col-md-12" style="overflow: auto; height: 130px;">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="row" v-for="dataType in allDataTypes">
+                                            <input type="checkbox" :id="dataType" :value="dataType.key"
+                                                @change="updatePreferences"
+                                                v-model="preferences.dataTypes">
 
-                                    <div class="row" v-for="dataType in allDataTypes">
-                                        <input type="checkbox" :id="dataType" :value="dataType.key"
-                                            @change="updatePreferences"
-                                            v-model="preferences.dataTypes">
+                                            <label :for="dataType">
+                                                <span v-html="dataType.value"></span>
+                                            </label>
+                                        </div>
 
-                                        <label :for="dataType">
-                                            <span v-html="dataType.value"></span>
-                                        </label>
-                                    </div>
+                                        <br>
 
-                                    <br>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label for="">{{ __("Refresh Interval (minutes)") }}</label>
+                                                <div class="input-group">
+                                                    <input type="number" min="1"
+                                                           @change="updateInterval"
+                                                           v-model="preferences.refreshInterval">
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label for="">{{ __("Refresh Interval (minutes)") }}</label>
-                                            <div class="input-group">
-                                                <input type="number" min="1"
-                                                       @change="updateInterval"
-                                                       v-model="preferences.refreshInterval">
+                                        <div class="row" v-if="appMetrics.appType == 2">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-danger btn-block margin-top-24"
+                                                        @click="clearLaravelLog">
+                                                    {{ __('Clear Laravel Log') }}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" v-if="appMetrics.appType == 2">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-danger btn-block margin-top-24"
+                                                        @click="showModal=true">
+                                                    {{ __('Take Down') }}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row" v-if="appMetrics.appType == 2">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-danger btn-block margin-top-24"
-                                                    @click="clearLaravelLog">
-                                                {{ __('Clear Laravel Log') }}
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" v-if="appMetrics.appType == 2">
-                                        <div class="col-md-12">
-                                            <button class="btn btn-danger btn-block margin-top-24"
-                                                    @click="showModal=true">
-                                                {{ __('Take Down') }}
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <a class="small-box-footer" href="#" @click="deleteSubscribedApplication">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
+                <modal :show="showModal" @cancel-action="showModal = false" @commit-action="setMaintenanceMode">
+                    @include('laravel-enso/core::partials.modal')
+                </modal>
             </div>
-            <modal :show="showModal" @cancel-action="showModal = false" @commit-action="setMaintenanceMode">
-                @include('laravel-enso/core::partials.modal')
-            </modal>
         </div>
 
     </script>
@@ -405,17 +449,25 @@
             },
             computed: {
                 filteredApps: function() {
+
+                    let filtered = this.activeApps;
+
                     if (this.query) {
                         let self = this;
-                        return this.activeApps.filter( function(app) {
+                        filtered = this.activeApps.filter( function(app) {
                             return app.name.toLowerCase().indexOf(self.query.toLowerCase()) > -1;
                         })
                     }
-                    return this.activeApps;
+
+                    return filtered.map(function (app) {
+                        return app.id;
+                    })
                 },
             },
             methods: {
-
+                isVisible: function (appId) {
+                    return this.filteredApps.indexOf(appId) >= 0;
+                },
                 pushNewApp: function(newApp) {
 
                     this.activeApps.push(newApp);
@@ -448,6 +500,7 @@
                 },
 
                 removeApp: function (appId) {
+                    console.log('Hit ' + appId);
                     this.activeApps = this.activeApps.filter(function (app) {
                         return app.id !== appId;
                     });
@@ -587,9 +640,6 @@
                             refreshInterval: 1,
                             intervalEventId: null,
                             appMetrics: {
-                                id: this.applicationEntity.id,
-                                type: this.applicationEntity.type,
-                                name: this.applicationEntity.name,
                                 data: [],
                                 errors: [],
                                 status: 'loading'
@@ -599,14 +649,13 @@
                         }
                     },
                     methods: {
-
                         deleteSubscribedApplication: function() {
 
                             let self = this;
-                            axios.delete('/controlPanel/' + this.application.id)
+                            axios.delete('/controlPanel/' + this.applicationEntity.id)
                                 .then(function(response) {
 
-                                    self.$emit('remove-subscribed-app', self.application.id);
+                                    self.$emit('remove-subscribed-app', self.applicationEntity.id);
                                 });
                         },
                         updatePreferences: function () {

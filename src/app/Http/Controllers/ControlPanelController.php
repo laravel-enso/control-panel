@@ -5,6 +5,7 @@ namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use LaravelEnso\ControlPanel\app\Classes\ApiRequestHub;
 use LaravelEnso\ControlPanel\app\Classes\PreferencesStructureBuilder;
@@ -88,7 +89,7 @@ class ControlPanelController extends Controller
             return $newSubscribedApp;
 
         } catch (\Exception $e) {
-            \Log::info($e->getMessage());
+            Log::info($e->getMessage());
             TokenRequestHub::deleteToken(
                 $request->get('type'),
                 $request->get('url'),
