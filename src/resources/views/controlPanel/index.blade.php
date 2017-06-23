@@ -20,8 +20,6 @@
         }
         .margin-top-7 {
             margin-top: 7px;
-            margin-left: 2px;
-            margin-right: 2px;
         }
 
         .my-box {
@@ -34,7 +32,7 @@
             background: white;
         }
 
-        .footer {
+        .card-footer {
             height: 40px;
             position: absolute;
             width: 100%;
@@ -46,31 +44,31 @@
             background-color: #ECECEC;
         }
 
-        .inner {
+        .card-body {
             height:265px; background-color: white;
         }
 
-        .inner h4 {
+        .card-body h4 {
             font: 400 30px/1.5 Helvetica, Verdana, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        .inner ul {
+        .card-body ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
         }
 
-        .inner li {
+        .card-body li {
             font: 120 13px/1.5 Helvetica, Verdana, sans-serif;
         }
 
-        .inner li:last-child {
+        .card-body li:last-child {
             border: none;
         }
 
-        .inner li {
+        .card-body li {
             text-decoration: none;
             color: #000;
             display: block;
@@ -83,7 +81,7 @@
             transition: font-size 0.3s ease, background-color 0.3s ease;
         }
 
-        .inner li:hover {
+        .card-body li:hover {
             font-size: 20px;
             background: #f6f6f6;
         }
@@ -363,10 +361,10 @@
 
         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
 
-            <input type="text" placeholder="{{__('Filter')}}"
+            <input type="text" placeholder="{{__('Filter')}}" class="margin-top-7"
                    size=15
                    v-model="query"
-                   v-if="activeApps.length > 0">
+                   v-if="activeApps.length > 1">
 
         </div>
 
@@ -430,7 +428,7 @@
 
                     <div class="square-container">
 
-                        <div class="inner">
+                        <div class="card-body">
 
                             <h4>
                                 <i v-if="appMetrics.status == 'loading'" class="fa fa-spinner fa-spin fa-fw" style="color: red;"></i>
@@ -469,7 +467,7 @@
                             </div>
                         </div>
 
-                        <div class="footer" style="height:40px;">
+                        <div class="card-footer" style="height:40px;">
                             <button class="btn btn-flat bg-white pull-right footer-button" @click="getAllMetrics">
                                 <i class="fa fa-refresh"></i>
                             </button>
@@ -485,9 +483,10 @@
 
                     <div class="square-container2">
 
-                        <div class="inner">
+                        <div class="card-body">
                             <h4>
-                                <i class="fa fa-circle-o" :style="{color: appMetrics.status}"></i>
+                                <i class="fa fa-circle-o fa-fw" :style="{color: appMetrics.status}"></i>
+
                                 <span v-html="applicationEntity.name"></span>
                                 <button class="btn btn-flat bg-white pull-right" @click="flipped=!flipped">
                                     <i class="fa fa-bars"></i>
@@ -519,27 +518,24 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="footer" style="height:40px;">
-                            <div class="row" v-if="appMetrics.appType == 2">
-                                <div class="col-md-6">
-                                    <button class="btn btn-danger btn-block margin-top-7"
-                                            @click="clearLaravelLog">
-                                        {{ __('Clear Log') }}
-                                    </button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button class="btn btn-danger btn-block margin-top-7"
-                                            @click="showModal=true">
-                                        {{ __('Take Down') }}
-                                    </button>
+                        <div class="card-footer" style="height:40px;">
+                            <div class="col-md-12">
+                                <div class="row" v-if="appMetrics.appType == 2">
+
+                                        <button class="btn btn-flat bg-white pull-left footer-button"
+                                                v-tooltip="'clear log'"
+                                                @click="clearLaravelLog">
+                                            <i class="fa fa-recycle" style="color:red"></i>
+                                        </button>
+                                        <button class="btn btn-flat bg-white pull-right footer-button"
+                                                v-tooltip="'set maintenance mode'"
+                                                @click="showModal=true">
+                                            <i class="fa fa-power-off" style="color:red"></i>
+                                        </button>
                                 </div>
                             </div>
                         </div>
@@ -567,6 +563,16 @@
                                    class="form-control">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group disabled-select-white-bg" :class="{'has-error' : errorBag.type}">
+                        <label>{{ __("App Type") }}</label>
+                        <vue-select :options="appTypes"
+                                    v-model="newApp.type"
+                                    selected="2"
+                        >
+                        </vue-select>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
@@ -603,16 +609,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
-                    <div class="form-group disabled-select-white-bg">
-                        <label>{{ __("App Type") }}</label>
-                        <vue-select :options="appTypes"
-                                    v-model="newApp.type"
-                                    selected="2"
-                        >
-                        </vue-select>
-                    </div>
-                </div>
+
             </div>
 
             <div class="row">
@@ -735,7 +732,7 @@
                                 name: null,
                                 description: null,
                                 url:  null,
-                                type:  null,
+                                type:  2,
                                 client_id:  null,
                                 secret:  null,
                                 token:  null

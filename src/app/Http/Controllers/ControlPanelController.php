@@ -70,11 +70,7 @@ class ControlPanelController extends Controller
             throw new EnsoException('The form has errors', 'error', $validator->errors()->toArray(), 422);
         }
 
-        $tokenResponseData = TokenRequestHub::requestNewToken($request);
-
-        if (!$tokenResponseData) {
-            throw new EnsoException(__('Unable to get token. Check data!'));
-        }
+        $tokenResponseData = $this->getClientToken($request);
 
         try {
             $newSubscribedApp = null;
@@ -141,5 +137,30 @@ class ControlPanelController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         return $validator;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \LaravelEnso\Helpers\Classes\Object|object
+     * @throws EnsoException
+     */
+    private function getClientToken(Request $request)
+    {
+
+        try {
+
+            $tokenResponseData = TokenRequestHub::requestNewToken($request);
+
+        } catch (\Exception $e) {
+            throw new EnsoException(__('Unable to communicate with server. Check URL!'));
+        }
+
+
+        if (!$tokenResponseData) {
+            throw new EnsoException(__('Unable to get valid token. Check oauth data!'));
+        }
+
+        return $tokenResponseData;
     }
 }
