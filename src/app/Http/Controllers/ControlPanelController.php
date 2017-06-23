@@ -142,20 +142,17 @@ class ControlPanelController extends Controller
     /**
      * @param Request $request
      *
-     * @return \LaravelEnso\Helpers\Classes\Object|object
      * @throws EnsoException
+     *
+     * @return \LaravelEnso\Helpers\Classes\Object|object
      */
     private function getClientToken(Request $request)
     {
-
         try {
-
             $tokenResponseData = TokenRequestHub::requestNewToken($request);
-
         } catch (\Exception $e) {
             throw new EnsoException(__('Unable to communicate with server. Check URL!'));
         }
-
 
         if (!$tokenResponseData) {
             throw new EnsoException(__('Unable to get valid token. Check oauth data!'));
