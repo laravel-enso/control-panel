@@ -458,11 +458,13 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <ul v-if="appMetrics.errors.length">
-                                        <li v-for="error in appMetrics.errors">
-                                            <span v-html="error"></span>
-                                        </li>
-                                    </ul>
+                                    <div class="col-md-12"> {{-- want the padding --}}
+                                        <ul v-if="appMetrics.errors.length">
+                                            <li v-for="error in appMetrics.errors">
+                                                <span v-html="error" style="color:red;"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
