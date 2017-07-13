@@ -2,7 +2,7 @@
 
 @section('pageTitle', __("App Statistics"))
 
-@section('includesCss')
+@section('css')
     <style>
 
         ul.errors, ul.errors ul {
@@ -368,7 +368,7 @@
 
         </div>
 
-        @include('laravel-enso/core::partials.breadcrumbs')
+        @include('laravel-enso/menumanager::breadcrumbs')
     </section>
 
     <section class="content" v-cloak >
