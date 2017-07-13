@@ -13,5 +13,18 @@
             "email": "mihai.ocneanu@gmail.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "LaravelEnso\\ControlPanel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelEnso\\ControlPanel\\ControlPanelServiceProvider"
+            ],
+            "aliases": {}
+        }
+    }
 }
