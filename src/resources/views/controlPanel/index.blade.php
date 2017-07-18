@@ -383,31 +383,24 @@
         </modal>
 
         <div class="row">
-            <div class="col-md-12">
-                <div class="box box-primary" v-cloak>
-                    <div class="box-body" style="background-color: #EFEFEF;">
+            <div class="col-md-12" v-cloak>
 
-                        <div class="row">
-
-                            <div class="col-md-12" v-if="!activeApps.length">
-                                <br>
-                                {{__("Not subscribed to any apps")}}
-                            </div>
-
-                            <div v-for="app in activeApps">
-
-                                <application-metrics v-show="isVisible(app.id)"
-                                                     :application-entity="app"
-                                                     :all-data-types="dataTypes"
-                                                     :filters="filters"
-                                @remove-subscribed-app="removeApp">
-                                </application-metrics>
-
-                            </div>
-                        </div>
-
-                    </div>
+                <div class="col-md-12" v-if="!activeApps.length">
+                    <br>
+                    {{__("Not subscribed to any apps")}}
                 </div>
+
+                <div v-for="app in activeApps">
+
+                    <application-metrics v-show="isVisible(app.id)"
+                                         :application-entity="app"
+                                         :all-data-types="dataTypes"
+                                         :filters="filters"
+                    @remove-subscribed-app="removeApp">
+                    </application-metrics>
+
+                </div>
+
             </div>
         </div>
 
