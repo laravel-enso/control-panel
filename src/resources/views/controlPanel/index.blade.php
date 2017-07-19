@@ -730,7 +730,9 @@
                             return info.key === 'active sessions';
                         });
 
-                        totals.sessions += obj.value;
+                        if (obj) {
+                            totals.sessions += obj.value;
+                        }
                     });
 
                     this.totals = totals;
