@@ -7,6 +7,9 @@
         div.form-group.white {
             background: white;
         }
+        div.form-group.white > input {
+            padding-right: 10px;
+        }
         ul.errors, ul.errors ul {
             list-style-type: none;
             padding-top: 5px;
