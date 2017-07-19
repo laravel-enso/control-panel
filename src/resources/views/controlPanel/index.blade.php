@@ -4,7 +4,9 @@
 
 @section('css')
     <style>
-
+        div.form-group.white {
+            background: white;
+        }
         ul.errors, ul.errors ul {
             list-style-type: none;
             padding-top: 5px;
@@ -383,6 +385,42 @@
         </modal>
 
         <div class="row">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <label><b>{{ __("Start Date") }}</b></label>
+                <div class="form-group white">
+                    <datepicker
+                        v-model="filters.startDate">
+                    </datepicker>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <label><b>{{ __("End Date") }}</b></label>
+                <div class="form-group white">
+                    <datepicker
+                        v-model="filters.endDate">
+                    </datepicker>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
+                <label><b>{{ __("Total Logins") }}</b></label>
+                <div class="form-group white">
+                    <input class="form-control text-right" :value="totals.logins" readonly="readonly">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
+                <label><b>{{ __("Total Actions") }}</b></label>
+                <div class="form-group white">
+                    <input class="form-control text-right" :value="totals.actions" readonly="readonly">
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
+                <label><b>{{ __("Active Sessions") }}</b></label>
+                <div class="form-group white">
+                    <input class="form-control text-right" :value="totals.sessions" readonly="readonly">
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12" v-cloak>
 
                 <div class="col-md-12" v-if="!activeApps.length">
@@ -396,6 +434,8 @@
                                          :application-entity="app"
                                          :all-data-types="dataTypes"
                                          :filters="filters"
+                                         ref="app-metrics"
+                                         @app-metrics-received="updateTotals()"
                     @remove-subscribed-app="removeApp">
                     </application-metrics>
 
@@ -625,13 +665,17 @@
             data: function() {
                 return {
                     isAddAppModalVisible: false,
-                    activeApps: JSON.parse('{!! $activeApps  !!}'),
-                    appTypes: JSON.parse('{!! $subscribedAppTypes !!}'),
-                    dataTypes: JSON.parse('{!! $dataTypes !!}'),
-
+                    activeApps: {!! $activeApps  !!},
+                    appTypes: {!! $subscribedAppTypes !!},
+                    dataTypes: {!! $dataTypes !!},
+                    totals: {
+                        logins: 0,
+                        actions: 0,
+                        sessions: 0
+                    },
                     filters: {
-                        startDate: "01-01-2017",
-                        endDate: "01-01-2025"
+                        startDate: moment().subtract(1, 'day').format('DD-MM-Y'),
+                        endDate: moment().format('DD-MM-Y')
                     },
                     errorBag: {},
                     query: null
@@ -655,6 +699,40 @@
                 },
             },
             methods: {
+                updateTotals() {
+                    let totals = { logins: 0, actions: 0, sessions: 0 };
+
+                    if (typeof this.$refs['app-metrics'] == 'undefined') {
+                        return totals;
+                    }
+
+                    this.$refs['app-metrics'].forEach(ref => {
+                        if (!ref.appMetrics.data.length) {
+                            return;
+                        }
+
+                        let obj = ref.appMetrics.data.find(info => {
+                            return info.key === 'logins';
+                        });
+
+                        totals.logins += obj.value;
+
+                        obj = ref.appMetrics.data.find(info => {
+                            return info.key === 'actions';
+                        });
+
+                        totals.actions += obj.value;
+
+                        obj = ref.appMetrics.data.find(info => {
+                            return info.key === 'active sessions';
+                        });
+
+                        totals.sessions += obj.value;
+                    });
+
+                    this.totals = totals;
+                },
+
                 isVisible: function (appId) {
                     return this.filteredApps.indexOf(appId) >= 0;
                 },
@@ -902,6 +980,8 @@
                                 .then(function(response) {
 
                                     self.appMetrics = response.data;
+                                }).then(() => {
+                                    this.$emit('app-metrics-received');
                                 });
                         },
                         updateInterval: function () {
