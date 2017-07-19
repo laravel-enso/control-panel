@@ -677,8 +677,8 @@
                         sessions: 0
                     },
                     filters: {
-                        startDate: moment().subtract(1, 'day').format('DD-MM-Y'),
-                        endDate: moment().format('DD-MM-Y')
+                        startDate: moment().format('DD-MM-Y'),
+                        endDate: moment().add(1, 'day').format('DD-MM-Y')
                     },
                     errorBag: {},
                     query: null
