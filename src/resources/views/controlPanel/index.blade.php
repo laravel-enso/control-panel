@@ -581,7 +581,6 @@
                 </div>
             </div>
             <modal :show="showModal" @cancel-action="showModal = false" @commit-action="setMaintenanceMode">
-                @include('laravel-enso/core::partials.modal')
             </modal>
         </div>
 
