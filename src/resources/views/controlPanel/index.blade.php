@@ -662,7 +662,7 @@
     </script>
 
     <script type="text/javascript">
-        let vm = new Vue({
+        const vm = new Vue({
             el: "#app",
             data: function() {
                 return {
