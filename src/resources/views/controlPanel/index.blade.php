@@ -383,6 +383,7 @@
                 <span slot="header">{{ __("Subscribe to a new app") }}</span>
                 <span slot="body">
                     <app-subscriber :app-types="appTypes" @app-subscribed="pushNewApp"/>
+                    </app-subscriber>
                 </span>
                 <span slot="cancel">{{ __("Close") }}</span>
         </modal>
