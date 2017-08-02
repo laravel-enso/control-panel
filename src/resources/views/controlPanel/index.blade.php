@@ -377,9 +377,9 @@
     </section>
 
     <section class="content" v-cloak >
-
-        <modal :show="isAddAppModalVisible" cancel-only header max-width="500"
-            @cancel-action="isAddAppModalVisible=false">
+        <modal :show="isAddAppModalVisible"
+                cancel-only header max-width="500"
+                @cancel-action="isAddAppModalVisible=false">
                 <span slot="header">{{ __("Subscribe to a new app") }}</span>
                 <span slot="body">
                     <app-subscriber :app-types="appTypes" @app-subscribed="pushNewApp"/>
