@@ -380,11 +380,11 @@
 
         <modal :show="isAddAppModalVisible" cancel-only header max-width="500"
             @cancel-action="isAddAppModalVisible=false">
-                <span slot="modal-header">{{ __("Subscribe to a new app") }}</span>
-                <span slot="modal-body">
+                <span slot="header">{{ __("Subscribe to a new app") }}</span>
+                <span slot="body">
                     <app-subscriber :app-types="appTypes" @app-subscribed="pushNewApp"/>
                 </span>
-                <span slot="modal-cancel">{{ __("Close") }}</span>
+                <span slot="cancel">{{ __("Close") }}</span>
         </modal>
 
         <div class="row">
