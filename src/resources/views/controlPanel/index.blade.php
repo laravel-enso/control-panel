@@ -373,12 +373,13 @@
 
         </div>
 
-        @include('laravel-enso/menumanager::breadcrumbs')
+        <breadcrumbs></breadcrumbs>
     </section>
 
     <section class="content" v-cloak >
         <modal :show="isAddAppModalVisible"
-                cancel-only header max-width="500"
+                cancel-only header
+                :container-style="{'max-width': '500px'}"
                 @cancel-action="isAddAppModalVisible=false">
                 <span slot="header">{{ __("Subscribe to a new app") }}</span>
                 <span slot="body">
