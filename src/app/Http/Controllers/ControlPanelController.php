@@ -56,7 +56,7 @@ class ControlPanelController extends Controller
     public function index()
     {
         $activeApps = json_encode(SubscribedApp::orderBy('name')->get());
-        $subscribedAppTypes = (new SubscribedAppTypesEnum())->getJsonKVData();
+        $subscribedAppTypes =json_encode((new SubscribedAppTypesEnum())->getData());
         $dataTypes = (new DataTypesEnum())->getJsonKVData();
 
         return view('laravel-enso/controlpanel::controlPanel.index',
