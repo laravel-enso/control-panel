@@ -71,7 +71,7 @@ class Api
                 ],
                 'query' => $this->query(),
                 'timeout' => 30,
-                'connect_timeout' => 30,
+                'connect_timeout' => 3,
             ]);
     }
 
