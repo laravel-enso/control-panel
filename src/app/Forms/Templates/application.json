@@ -2,12 +2,13 @@
     "routePrefix": "administration.applications",
     "sections": [
         {
-            "columns": "4",
+            "columns": "custom",
             "fields": [
                 {
                     "label": "Name",
                     "name": "name",
                     "value": null,
+                    "column": 3,
                     "meta": {
                         "type": "input",
                         "content": "text"
@@ -17,6 +18,7 @@
                     "label": "Type",
                     "name": "type",
                     "value": null,
+                    "column": 3,
                     "meta": {
                         "type": "select",
                         "multiple": false,
@@ -27,6 +29,22 @@
                     "label": "URL",
                     "name": "url",
                     "value": null,
+                    "column": 6,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                }
+            ]
+        },
+        {
+            "columns": "custom",
+            "fields": [
+                {
+                    "label": "Token",
+                    "name": "token",
+                    "value": null,
+                    "column": 10,
                     "meta": {
                         "type": "input",
                         "content": "text"
@@ -36,20 +54,7 @@
                     "label": "Order",
                     "name": "order_index",
                     "value": null,
-                    "meta": {
-                        "type": "input",
-                        "content": "text"
-                    }
-                }
-            ]
-        },
-        {
-            "columns": "1",
-            "fields": [
-                {
-                    "label": "Token",
-                    "name": "token",
-                    "value": null,
+                    "column": 2,
                     "meta": {
                         "type": "input",
                         "content": "text"

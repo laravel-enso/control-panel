@@ -69,9 +69,9 @@ class Api
                 'headers' => [
                     'Api-Token' => $this->application->token,
                 ],
-                'query'           => $this->query(),
-                'timeout'         => 3,
-                'connect_timeout' => 3,
+                'query' => $this->query(),
+                'timeout' => 30,
+                'connect_timeout' => 30,
             ]);
     }
 
@@ -81,7 +81,7 @@ class Api
             ? []
             : [
                 'startDate' => $this->params->get('startDate'),
-                'endDate'   => $this->params->get('endDate'),
+                'endDate' => $this->params->get('endDate'),
                 'dataTypes' => json_encode(DataTypes::keys()),
             ];
     }
