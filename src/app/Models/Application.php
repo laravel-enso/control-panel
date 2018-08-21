@@ -13,4 +13,9 @@ class Application extends Model
     protected $casts = [
         'created_at' => 'datetime:d-m-Y',
     ];
+
+    public function scopeOrdered($query)
+    {
+        $query->orderBy('order_index');
+    }
 }
