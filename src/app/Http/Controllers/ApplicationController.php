@@ -3,9 +3,9 @@
 namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Forms\Builders\ApplicationForm;
 use LaravelEnso\ControlPanel\app\Http\Requests\ValidateApplicationRequest;
+use LaravelEnso\ControlPanel\app\Models\Application;
 
 class ApplicationController extends Controller
 {
@@ -24,9 +24,9 @@ class ApplicationController extends Controller
         $application = Application::create($request->validated());
 
         return [
-            'message' => __('The application was successfully created'),
+            'message'  => __('The application was successfully created'),
             'redirect' => 'administration.applications.edit',
-            'id' => $application->id,
+            'id'       => $application->id,
         ];
     }
 
@@ -49,7 +49,7 @@ class ApplicationController extends Controller
         $application->delete();
 
         return [
-            'message' => __('The application was successfully deleted'),
+            'message'  => __('The application was successfully deleted'),
             'redirect' => 'administration.applications.index',
         ];
     }

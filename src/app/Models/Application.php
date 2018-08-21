@@ -11,6 +11,6 @@ class Application extends Model
     protected $hidden = ['token'];
 
     protected $casts = [
-        'created_at' => 'datetime:d-m-Y'
+        'created_at' => 'datetime:d-m-Y',
     ];
 }

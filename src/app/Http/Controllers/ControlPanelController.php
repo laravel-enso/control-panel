@@ -2,12 +2,12 @@
 
 namespace LaravelEnso\ControlPanel\app\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use LaravelEnso\ControlPanel\app\Models\Application;
+use Illuminate\Http\Request;
 use LaravelEnso\ControlPanel\app\Http\Responses\ClearLogResponse;
-use LaravelEnso\ControlPanel\app\Http\Responses\StatisticsResponse;
 use LaravelEnso\ControlPanel\app\Http\Responses\MaintenanceResponse;
+use LaravelEnso\ControlPanel\app\Http\Responses\StatisticsResponse;
+use LaravelEnso\ControlPanel\app\Models\Application;
 
 class ControlPanelController extends Controller
 {

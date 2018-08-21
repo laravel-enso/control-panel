@@ -4,11 +4,11 @@ namespace LaravelEnso\ControlPanel\app\Classes;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use LaravelEnso\Helpers\app\Classes\Obj;
-use LaravelEnso\ControlPanel\app\Enums\DataTypes;
-use LaravelEnso\Core\app\Exceptions\EnsoException;
-use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
+use LaravelEnso\ControlPanel\app\Enums\DataTypes;
+use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\Core\app\Exceptions\EnsoException;
+use LaravelEnso\Helpers\app\Classes\Obj;
 
 class Api
 {
@@ -69,8 +69,8 @@ class Api
                 'headers' => [
                     'Api-Token' => $this->application->token,
                 ],
-                'query' => $this->query(),
-                'timeout' => 3,
+                'query'           => $this->query(),
+                'timeout'         => 3,
                 'connect_timeout' => 3,
             ]);
     }
@@ -81,7 +81,7 @@ class Api
             ? []
             : [
                 'startDate' => $this->params->get('startDate'),
-                'endDate' => $this->params->get('endDate'),
+                'endDate'   => $this->params->get('endDate'),
                 'dataTypes' => json_encode(DataTypes::keys()),
             ];
     }
