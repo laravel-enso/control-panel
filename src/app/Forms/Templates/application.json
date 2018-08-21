@@ -1,0 +1,75 @@
+{
+    "routePrefix": "administration.applications",
+    "sections": [
+        {
+            "columns": "4",
+            "fields": [
+                {
+                    "label": "Name",
+                    "name": "name",
+                    "value": null,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                },
+                {
+                    "label": "Type",
+                    "name": "type",
+                    "value": null,
+                    "meta": {
+                        "type": "select",
+                        "multiple": false,
+                        "options": []
+                    }
+                },
+                {
+                    "label": "URL",
+                    "name": "url",
+                    "value": null,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                },
+                {
+                    "label": "Order",
+                    "name": "order_index",
+                    "value": null,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                }
+            ]
+        },
+        {
+            "columns": "1",
+            "fields": [
+                {
+                    "label": "Token",
+                    "name": "token",
+                    "value": null,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                }
+            ]
+        },
+        {
+            "columns": "1",
+            "fields": [
+                {
+                    "label": "Description",
+                    "name": "description",
+                    "value": null,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                }
+            ]
+        }
+    ]
+}

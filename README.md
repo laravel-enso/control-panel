@@ -19,7 +19,6 @@ This package pulls data from the [Control Panel API](https://github.com/laravel-
 
 ### Installation Steps
 
-* Add `'LaravelEnso\ControlPanel\ControlPanelServiceProvider::class'` to your providers list in `config/app.php`.
 * Run the migrations. 
 * Use the FE to add the applications you want to monitor, providing the necessary credentials
 

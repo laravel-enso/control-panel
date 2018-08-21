@@ -1,0 +1,33 @@
+{
+    "routePrefix": "administration.applications",
+    "readSuffix": "getTableData",
+    "crtNo": true,
+    "buttons": ["excel", "create", "edit", "destroy"],
+    "columns": [{
+        "label": "Name",
+        "name": "name",
+        "data": "applications.name",
+        "meta": ["searchable", "sortable"]
+    }, {
+        "label": "Description",
+        "name": "description",
+        "data": "applications.description",
+        "meta": ["searchable", "sortable"]
+    }, {
+        "label": "Type",
+        "name": "type",
+        "data": "applications.type",
+        "meta": ["sortable"],
+        "enum": "LaravelEnso\\ControlPanel\\app\\Enums\\ApplicationTypes"
+    }, {
+        "label": "Order",
+        "name": "order_index",
+        "data": "applications.order_index",
+        "meta": ["sortable"]
+    }, {
+        "label": "URL",
+        "name": "url",
+        "data": "applications.url",
+        "meta": ["searchable", "sortable"]
+    }]
+}
