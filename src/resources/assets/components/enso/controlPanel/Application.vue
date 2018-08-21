@@ -30,7 +30,7 @@
                         {{ statistics.actions }}
                     </td>
                 </tr>
-                <tr>
+                <tr v-if="application.type === Enso">
                     <td colspan="2">
                         {{ __('Sessions') }}
                     </td>
@@ -38,7 +38,7 @@
                         {{ statistics.sessions }}
                     </td>
                 </tr>
-                <tr>
+                <tr v-if="application.type === Enso">
                     <td colspan="2">
                         {{ __('Failed Jobs') }}
                     </td>
@@ -62,7 +62,7 @@
                         {{ statistics.activeUsers }}
                     </td>
                 </tr>
-                <tr>
+                <tr v-if="application.type === Enso">
                     <td colspan="2">
                         {{ __('New Users') }}
                     </td>
@@ -79,7 +79,7 @@
                         {{ statistics.serverTime }}
                     </td>
                 </tr>
-                <tr>
+                <tr v-if="application.type === Enso">
                     <td>
                         {{ __('Log Size') }}
                     </td>
@@ -100,7 +100,8 @@
                     <td>
                         {{ __('Status') }}
                     </td>
-                    <td class="is-narrow has-text-right">
+                    <td class="is-narrow has-text-right"
+                        v-if="application.type === Enso">
                         <popover placement="bottom"
                             @confirm="maintenance()">
                             <span class="icon is-small is-clickable">
@@ -109,7 +110,8 @@
                             </span>
                         </popover>
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right"
+                        :colspan="application.type === Enso ? 1 : 2">
                         <span :class="[
                                 'tag',
                                 statistics.status === 'up'
@@ -158,6 +160,7 @@ export default {
         return {
             loading: false,
             statistics: true,
+            Enso: 2,
         };
     },
 
