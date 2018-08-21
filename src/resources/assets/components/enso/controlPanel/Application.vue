@@ -177,6 +177,7 @@ export default {
             ).then(({ data }) => {
                 this.statistics = data;
                 this.loading = false;
+                this.$emit('loaded');
             }).catch(error => this.handleError(error));
         },
         maintenance() {

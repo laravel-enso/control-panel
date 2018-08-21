@@ -1,6 +1,11 @@
 <template>
     <div>
-        <div class="columns is-centered">
+        <div class="columns">
+            <div class="column">
+                <div class="box has-text-centered">
+                    <strong>{{ __('Total Logins') }}: {{ logins }}</strong>
+                </div>
+            </div>
             <div class="column is-half">
                 <date-interval-filter class="box is-raised"
                     title="Date interval"
@@ -9,6 +14,11 @@
                     :max="dates.max"
                     @update-max="dates.max = $event"/>
             </div>
+            <div class="column">
+                <div class="box has-text-centered">
+                    <strong>{{ __('Total Actions') }}: {{ actions }}</strong>
+                </div>
+            </div>
         </div>
         <div class="columns is-multiline is-mobile">
             <div class="column is-one-fifth-fullhd is-one-quarter-widescreen is-one-third-tablet is-half-mobile"
@@ -16,7 +26,9 @@
                 :key="index">
                 <application class="is-raised"
                     :application="application"
-                    :dates="dates"/>
+                    :dates="dates"
+                    @loaded="updateStats"
+                    ref="apps"/>
             </div>
         </div>
     </div>
@@ -37,6 +49,8 @@ export default {
                 min: new Date(),
                 max: null,
             },
+            logins: 0,
+            actions: 0,
         };
     },
 
@@ -51,6 +65,13 @@ export default {
             axios.get(route('administration.applications.index'))
                 .then(({ data }) => (this.applications = data))
                 .catch(error => this.handleError(error));
+        },
+        updateStats() {
+            this.logins = this.$refs.apps.reduce((logins, app) =>
+                (logins += parseInt(`0${app.$data.statistics.logins}`, 10)), 0);
+
+            this.actions = this.$refs.apps.reduce((actions, app) =>
+                (actions += parseInt(`0${app.$data.statistics.actions}`, 10)), 0);
         },
     },
 };
