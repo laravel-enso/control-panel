@@ -10,8 +10,8 @@
                     @update-max="dates.max = $event"/>
             </div>
         </div>
-        <div class="columns is-multiline">
-            <div class="column is-one-quarter-fullhd is-one-third-widescreen is-two-fifths-desktop is-half-tablet"
+        <div class="columns is-multiline is-mobile">
+            <div class="column is-one-fifth-fullhd is-one-quarter-widescreen is-one-third-tablet is-half-mobile"
                 v-for="(application, index) in applications"
                 :key="index">
                 <application class="is-raised"

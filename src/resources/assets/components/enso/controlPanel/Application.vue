@@ -18,7 +18,7 @@
                     <td colspan="2">
                         {{ __('Logins') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.logins }}
                     </td>
                 </tr>
@@ -26,7 +26,7 @@
                     <td colspan="2">
                         {{ __('Actions') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.actions }}
                     </td>
                 </tr>
@@ -34,7 +34,7 @@
                     <td colspan="2">
                         {{ __('Sessions') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.sessions }}
                     </td>
                 </tr>
@@ -42,7 +42,7 @@
                     <td colspan="2">
                         {{ __('Failed Jobs') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.failedJobs }}
                     </td>
                 </tr>
@@ -50,7 +50,7 @@
                     <td colspan="2">
                         {{ __('Users') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.users }}
                     </td>
                 </tr>
@@ -58,7 +58,7 @@
                     <td colspan="2">
                         {{ __('Active Users') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.activeUsers }}
                     </td>
                 </tr>
@@ -66,7 +66,7 @@
                     <td colspan="2">
                         {{ __('New Users') }}
                     </td>
-                    <td class="has-text-right">
+                    <td class="has-text-right is-bold">
                         {{ statistics.newUsers }}
                     </td>
                 </tr>
@@ -74,7 +74,7 @@
                     <td>
                         {{ __('Server Time') }}
                     </td>
-                    <td class="has-text-right"
+                    <td class="has-text-right is-bold"
                         colspan="2">
                         {{ statistics.serverTime }}
                     </td>
@@ -83,7 +83,7 @@
                     <td>
                         {{ __('Log Size') }}
                     </td>
-                    <td class="is-narrow has-text-right">
+                    <td class="is-narrow has-text-right is-bold">
                         <popover placement="bottom"
                             @confirm="clearLog()">
                             <span class="icon is-small is-clickable">
@@ -92,7 +92,7 @@
                             </span>
                         </popover>
                     </td>
-                    <td class="has-text-right is-narrow">
+                    <td class="has-text-right is-bold is-narrow">
                         {{ statistics.logSize }}
                     </td>
                 </tr>
@@ -100,7 +100,7 @@
                     <td>
                         {{ __('Status') }}
                     </td>
-                    <td class="is-narrow has-text-right"
+                    <td class="is-narrow has-text-right is-bold"
                         v-if="application.type === Enso">
                         <popover placement="bottom"
                             @confirm="maintenance()">
@@ -110,7 +110,7 @@
                             </span>
                         </popover>
                     </td>
-                    <td class="has-text-right"
+                    <td class="has-text-right is-bold"
                         :colspan="application.type === Enso ? 1 : 2">
                         <span :class="[
                                 'tag',
@@ -202,8 +202,7 @@ export default {
 <style lang="scss" scoped>
 
     .table {
-        font-size: 1rem;
-        font-weight: 600;
+        font-size: 0.9rem;
 
         .tag {
             font-size: 0.8rem;
