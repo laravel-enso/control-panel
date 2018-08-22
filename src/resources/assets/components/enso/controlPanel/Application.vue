@@ -19,7 +19,7 @@
                         {{ __('Logins') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.logins }}
+                        {{ format(statistics.logins) }}
                     </td>
                 </tr>
                 <tr>
@@ -27,7 +27,7 @@
                         {{ __('Actions') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.actions }}
+                        {{ format(statistics.actions) }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
@@ -35,7 +35,7 @@
                         {{ __('Sessions') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.sessions }}
+                        {{ format(statistics.sessions) }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
@@ -43,7 +43,7 @@
                         {{ __('Failed Jobs') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.failedJobs }}
+                        {{ format(statistics.failedJobs) }}
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +51,7 @@
                         {{ __('Users') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.users }}
+                        {{ format(statistics.users) }}
                     </td>
                 </tr>
                 <tr>
@@ -59,7 +59,7 @@
                         {{ __('Active Users') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.activeUsers }}
+                        {{ format(statistics.activeUsers) }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
@@ -67,7 +67,7 @@
                         {{ __('New Users') }}
                     </td>
                     <td class="has-text-right is-bold">
-                        {{ statistics.newUsers }}
+                        {{ format(statistics.newUsers) }}
                     </td>
                 </tr>
                 <tr>
@@ -195,6 +195,16 @@ export default {
                     this.statistics.logSize = data.logSize;
                     this.loading = false;
                 }).catch(error => this.handleError(error));
+        },
+        format(value) {
+            value = value.toString();
+            const rgx = /(\d+)(\d{3})/;
+
+            while (rgx.test(value)) {
+                value = value.replace(rgx, '$1,$2');
+            }
+
+            return value;
         },
     },
 };

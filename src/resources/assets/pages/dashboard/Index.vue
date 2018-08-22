@@ -2,8 +2,19 @@
     <div>
         <div class="columns">
             <div class="column">
-                <div class="box has-text-centered">
-                    <strong>{{ __('Total Logins') }}: {{ logins }}</strong>
+                <div class="box has-text-centered has-padding-medium is-raised">
+                    <button class="button is-small is-pulled-right is-naked"
+                        @click="refresh">
+                        <span class="icon is-small">
+                            <fa icon="sync"/>
+                        </span>
+                    </button>
+                    <p>
+                        <strong>{{ __('Logins') }}: {{ format(logins) }}</strong>
+                    </p>
+                    <p>
+                        <strong>{{ __('Actions') }}: {{ format(actions) }}</strong>
+                    </p>
                 </div>
             </div>
             <div class="column is-half">
@@ -15,13 +26,21 @@
                     @update-max="dates.max = $event"/>
             </div>
             <div class="column">
-                <div class="box has-text-centered">
-                    <strong>{{ __('Total Actions') }}: {{ actions }}</strong>
+                <div class="box has-text-centered has-padding-medium is-raised">
+                    <p>
+                        <strong>{{ __('Users') }}: {{ format(users) }}</strong>
+                    </p>
+                    <p>
+                        <strong>{{ __('Sessions') }}: {{ format(sessions) }}</strong>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="columns is-multiline is-mobile">
-            <div class="column is-one-fifth-fullhd is-one-quarter-widescreen is-one-third-tablet is-half-mobile"
+            <div class="
+                    column is-one-fifth-fullhd is-one-quarter-widescreen
+                    is-one-third-tablet is-half-mobile
+                "
                 v-for="(application, index) in applications"
                 :key="index">
                 <application class="is-raised"
@@ -51,6 +70,8 @@ export default {
             },
             logins: 0,
             actions: 0,
+            users: 0,
+            sessions: 0,
         };
     },
 
@@ -66,12 +87,31 @@ export default {
                 .then(({ data }) => (this.applications = data))
                 .catch(error => this.handleError(error));
         },
+        refresh() {
+            this.$refs.apps.forEach(app => app.fetch());
+        },
         updateStats() {
             this.logins = this.$refs.apps.reduce((logins, app) =>
                 (logins += parseInt(`0${app.$data.statistics.logins}`, 10)), 0);
 
             this.actions = this.$refs.apps.reduce((actions, app) =>
                 (actions += parseInt(`0${app.$data.statistics.actions}`, 10)), 0);
+
+            this.users = this.$refs.apps.reduce((users, app) =>
+                (users += parseInt(`0${app.$data.statistics.users}`, 10)), 0);
+
+            this.sessions = this.$refs.apps.reduce((sessions, app) =>
+                (sessions += parseInt(`0${app.$data.statistics.sessions}`, 10)), 0);
+        },
+        format(value) {
+            value = value.toString();
+            const rgx = /(\d+)(\d{3})/;
+
+            while (rgx.test(value)) {
+                value = value.replace(rgx, '$1,$2');
+            }
+
+            return value;
         },
     },
 };
