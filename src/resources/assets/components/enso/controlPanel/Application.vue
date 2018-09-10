@@ -159,7 +159,7 @@ export default {
     data() {
         return {
             loading: false,
-            statistics: true,
+            statistics: {},
             Enso: 2,
         };
     },
@@ -197,6 +197,10 @@ export default {
                 }).catch(error => this.handleError(error));
         },
         format(value) {
+            if (typeof value === 'undefined') {
+                return null;
+            }
+
             value = value.toString();
             const rgx = /(\d+)(\d{3})/;
 
