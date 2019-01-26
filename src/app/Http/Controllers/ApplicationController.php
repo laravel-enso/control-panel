@@ -25,9 +25,9 @@ class ApplicationController extends Controller
         $application = Application::create($request->validated());
 
         return [
-            'message'  => __('The application was successfully created'),
+            'message' => __('The application was successfully created'),
             'redirect' => 'administration.applications.edit',
-            'id'       => $application->id,
+            'param' => ['application' => $application->id],
         ];
     }
 
@@ -50,7 +50,7 @@ class ApplicationController extends Controller
         $application->delete();
 
         return [
-            'message'  => __('The application was successfully deleted'),
+            'message' => __('The application was successfully deleted'),
             'redirect' => 'administration.applications.index',
         ];
     }
