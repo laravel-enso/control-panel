@@ -2,7 +2,7 @@
     <div>
         <div class="columns">
             <div class="column">
-                <div class="box has-text-centered has-padding-medium is-raised">
+                <div class="box has-text-centered has-padding-medium raises-on-hover">
                     <button class="button is-small is-pulled-right is-naked"
                         @click="refresh">
                         <span class="icon is-small">
@@ -18,15 +18,11 @@
                 </div>
             </div>
             <div class="column is-half">
-                <date-interval-filter class="box is-raised"
-                    title="Date interval"
-                    :min="dates.min"
-                    @update-min="dates.min = $event"
-                    :max="dates.max"
-                    @update-max="dates.max = $event"/>
+                <date-filter class="box raises-on-hover"
+                    @update="dates = $event; fetch()"/>
             </div>
             <div class="column">
-                <div class="box has-text-centered has-padding-medium is-raised">
+                <div class="box has-text-centered has-padding-medium raises-on-hover is-rounded">
                     <p>
                         <strong>{{ __('Users') }}: {{ format(users) }}</strong>
                     </p>
@@ -43,7 +39,7 @@
                 "
                 v-for="(application, index) in applications"
                 :key="index">
-                <application class="is-raised"
+                <application class="raises-on-hover"
                     :application="application"
                     :dates="dates"
                     @loaded="updateStats"
@@ -56,10 +52,10 @@
 <script>
 
 import Application from '../../components/enso/controlPanel/Application.vue';
-import DateIntervalFilter from '../../components/enso/bulma/DateIntervalFilter.vue';
+import DateFilter from '../../components/enso/bulma/DateFilter.vue';
 
 export default {
-    components: { Application, DateIntervalFilter },
+    components: { Application, DateFilter },
 
     data() {
         return {

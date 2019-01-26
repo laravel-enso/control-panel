@@ -20,8 +20,8 @@ Route::namespace('LaravelEnso\ControlPanel\app\Http\Controllers')
                     ->group(function () {
                         Route::get('initTable', 'ApplicationTableController@init')
                             ->name('initTable');
-                        Route::get('getTableData', 'ApplicationTableController@data')
-                            ->name('getTableData');
+                        Route::get('tableData', 'ApplicationTableController@data')
+                            ->name('tableData');
                         Route::get('exportExcel', 'ApplicationTableController@excel')
                             ->name('exportExcel');
                     });
