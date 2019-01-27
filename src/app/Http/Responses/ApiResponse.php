@@ -5,9 +5,9 @@ namespace LaravelEnso\ControlPanel\app\Http\Responses;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Support\Responsable;
 use LaravelEnso\ControlPanel\app\Classes\Api;
+use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Contracts\ApiResponsable;
 use LaravelEnso\ControlPanel\app\Exceptions\ApiResponseException;
-use LaravelEnso\ControlPanel\app\Models\Application;
 
 abstract class ApiResponse implements Responsable, ApiResponsable
 {
@@ -29,7 +29,7 @@ abstract class ApiResponse implements Responsable, ApiResponsable
                 throw new ApiResponseException($exception->getResponse()->getBody());
             }
 
-            throw new ApiResponseException('Something went wrong');
+            throw new ApiResponseException($exception->getMessage());
         }
 
         if ($response->getStatusCode() === 200) {
