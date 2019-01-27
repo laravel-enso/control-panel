@@ -9,41 +9,42 @@
                             <fa icon="sync"/>
                         </span>
                     </button>
-                    <p>
-                        <strong>{{ __('Logins') }}: {{ format(logins) }}</strong>
-                    </p>
-                    <p>
-                        <strong>{{ __('Actions') }}: {{ format(actions) }}</strong>
-                    </p>
+                    <strong>{{ __('Logins') }}: {{ format(logins) }}</strong>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box has-text-centered has-padding-medium raises-on-hover">
+                    <strong>{{ __('Actions') }}: {{ format(actions) }}</strong>
                 </div>
             </div>
             <div class="column is-half">
                 <date-filter class="box raises-on-hover"
+                    compact
                     @update="dates = $event; fetch()"/>
             </div>
             <div class="column">
                 <div class="box has-text-centered has-padding-medium raises-on-hover is-rounded">
-                    <p>
-                        <strong>{{ __('Users') }}: {{ format(users) }}</strong>
-                    </p>
-                    <p>
-                        <strong>{{ __('Sessions') }}: {{ format(sessions) }}</strong>
-                    </p>
+                    <strong>{{ __('Users') }}: {{ format(users) }}</strong>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box has-text-centered has-padding-medium raises-on-hover is-rounded">
+                    <strong>{{ __('Sessions') }}: {{ format(sessions) }}</strong>
                 </div>
             </div>
         </div>
         <div class="columns is-multiline is-mobile">
-            <div class="
+            <div v-for="(application, index) in applications"
+                :key="index"
+                class="
                     column is-one-fifth-fullhd is-one-quarter-widescreen
                     is-one-third-tablet is-half-mobile
-                "
-                v-for="(application, index) in applications"
-                :key="index">
-                <application class="raises-on-hover"
+                ">
+                <application ref="apps"
+                    class="raises-on-hover"
                     :application="application"
                     :dates="dates"
-                    @loaded="updateStats"
-                    ref="apps"/>
+                    @loaded="updateStats"/>
             </div>
         </div>
     </div>
@@ -87,17 +88,17 @@ export default {
             this.$refs.apps.forEach(app => app.fetch());
         },
         updateStats() {
-            this.logins = this.$refs.apps.reduce((logins, app) =>
-                (logins += parseInt(`0${app.$data.statistics.logins}`, 10)), 0);
+            this.logins = this.$refs.apps
+                .reduce((logins, app) => (logins += parseInt(`0${app.$data.statistics.logins}`, 10)), 0);
 
-            this.actions = this.$refs.apps.reduce((actions, app) =>
-                (actions += parseInt(`0${app.$data.statistics.actions}`, 10)), 0);
+            this.actions = this.$refs.apps
+                .reduce((actions, app) => (actions += parseInt(`0${app.$data.statistics.actions}`, 10)), 0);
 
-            this.users = this.$refs.apps.reduce((users, app) =>
-                (users += parseInt(`0${app.$data.statistics.users}`, 10)), 0);
+            this.users = this.$refs.apps
+                .reduce((users, app) => (users += parseInt(`0${app.$data.statistics.users}`, 10)), 0);
 
-            this.sessions = this.$refs.apps.reduce((sessions, app) =>
-                (sessions += parseInt(`0${app.$data.statistics.sessions}`, 10)), 0);
+            this.sessions = this.$refs.apps
+                .reduce((sessions, app) => (sessions += parseInt(`0${app.$data.statistics.sessions}`, 10)), 0);
         },
         format(value) {
             value = value.toString();

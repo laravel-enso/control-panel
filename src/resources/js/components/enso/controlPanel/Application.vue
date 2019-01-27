@@ -6,8 +6,8 @@
         :controls="1"
         @refresh="fetch()">
         <card-control slot="control-1">
-            <span class="icon is-small card-header-icon"
-                v-tooltip="application.description">
+            <span v-tooltip="application.description"
+                class="icon is-small card-header-icon">
                 <fa icon="info-circle"
                     size="sm"/>
             </span>
@@ -100,8 +100,8 @@
                     <td>
                         {{ __('Status') }}
                     </td>
-                    <td class="is-narrow has-text-right is-bold"
-                        v-if="application.type === Enso">
+                    <td v-if="application.type === Enso"
+                        class="is-narrow has-text-right is-bold">
                         <popover placement="bottom"
                             @confirm="maintenance()">
                             <span class="icon is-small is-clickable">
@@ -227,4 +227,3 @@ export default {
     }
 
 </style>
-
