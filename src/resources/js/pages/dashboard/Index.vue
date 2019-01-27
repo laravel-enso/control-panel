@@ -17,7 +17,7 @@
                     <strong>{{ __('Actions') }}: {{ format(actions) }}</strong>
                 </div>
             </div>
-            <div class="column is-half">
+            <div class="column is-one-third">
                 <date-filter class="box raises-on-hover"
                     compact
                     @update="dates = $event; fetch()"/>
