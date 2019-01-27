@@ -17,7 +17,7 @@ class CreateStructureForApplications extends StructureMigration
     ];
 
     protected $menu = [
-        'name' => 'Applications', 'icon' => 'stethoscope', 'link' => 'administration.applications.index', 'order_index' => 100, 'has_children' => false,
+        'name' => 'Applications', 'icon' => 'stethoscope', 'route' => 'administration.applications.index', 'order_index' => 100, 'has_children' => false,
     ];
 
     protected $parentMenu = 'Administration';
