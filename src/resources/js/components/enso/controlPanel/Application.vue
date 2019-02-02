@@ -81,6 +81,15 @@
                 </tr>
                 <tr v-if="application.type === Enso">
                     <td>
+                        {{ __('Version') }}
+                    </td>
+                    <td class="has-text-right is-bold"
+                        colspan="2">
+                        v{{ statistics.version }}
+                    </td>
+                </tr>
+                <tr v-if="application.type === Enso">
+                    <td>
                         {{ __('Log Size') }}
                     </td>
                     <td class="is-narrow has-text-right is-bold">

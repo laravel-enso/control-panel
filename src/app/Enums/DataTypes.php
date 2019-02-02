@@ -14,6 +14,7 @@ class DataTypes extends Enum
     const ActiveUsers = 'active users';
     const NewUsers = 'new users';
     const ServerTime = 'server time';
+    const Version = 'version';
     const LogSize = 'log size';
     const Status = 'status';
 }
