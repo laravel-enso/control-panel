@@ -14,11 +14,11 @@ class ValidateApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'        => 'required',
-            'type'        => 'required',
-            'url'         => 'required',
+            'name' => 'required',
+            'type' => 'required',
+            'url' => 'required',
             'description' => 'nullable',
-            'token'       => 'required',
+            'token' => 'required',
             'order_index' => 'numeric|required',
         ];
     }

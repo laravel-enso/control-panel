@@ -6,9 +6,9 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use LaravelEnso\Helpers\app\Classes\Obj;
 use LaravelEnso\ControlPanel\app\Enums\DataTypes;
-use LaravelEnso\Core\app\Exceptions\EnsoException;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
+use LaravelEnso\ControlPanel\app\Exceptions\ApiRequestException;
 
 class Api
 {
@@ -41,7 +41,7 @@ class Api
             return $this->request('POST', self::Maintenance);
         }
 
-        throw new EnsoException(__('Unsupported Operation for this Application'));
+        throw new ApiRequestException(__('Unsupported Operation for this Application'));
     }
 
     public function clearLog()
@@ -50,7 +50,7 @@ class Api
             return $this->request('POST', self::ClearLog);
         }
 
-        throw new EnsoException(__('Unsupported Operation for this Application'));
+        throw new ApiRequestException(__('Unsupported Operation for this Application'));
     }
 
     private function enso()
