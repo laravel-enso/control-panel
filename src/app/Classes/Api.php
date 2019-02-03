@@ -8,7 +8,6 @@ use LaravelEnso\Helpers\app\Classes\Obj;
 use LaravelEnso\ControlPanel\app\Enums\DataTypes;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
-use LaravelEnso\ControlPanel\app\Exceptions\ApiRequestException;
 
 class Api
 {
