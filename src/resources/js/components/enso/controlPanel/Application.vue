@@ -1,70 +1,74 @@
 <template>
-    <card header
-        refresh
-        :title="application.name"
-        :overlay="loading"
-        :controls="1"
-        @refresh="fetch()">
-        <card-control slot="control-1">
-            <span v-tooltip="application.description"
-                class="icon is-small card-header-icon">
-                <fa icon="info-circle"
-                    size="sm"/>
-            </span>
-        </card-control>
-        <div class="has-padding-top-small has-padding-bottom-small">
-            <table class="table is-fullwidth is-marginless is-hoverable">
+    <card collapsible
+        :loading="loading">
+        <card-header class="has-background-light">
+            <template v-slot:title>
+                {{ application.name }}
+            </template>
+            <template v-slot:controls>
+                <card-control>
+                    <span class="icon is-small"
+                        v-tooltip="application.description">
+                        <fa icon="info-circle"/>
+                    </span>
+                </card-control>
+                <card-refresh @refresh="fetch"/>
+                <card-collapse/>
+            </template>
+        </card-header>
+        <card-content class="is-paddingless">
+            <table class="table application is-fullwidth is-marginless is-hoverable">
                 <tr>
-                    <td colspan="2">
-                        {{ __('Logins') }}
+                    <td>
+                        {{ i18n('Logins') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.logins) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        {{ __('Actions') }}
+                    <td>
+                        {{ i18n('Actions') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.actions) }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
-                    <td colspan="2">
-                        {{ __('Sessions') }}
+                    <td>
+                        {{ i18n('Sessions') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.sessions) }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
-                    <td colspan="2">
-                        {{ __('Failed Jobs') }}
+                    <td>
+                        {{ i18n('Failed Jobs') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.failedJobs) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        {{ __('Users') }}
+                    <td>
+                        {{ i18n('Users') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.users) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        {{ __('Active Users') }}
+                    <td>
+                        {{ i18n('Active Users') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.activeUsers) }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
-                    <td colspan="2">
-                        {{ __('New Users') }}
+                    <td>
+                        {{ i18n('New Users') }}
                     </td>
                     <td class="has-text-right is-bold">
                         {{ format(statistics.newUsers) }}
@@ -72,7 +76,7 @@
                 </tr>
                 <tr>
                     <td>
-                        {{ __('Server Time') }}
+                        {{ i18n('Server Time') }}
                     </td>
                     <td class="has-text-right is-bold"
                         colspan="2">
@@ -81,25 +85,15 @@
                 </tr>
                 <tr v-if="application.type === Enso">
                     <td>
-                        {{ __('Version') }}
+                        {{ i18n('Version') }}
                     </td>
-                    <td class="has-text-right is-bold"
-                        colspan="2">
+                    <td class="has-text-right is-bold">
                         v{{ statistics.version }}
                     </td>
                 </tr>
                 <tr v-if="application.type === Enso">
                     <td>
-                        {{ __('Log Size') }}
-                    </td>
-                    <td class="is-narrow has-text-right is-bold">
-                        <popover placement="bottom"
-                            @confirm="clearLog()">
-                            <span class="icon is-small is-clickable">
-                                <fa icon="trash-alt"
-                                    size="xs"/>
-                            </span>
-                        </popover>
+                        {{ i18n('Log Size') }}
                     </td>
                     <td class="has-text-right is-bold is-narrow">
                         {{ statistics.logSize }}
@@ -107,17 +101,7 @@
                 </tr>
                 <tr>
                     <td>
-                        {{ __('Status') }}
-                    </td>
-                    <td v-if="application.type === Enso"
-                        class="is-narrow has-text-right is-bold">
-                        <popover placement="bottom"
-                            @confirm="maintenance()">
-                            <span class="icon is-small is-clickable">
-                                <fa icon="power-off"
-                                    size="xs"/>
-                            </span>
-                        </popover>
+                        {{ i18n('Status') }}
                     </td>
                     <td class="has-text-right is-bold"
                         :colspan="application.type === Enso ? 1 : 2">
@@ -132,18 +116,40 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </card-content>
+        <card-footer>
+            <card-footer-item class="has-padding-medium">
+                <confirmation placement="bottom"
+                    @confirm="maintenance()">
+                    <span class="icon is-small is-clickable">
+                        <fa icon="power-off"
+                            size="xs"/>
+                    </span>
+                    <span>{{ i18n('App') }}</span>
+                </confirmation>
+            </card-footer-item>
+            <card-footer-item class="has-padding-medium">
+                <confirmation placement="bottom"
+                    @confirm="clearLog()">
+                    <span class="icon is-small is-clickable">
+                        <fa icon="trash-alt"
+                            size="xs"/>
+                    </span>
+                    <span>{{ i18n('Log') }}</span>
+                </confirmation>
+            </card-footer-item>
+        </card-footer>
     </card>
 </template>
 
 <script>
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrashAlt, faPowerOff, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { VTooltip } from 'v-tooltip';
-import Card from '../bulma/Card.vue';
-import CardControl from '../bulma/CardControl.vue';
-import Popover from '../bulma/Popover.vue';
+import {
+    Card, CardHeader, CardControl, CardRefresh, CardCollapse,
+    CardContent, CardFooter, CardFooterItem, Confirmation
+} from '@enso-ui/bulma';
 
 library.add(faTrashAlt, faPowerOff, faInfoCircle);
 
@@ -152,7 +158,12 @@ export default {
 
     directives: { tooltip: VTooltip },
 
-    components: { Card, CardControl, Popover },
+    components: {
+        Card, CardHeader, CardControl, CardRefresh, CardCollapse,
+        CardContent, CardFooter, CardFooterItem, Confirmation
+    },
+
+    inject: ['i18n', 'errorHandler'],
 
     props: {
         application: {
@@ -165,13 +176,11 @@ export default {
         },
     },
 
-    data() {
-        return {
-            loading: false,
-            statistics: {},
-            Enso: 2,
-        };
-    },
+    data: () => ({
+        loading: false,
+        statistics: {},
+        Enso: 2,
+    }),
 
     created() {
         this.fetch();
@@ -187,7 +196,7 @@ export default {
                 this.statistics = data;
                 this.loading = false;
                 this.$emit('loaded');
-            }).catch(error => this.handleError(error));
+            }).catch(this.errorHandler);
         },
         maintenance() {
             this.loading = true;
@@ -195,7 +204,7 @@ export default {
                 .then(({ data }) => {
                     this.statistics.status = data.status;
                     this.loading = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         clearLog() {
             this.loading = true;
@@ -203,7 +212,7 @@ export default {
                 .then(({ data }) => {
                     this.statistics.logSize = data.logSize;
                     this.loading = false;
-                }).catch(error => this.handleError(error));
+                }).catch(this.errorHandler);
         },
         format(value) {
             if (typeof value === 'undefined') {
@@ -223,9 +232,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-    .table {
+<style lang="scss">
+    .table.application {
         font-size: 0.9rem;
 
         .tag {
@@ -234,5 +242,4 @@ export default {
             height: 1.4em;
         }
     }
-
 </style>
