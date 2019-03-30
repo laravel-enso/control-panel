@@ -3,7 +3,7 @@
     "description": "A control panel that aggregates, controls and displays statistics from other laravel-enso apps",
     "type": "project",
     "require": {
-        "laravel-enso/core": "3.7.*",
+        "laravel-enso/core": "4.1.*",
         "guzzlehttp/guzzle": "^6.3"
     },
     "license": "MIT",
