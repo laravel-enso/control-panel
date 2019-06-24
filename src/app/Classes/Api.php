@@ -4,10 +4,10 @@ namespace LaravelEnso\ControlPanel\app\Classes;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
+use LaravelEnso\Helpers\app\Classes\Obj;
 use LaravelEnso\ControlPanel\app\Enums\DataTypes;
 use LaravelEnso\ControlPanel\app\Models\Application;
-use LaravelEnso\Helpers\app\Classes\Obj;
+use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 
 class Api
 {
@@ -36,7 +36,7 @@ class Api
 
     public function maintenance()
     {
-        if ($this->application->type == 2) {
+        if ($this->application->type === 2) {
             return $this->request('POST', self::Maintenance);
         }
 
@@ -45,7 +45,7 @@ class Api
 
     public function clearLog()
     {
-        if ($this->application->type == 2) {
+        if ($this->application->type === 2) {
             return $this->request('POST', self::ClearLog);
         }
 
@@ -78,7 +78,7 @@ class Api
             ? []
             : [
                 'startDate' => $this->params->get('startDate'),
-                'endDate'   => $this->params->get('endDate'),
+                'endDate' => $this->params->get('endDate'),
                 'dataTypes' => json_encode(DataTypes::keys()),
             ];
     }
