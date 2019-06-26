@@ -1,8 +1,8 @@
 <?php
 
-use LaravelEnso\StructureManager\app\Classes\StructureMigration;
+use LaravelEnso\Migrator\app\Database\Migration;
 
-class CreateStructureForControlPanel extends StructureMigration
+class CreateStructureForControlPanel extends Migration
 {
     protected $permissions = [
         ['name' => 'controlPanel.statistics', 'description' => 'Get metrics for an application', 'type' => 0, 'is_default' => false],
