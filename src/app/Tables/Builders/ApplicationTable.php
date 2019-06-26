@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\app\Tables\Builders;
 
-use LaravelEnso\VueDatatable\app\Classes\Table;
+use LaravelEnso\Tables\app\Services\Table;
 use LaravelEnso\ControlPanel\app\Models\Application;
 
 class ApplicationTable extends Table

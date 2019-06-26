@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\app\Forms\Builders;
 
-use LaravelEnso\FormBuilder\app\Classes\Form;
+use LaravelEnso\Forms\app\Services\Form;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 
