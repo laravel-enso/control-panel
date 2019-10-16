@@ -4,6 +4,7 @@
     "type": "project",
     "require": {
         "laravel-enso/core": "4.4.*",
+        "laravel-enso/enums": "1.1.*",
         "guzzlehttp/guzzle": "^6.3"
     },
     "license": "MIT",
