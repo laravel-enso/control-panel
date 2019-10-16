@@ -1,5 +1,5 @@
 {
-    "name": "laravel-enso/controlpanel",
+    "name": "laravel-enso/control-panel",
     "description": "A control panel that aggregates, controls and displays statistics from other laravel-enso apps",
     "type": "project",
     "require": {
