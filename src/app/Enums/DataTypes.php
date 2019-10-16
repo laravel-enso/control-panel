@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\app\Enums;
 
-use LaravelEnso\Helpers\app\Classes\Enum;
+use LaravelEnso\Enums\app\Services\Enum;
 
 class DataTypes extends Enum
 {
