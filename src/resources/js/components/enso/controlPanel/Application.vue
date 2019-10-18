@@ -163,7 +163,7 @@ export default {
         CardContent, CardFooter, CardFooterItem, Confirmation
     },
 
-    inject: ['i18n', 'errorHandler'],
+    inject: ['i18n', 'errorHandler', 'route'],
 
     props: {
         application: {
@@ -190,7 +190,7 @@ export default {
         fetch() {
             this.loading = true;
             axios.post(
-                route('controlPanel.statistics', this.application.id),
+                this.route('controlPanel.statistics', this.application.id),
                 { startDate: this.dates.min, endDate: this.dates.max, type: this.application.type },
             ).then(({ data }) => {
                 this.statistics = data;
@@ -200,7 +200,7 @@ export default {
         },
         maintenance() {
             this.loading = true;
-            axios.post(route('controlPanel.maintenance', this.application.id))
+            axios.post(this.route('controlPanel.maintenance', this.application.id))
                 .then(({ data }) => {
                     this.statistics.status = data.status;
                     this.loading = false;
@@ -208,7 +208,7 @@ export default {
         },
         clearLog() {
             this.loading = true;
-            axios.post(route('controlPanel.clearLog', this.application.id))
+            axios.post(this.route('controlPanel.clearLog', this.application.id))
                 .then(({ data }) => {
                     this.statistics.logSize = data.logSize;
                     this.loading = false;
