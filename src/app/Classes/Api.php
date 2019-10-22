@@ -2,6 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\app\Classes;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use LaravelEnso\Helpers\app\Classes\Obj;
@@ -74,12 +75,19 @@ class Api
 
     private function query()
     {
-        return $this->params->isEmpty()
-            ? []
-            : [
-                'startDate' => $this->params->get('startDate'),
-                'endDate' => $this->params->get('endDate'),
+        $format = config('enso.config.dateTimeFormat');
+
+        return $this->params->isNotEmpty()
+            ? [
+                'startDate' => $this->formattedDate($format, $this->params->get('startDate')),
+                'endDate' => $this->formattedDate($format, $this->params->get('endDate')),
                 'dataTypes' => json_encode(DataTypes::keys()),
-            ];
+            ] : [];
+    }
+
+    private function formattedDate($format, $date)
+    {
+        return Carbon::createFromFormat($format, $date)
+            ->toDateTimeString();
     }
 }
