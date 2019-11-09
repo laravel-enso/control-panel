@@ -3,8 +3,8 @@
 namespace LaravelEnso\ControlPanel\app\Http\Controllers\Application;
 
 use Illuminate\Routing\Controller;
-use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\app\Http\Requests\ValidateApplicationRequest;
+use LaravelEnso\ControlPanel\app\Models\Application;
 
 class Update extends Controller
 {

@@ -3,8 +3,8 @@
 namespace LaravelEnso\ControlPanel\app\Tables\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use LaravelEnso\Tables\app\Contracts\Table;
 use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\Tables\app\Contracts\Table;
 
 class ApplicationTable implements Table
 {
