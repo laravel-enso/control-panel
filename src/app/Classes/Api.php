@@ -4,9 +4,9 @@ namespace LaravelEnso\ControlPanel\app\Classes;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\app\Enums\DataTypes;
+use LaravelEnso\ControlPanel\app\Exceptions\ApiRequest as Exception;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\Helpers\app\Classes\Obj;
 
@@ -30,7 +30,7 @@ class Api
 
     public function statistics()
     {
-        return ($this->params->get('type') === ApplicationTypes::Legacy)
+        return $this->params->get('type') === ApplicationTypes::Legacy
             ? $this->legacy()
             : $this->enso();
     }
@@ -41,7 +41,7 @@ class Api
             return $this->request('POST', self::Maintenance);
         }
 
-        throw new ApiRequestException(__('Unsupported Operation for this Application'));
+        throw Exception::unsupportedOperation();
     }
 
     public function clearLog()
@@ -50,7 +50,7 @@ class Api
             return $this->request('POST', self::ClearLog);
         }
 
-        throw new ApiRequestException(__('Unsupported Operation for this Application'));
+        throw Exception::unsupportedOperation();
     }
 
     private function enso()
@@ -66,11 +66,11 @@ class Api
     private function request($method, $path)
     {
         return $this->client->request($method, $this->application->url.$path, [
-                'headers' => [
-                    'Api-Token' => $this->application->token,
-                ],
-                'query' => $this->query(),
-            ]);
+            'headers' => [
+                'Api-Token' => $this->application->token,
+            ],
+            'query' => $this->query(),
+        ]);
     }
 
     private function query()

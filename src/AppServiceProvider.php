@@ -19,9 +19,4 @@ class AppServiceProvider extends ServiceProvider
             __DIR__.'/resources/js' => resource_path('js'),
         ], 'enso-assets');
     }
-
-    public function register()
-    {
-        //
-    }
 }
