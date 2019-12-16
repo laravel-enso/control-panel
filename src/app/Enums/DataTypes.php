@@ -6,15 +6,15 @@ use LaravelEnso\Enums\app\Services\Enum;
 
 class DataTypes extends Enum
 {
-    const Logins = 'logins';
-    const Actions = 'actions';
-    const FailedJobs = 'failed jobs';
-    const Sessions = 'sessions';
-    const Users = 'users';
-    const ActiveUsers = 'active users';
-    const NewUsers = 'new users';
-    const ServerTime = 'server time';
-    const Version = 'version';
-    const LogSize = 'log size';
-    const Status = 'status';
+    public const Logins = 'logins';
+    public const Actions = 'actions';
+    public const FailedJobs = 'failed jobs';
+    public const Sessions = 'sessions';
+    public const Users = 'users';
+    public const ActiveUsers = 'active users';
+    public const NewUsers = 'new users';
+    public const ServerTime = 'server time';
+    public const Version = 'version';
+    public const LogSize = 'log size';
+    public const Status = 'status';
 }

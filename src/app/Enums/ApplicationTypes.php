@@ -6,6 +6,6 @@ use LaravelEnso\Enums\app\Services\Enum;
 
 class ApplicationTypes extends Enum
 {
-    const Legacy = 1;
-    const Enso = 2;
+    public const Legacy = 1;
+    public const Enso = 2;
 }

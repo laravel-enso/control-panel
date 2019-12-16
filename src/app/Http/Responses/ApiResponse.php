@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Support\Responsable;
 use LaravelEnso\ControlPanel\app\Classes\Api;
 use LaravelEnso\ControlPanel\app\Contracts\ApiResponsable;
-use LaravelEnso\ControlPanel\app\Exceptions\ApiResponseException;
+use LaravelEnso\ControlPanel\app\Exceptions\ApiResponse as Exception;
 use LaravelEnso\ControlPanel\app\Models\Application;
 
 abstract class ApiResponse implements Responsable, ApiResponsable
@@ -26,10 +26,10 @@ abstract class ApiResponse implements Responsable, ApiResponsable
             $response = $api->{$this->method()}();
         } catch (RequestException $exception) {
             if ($exception->hasResponse()) {
-                throw new ApiResponseException($exception->getResponse()->getBody());
+                throw Exception::error($exception->getResponse()->getBody());
             }
 
-            throw new ApiResponseException($exception->getMessage());
+            throw Exception::error($exception->getMessage());
         }
 
         if ($response->getStatusCode() === 200) {
