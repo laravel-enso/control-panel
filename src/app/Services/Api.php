@@ -2,7 +2,6 @@
 
 namespace LaravelEnso\ControlPanel\App\Services;
 
-use Carbon\Carbon;
 use GuzzleHttp\Client;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\App\Enums\DataTypes;
@@ -32,8 +31,8 @@ class Api
     public function statistics()
     {
         return $this->params->get('type') === ApplicationTypes::Legacy
-            ? $this->legacy()
-            : $this->enso();
+            ? $this->request('GET', self::LegacyStatistics)
+            : $this->request('GET', self::EnsoStatistics);
     }
 
     public function maintenance(): ResponseInterface
@@ -54,30 +53,8 @@ class Api
         throw Exception::unsupportedOperation();
     }
 
-    private function enso(): ResponseInterface
-    {
-        return $this->request('GET', self::EnsoStatistics);
-    }
-
-    private function legacy(): ResponseInterface
-    {
-        return $this->request('GET', self::LegacyStatistics);
-    }
-
     private function request(string $method, string $path): ResponseInterface
     {
-        //echo "->DEBUG at <b>" . __FUNCTION__ . "</b>at <b>" . __LINE__ . '</b>$method = '.$method."<br>".PHP_EOL;
-        //echo "->DEBUG at <b>" . __FUNCTION__ . "</b>at <b>" . __LINE__ . '</b>$this->application->url.$path = '.$this->application->url.$path."<br>".PHP_EOL;
-        //
-        ////print_r($this->application->url.$path);
-        ////die();
-        //print_r([
-        //    'headers' => [
-        //        'Api-Token' => $this->application->token,
-        //    ],
-        //    'query' => $this->query(),
-        //]);
-
         return $this->client->request($method, $this->application->url.$path, [
             'headers' => [
                 'Api-Token' => $this->application->token,
