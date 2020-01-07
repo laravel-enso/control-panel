@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Forms\Builders;
+namespace LaravelEnso\ControlPanel\App\Forms\Builders;
 
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\app\Models\Application;
-use LaravelEnso\Forms\app\Services\Form;
+use LaravelEnso\Forms\App\Services\Form;
 
 class ApplicationForm
 {

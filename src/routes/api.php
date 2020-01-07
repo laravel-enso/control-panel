@@ -1,6 +1,8 @@
 <?php
 
-Route::namespace('LaravelEnso\ControlPanel\app\Http\Controllers')
+use Illuminate\Support\Facades\Route;
+
+Route::namespace('LaravelEnso\ControlPanel\App\Http\Controllers')
     ->middleware(['web', 'auth', 'core'])
     ->prefix('api')
     ->group(function () {

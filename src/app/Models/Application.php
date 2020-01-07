@@ -1,9 +1,9 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Models;
+namespace LaravelEnso\ControlPanel\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use LaravelEnso\Tables\app\Traits\TableCache;
+use LaravelEnso\Tables\App\Traits\TableCache;
 
 class Application extends Model
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Tables\Builders;
+namespace LaravelEnso\ControlPanel\App\Tables\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use LaravelEnso\ControlPanel\app\Models\Application;
-use LaravelEnso\Tables\app\Contracts\Table;
+use LaravelEnso\Tables\App\Contracts\Table;
 
 class ApplicationTable implements Table
 {

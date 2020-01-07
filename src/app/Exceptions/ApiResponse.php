@@ -1,8 +1,8 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Exceptions;
+namespace LaravelEnso\ControlPanel\App\Exceptions;
 
-use LaravelEnso\Helpers\app\Exceptions\EnsoException;
+use LaravelEnso\Helpers\App\Exceptions\EnsoException;
 
 class ApiResponse extends EnsoException
 {
