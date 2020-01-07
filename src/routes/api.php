@@ -5,5 +5,5 @@ Route::namespace('LaravelEnso\ControlPanel\app\Http\Controllers')
     ->prefix('api')
     ->group(function () {
         require 'app/controlPanel.php';
-        require 'app/applications.php.php';
+        require 'app/applications.php';
     });
