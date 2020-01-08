@@ -12,10 +12,10 @@ use Psr\Http\Message\ResponseInterface;
 
 class Api
 {
-    private const EnsoStatistics = '/api/token/statistics';
-    private const LegacyStatistics = '/api/statistics';
-    private const Maintenance = '/api/token/maintenance';
-    private const ClearLog = '/api/token/clearLog';
+    private const EnsoStatistics = '/token/statistics';
+    private const LegacyStatistics = '/statistics';
+    private const Maintenance = '/token/maintenance';
+    private const ClearLog = '/token/clearLog';
 
     private Obj $params;
     private Application $application;
