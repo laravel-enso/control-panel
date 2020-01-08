@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Http\Responses;
+namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 class StatisticsResponse extends ApiResponse
 {
-    public function method()
+    public function method(): string
     {
         return 'statistics';
     }

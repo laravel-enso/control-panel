@@ -1,8 +1,8 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Contracts;
+namespace LaravelEnso\ControlPanel\App\Contracts;
 
 interface ApiResponsable
 {
-    public function method();
+    public function method(): string;
 }

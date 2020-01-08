@@ -1,9 +1,9 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Http\Controllers\ControlPanel;
+namespace LaravelEnso\ControlPanel\App\Http\Controllers\ControlPanel;
 
 use App\Http\Controllers\Controller;
-use LaravelEnso\ControlPanel\app\Http\Responses\MaintenanceResponse;
+use LaravelEnso\ControlPanel\App\Http\Responses\MaintenanceResponse;
 use LaravelEnso\ControlPanel\app\Models\Application;
 
 class Maintenance extends Controller

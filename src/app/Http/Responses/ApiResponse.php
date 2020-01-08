@@ -1,17 +1,17 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Http\Responses;
+namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Support\Responsable;
-use LaravelEnso\ControlPanel\app\Classes\Api;
-use LaravelEnso\ControlPanel\app\Contracts\ApiResponsable;
-use LaravelEnso\ControlPanel\app\Exceptions\ApiResponse as Exception;
+use LaravelEnso\ControlPanel\App\Contracts\ApiResponsable;
+use LaravelEnso\ControlPanel\App\Exceptions\ApiResponse as Exception;
 use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\ControlPanel\App\Services\Api;
 
 abstract class ApiResponse implements Responsable, ApiResponsable
 {
-    private $application;
+    private Application $application;
 
     public function __construct(Application $application)
     {
