@@ -2,12 +2,6 @@
 
 namespace LaravelEnso\ControlPanel\App\Services\Api;
 
-use GuzzleHttp\Client;
-use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
-use LaravelEnso\ControlPanel\App\Enums\DataTypes;
-use LaravelEnso\ControlPanel\App\Exceptions\ApiRequest as Exception;
-use LaravelEnso\ControlPanel\app\Models\Application;
-use LaravelEnso\Helpers\App\Classes\Obj;
 use Psr\Http\Message\ResponseInterface;
 
 class Enso extends Api
