@@ -10,5 +10,5 @@ class InitTable extends Controller
 {
     use Init;
 
-    protected $tableClass = ApplicationTable::class;
+    protected string $tableClass = ApplicationTable::class;
 }

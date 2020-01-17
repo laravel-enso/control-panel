@@ -10,5 +10,5 @@ class TableData extends Controller
 {
     use Data;
 
-    protected $tableClass = ApplicationTable::class;
+    protected string $tableClass = ApplicationTable::class;
 }
