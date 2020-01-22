@@ -13,6 +13,10 @@ class CreateApplicationsTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('url');
+            $table->string('forge');
+            $table->string('envoyer');
+            $table->string('gitlab');
+            $table->string('sentry');
             $table->integer('type');
             $table->string('token');
             $table->integer('order_index');

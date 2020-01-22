@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services\Api;
+namespace LaravelEnso\ControlPanel\App\Services\Enso\Api;
 
 use Psr\Http\Message\ResponseInterface;
 

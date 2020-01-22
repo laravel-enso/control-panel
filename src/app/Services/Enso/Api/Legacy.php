@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services\Api;
+namespace LaravelEnso\ControlPanel\App\Services\Enso\Api;
 
 use LaravelEnso\ControlPanel\App\Exceptions\ApiRequest as Exception;
 use Psr\Http\Message\ResponseInterface;

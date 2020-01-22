@@ -1,12 +1,12 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services;
+namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\app\Models\Application;
-use LaravelEnso\ControlPanel\App\Services\Api\Api;
-use LaravelEnso\ControlPanel\App\Services\Api\Enso;
-use LaravelEnso\ControlPanel\App\Services\Api\Legacy;
+use LaravelEnso\ControlPanel\App\Services\Enso\Api\Api;
+use LaravelEnso\ControlPanel\App\Services\Enso\Api\Enso;
+use LaravelEnso\ControlPanel\App\Services\Enso\Api\Legacy;
 
 class Factory
 {
