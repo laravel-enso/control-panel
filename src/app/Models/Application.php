@@ -9,7 +9,10 @@ class Application extends Model
 {
     use TableCache;
 
-    protected $fillable = ['name', 'description', 'url', 'type', 'token', 'order_index'];
+    protected $fillable = [
+        'name', 'description', 'url', 'type', 'token', 'order_index',
+        'envoyer', 'forge', 'gitlab', 'sentry',
+    ];
 
     protected $hidden = ['token'];
 

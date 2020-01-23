@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services\Api;
+namespace LaravelEnso\ControlPanel\App\Services\Enso\Api;
 
 use GuzzleHttp\Client;
 use LaravelEnso\ControlPanel\App\Enums\DataTypes;

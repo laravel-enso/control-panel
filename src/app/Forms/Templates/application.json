@@ -34,6 +34,57 @@
                         "type": "input",
                         "content": "text"
                     }
+                },
+                {
+                    "label": "Forge Url",
+                    "name": "forge",
+                    "value": null,
+                    "column": 6,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                },
+                {
+                    "label": "Envoyer Url",
+                    "name": "envoyer",
+                    "value": null,
+                    "column": 6,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                },
+                {
+                    "label": "Gitlab Id",
+                    "name": "gitlab",
+                    "value": null,
+                    "column": 4,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
+                },
+                {
+                    "label": "Sentry",
+                    "name": "sentry",
+                    "value": null,
+                    "column": 4,
+                    "meta": {
+                        "type": "input",
+                        "content": "text",
+                        "placeholder": "sentry/erp"
+                    }
+                },
+                {
+                    "label": "Order",
+                    "name": "order_index",
+                    "value": null,
+                    "column": 4,
+                    "meta": {
+                        "type": "input",
+                        "content": "text"
+                    }
                 }
             ]
         },
@@ -44,17 +95,7 @@
                     "label": "Token",
                     "name": "token",
                     "value": null,
-                    "column": 10,
-                    "meta": {
-                        "type": "input",
-                        "content": "text"
-                    }
-                },
-                {
-                    "label": "Order",
-                    "name": "order_index",
-                    "value": null,
-                    "column": 2,
+                    "column": 12,
                     "meta": {
                         "type": "input",
                         "content": "text"
