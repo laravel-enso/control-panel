@@ -6,22 +6,18 @@ use Psr\Http\Message\ResponseInterface;
 
 class Enso extends Api
 {
-    private const EnsoStatistics = '/token/statistics';
-    private const Maintenance = '/token/maintenance';
-    private const ClearLog = '/token/clearLog';
-
     public function statistics(): ResponseInterface
     {
-        return $this->request('GET', self::EnsoStatistics);
+        return $this->request('GET', '/token/statistics');
     }
 
-    public function maintenance(): ResponseInterface
+    public function actions(): ResponseInterface
     {
-        return $this->request('POST', self::Maintenance);
+        return $this->request('GET', '/token/actions');
     }
 
-    public function clearLog(): ResponseInterface
+    public function action($action): ResponseInterface
     {
-        return $this->request('POST', self::ClearLog);
+        return $this->request('POST', "/token/{$action}");
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Responsable;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\SafeApi;
 use LaravelEnso\ControlPanel\App\Services\Sentry\Api;
+use LaravelEnso\ControlPanel\App\Services\Sentry\Events;
 
 class Sentry implements Responsable
 {
@@ -21,14 +22,18 @@ class Sentry implements Responsable
     public function toResponse($request)
     {
         return [
-            'events' => $this->events(),
-            'webUrl' => config('enso.control-panels.sentry.url').'/'.$this->application->sentry,
+            'statistics' => [
+                'Errors' => Sensor::collection([
+                    new Events($this->api),
+                ])
+            ],
+            'url' => $this->url(),
         ];
     }
 
-    private function events()
+    private function url(): string
     {
-        return collect($this->api->events())
-            ->reduce(fn ($sum, $event) => $sum + $event[1]);
+        return rtrim(config('enso.control-panels.sentry.url'), '/')
+            .'/'.$this->application->sentry;
     }
 }
