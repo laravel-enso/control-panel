@@ -3,8 +3,8 @@
 namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
 
 use Illuminate\Support\Str;
-use LaravelEnso\ControlPanel\App\Services\SafeApi;
 use LaravelEnso\ControlPanel\App\Contracts\Sensor;
+use LaravelEnso\ControlPanel\App\Services\SafeApi;
 
 class Pipeline implements Sensor
 {
