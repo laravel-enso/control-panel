@@ -15,6 +15,6 @@ class CacheApi
     public function __call($name, $arguments)
     {
         return $this->caches[json_encode([$name, $arguments])]
-            ??= $response = $this->api->{$name}(...$arguments);
+            ??= $this->api->{$name}(...$arguments);
     }
 }
