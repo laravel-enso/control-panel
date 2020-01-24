@@ -30,7 +30,7 @@ class Gitlab implements Responsable
                     new Pipeline($this->api),
                 ]),
             ],
-            'url' => $this->api->project()['web_url']
+            'url' => $this->api->project()['web_url'],
         ];
     }
 }
