@@ -25,7 +25,7 @@ class Sentry implements Responsable
             'statistics' => [
                 'Errors' => Sensor::collection([
                     new Events($this->api),
-                ])
+                ]),
             ],
             'url' => $this->url(),
         ];

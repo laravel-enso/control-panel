@@ -2,9 +2,6 @@
 
 namespace LaravelEnso\ControlPanel\App\Services;
 
-use GuzzleHttp\Exception\RequestException;
-use LaravelEnso\ControlPanel\App\Exceptions\ApiResponse as Exception;
-
 class CacheApi
 {
     private $api;

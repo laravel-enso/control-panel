@@ -2,8 +2,8 @@
 
 namespace LaravelEnso\ControlPanel\App\Services\Sentry;
 
-use LaravelEnso\ControlPanel\App\Services\SafeApi;
 use LaravelEnso\ControlPanel\App\Contracts\Sensor;
+use LaravelEnso\ControlPanel\App\Services\SafeApi;
 
 class Events implements Sensor
 {
