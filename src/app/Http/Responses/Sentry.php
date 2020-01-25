@@ -3,9 +3,10 @@
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\SafeApi;
-use LaravelEnso\ControlPanel\App\Services\Sentry\Api;
 
 class Sentry implements Responsable
 {
@@ -14,7 +15,7 @@ class Sentry implements Responsable
 
     public function __construct(Application $application)
     {
-        $this->api = new SafeApi(new Api($application));
+        $this->api = new SafeApi($application->sentryApi());
         $this->application = $application;
     }
 
@@ -22,13 +23,19 @@ class Sentry implements Responsable
     {
         return [
             'events' => $this->events(),
-            'webUrl' => config('enso.control-panels.sentry.url').'/'.$this->application->sentry,
+            'url' => $this->url(),
         ];
     }
 
     private function events()
     {
-        return collect($this->api->events())
+        return (new Collection($this->api->events()))
             ->reduce(fn ($sum, $event) => $sum + $event[1]);
+    }
+
+    private function url()
+    {
+        return Config::get('enso.control-panel.sentry.url')
+            ."/{$this->application->sentry}";
     }
 }

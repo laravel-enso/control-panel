@@ -3,9 +3,13 @@
     "description": "A control panel that aggregates, controls and displays statistics from other laravel-enso apps",
     "type": "project",
     "require": {
+        "guzzlehttp/guzzle": "^6.3",
         "laravel-enso/core": "4.7.*",
         "laravel-enso/enums": "1.2.*",
-        "guzzlehttp/guzzle": "^6.3"
+        "laravel-enso/forms": "3.4.*",
+        "laravel-enso/helpers": "1.15.*",
+        "laravel-enso/migrator": "1.1.*",
+        "laravel-enso/tables": "3.2.*"
     },
     "license": "MIT",
     "authors": [
@@ -18,6 +22,12 @@
         {
             "name": "Adrian Ocneanu",
             "email": "aocneanu@gmail.com",
+            "homepage": "https://laravel-enso.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Reza Fouladi",
+            "email": "raftx24@gmail.com",
             "homepage": "https://laravel-enso.com",
             "role": "Developer"
         }

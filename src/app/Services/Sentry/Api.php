@@ -3,10 +3,11 @@
 namespace LaravelEnso\ControlPanel\App\Services\Sentry;
 
 use GuzzleHttp\Client;
+use LaravelEnso\ControlPanel\App\Contracts\Api as Contract;
 use LaravelEnso\ControlPanel\App\Models\Application;
 use Psr\Http\Message\ResponseInterface;
 
-class Api
+class Api implements Contract
 {
     private $id;
     private Client $client;
@@ -19,15 +20,23 @@ class Api
 
     public function events(): ResponseInterface
     {
-        return $this->request("api/0/projects/{$this->id}/stats/");
+        return $this->call("api/0/projects/{$this->id}/stats/");
     }
 
-    private function request(string $path): ResponseInterface
+    private function call(string $uri): ResponseInterface
     {
-        return $this->client->request('GET', config('enso.control-panels.sentry.url').$path, [
-            'headers' => [
-                'Authorization' => 'Bearer '.config('enso.control-panels.sentry.token'),
-            ],
+        return $this->client->get($this->url($uri), [
+            'headers' => $this->headers(),
         ]);
+    }
+
+    private function url(string $uri): string
+    {
+        return config('enso.control-panel.sentry.url')."/{$uri}";
+    }
+
+    private function headers(): array
+    {
+        return ['Authorization' => 'Bearer '.config('enso.control-panel.sentry.token')];
     }
 }

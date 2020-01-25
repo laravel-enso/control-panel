@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
-class MaintenanceResponse extends ApiResponse
+class Maintenance extends ApiResponse
 {
     public function method(): string
     {

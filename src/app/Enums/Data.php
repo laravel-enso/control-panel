@@ -4,7 +4,7 @@ namespace LaravelEnso\ControlPanel\App\Enums;
 
 use LaravelEnso\Enums\App\Services\Enum;
 
-class DataTypes extends Enum
+class Data extends Enum
 {
     public const Logins = 'logins';
     public const Actions = 'actions';

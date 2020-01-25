@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/routes/api.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->mergeConfigFrom(__DIR__.'/config/control-panels.php', 'enso.control-panels');
+        $this->mergeConfigFrom(__DIR__.'/config/control-panel.php', 'enso.control-panel');
 
         return $this;
     }

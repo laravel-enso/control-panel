@@ -10,16 +10,23 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('name');
-            $table->string('description')->nullable();
+
+            $table->text('description')->nullable();
+
             $table->string('url');
-            $table->string('forge');
-            $table->string('envoyer');
-            $table->string('gitlab');
-            $table->string('sentry');
+            $table->string('forge'); //TODO forge_url
+            $table->string('envoyer'); //TODO envoyer_url
+            $table->string('gitlab'); //TODO gitlab_project_id
+            $table->string('sentry'); //TODO sentry_uri
+
             $table->integer('type');
             $table->string('token');
             $table->integer('order_index');
+
+            $table->boolean('is_active');
+
             $table->timestamps();
         });
     }

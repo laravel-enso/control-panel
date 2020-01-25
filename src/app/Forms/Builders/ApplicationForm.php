@@ -10,7 +10,7 @@ class ApplicationForm
 {
     private const TemplatePath = __DIR__.'/../Templates/application.json';
 
-    private $form;
+    private Form $form;
 
     public function __construct()
     {

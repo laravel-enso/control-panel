@@ -39,7 +39,7 @@
                     "label": "Forge Url",
                     "name": "forge",
                     "value": null,
-                    "column": 6,
+                    "column": 12,
                     "meta": {
                         "type": "input",
                         "content": "text"
@@ -49,14 +49,14 @@
                     "label": "Envoyer Url",
                     "name": "envoyer",
                     "value": null,
-                    "column": 6,
+                    "column": 12,
                     "meta": {
                         "type": "input",
                         "content": "text"
                     }
                 },
                 {
-                    "label": "Gitlab Id",
+                    "label": "Gitlab Project Id",
                     "name": "gitlab",
                     "value": null,
                     "column": 4,
@@ -66,7 +66,7 @@
                     }
                 },
                 {
-                    "label": "Sentry",
+                    "label": "Sentry URI",
                     "name": "sentry",
                     "value": null,
                     "column": 4,
@@ -95,24 +95,34 @@
                     "label": "Token",
                     "name": "token",
                     "value": null,
-                    "column": 12,
+                    "column": 9,
                     "meta": {
                         "type": "input",
                         "content": "text"
+                    }
+                },
+                {
+                    "label": "Active",
+                    "name": "is_active",
+                    "value": true,
+                    "column": 3,
+                    "meta": {
+                        "type": "input",
+                        "content": "checkbox"
                     }
                 }
             ]
         },
         {
-            "columns": "1",
+            "columns": 1,
             "fields": [
                 {
                     "label": "Description",
                     "name": "description",
                     "value": null,
                     "meta": {
-                        "type": "input",
-                        "content": "text"
+                        "type": "wysiwyg",
+                        "rows": 3
                     }
                 }
             ]

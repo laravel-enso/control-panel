@@ -3,10 +3,11 @@
 namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
 
 use GuzzleHttp\Client;
+use LaravelEnso\ControlPanel\App\Contracts\Api as Contract;
 use LaravelEnso\ControlPanel\App\Models\Application;
 use Psr\Http\Message\ResponseInterface;
 
-class Api
+class Api implements Contract
 {
     private $id;
     private Client $client;
@@ -19,30 +20,38 @@ class Api
 
     public function project(): ResponseInterface
     {
-        return $this->request('api/v4/projects/'.$this->id);
+        return $this->call("api/v4/projects/{$this->id}");
     }
 
     public function commits(): ResponseInterface
     {
-        return $this->request("api/v4/projects/{$this->id}/repository/commits");
+        return $this->call("api/v4/projects/{$this->id}/repository/commits");
     }
 
     public function pipeline(): ResponseInterface
     {
-        return $this->request("api/v4/projects/{$this->id}/pipelines");
+        return $this->call("api/v4/projects/{$this->id}/pipelines");
     }
 
-    private function request(string $path): ResponseInterface
+    private function call(string $uri): ResponseInterface
     {
-        return $this->client->request('GET', config('enso.control-panels.gitlab.url').$path, [
-            'headers' => [
-                'Private-Token' => config('enso.control-panels.gitlab.token'),
-            ],
+        return $this->client->get($this->url($uri), [
+            'headers' => $this->headers(),
             'query' => $this->query(),
         ]);
     }
 
-    private function query()
+    private function url(string $uri): string
+    {
+        return config('enso.control-panel.gitlab.url')."/{$uri}";
+    }
+
+    private function headers(): array
+    {
+        return ['Private-Token' => config('enso.control-panel.gitlab.token')];
+    }
+
+    private function query(): array
     {
         return [
             'page' => 1,

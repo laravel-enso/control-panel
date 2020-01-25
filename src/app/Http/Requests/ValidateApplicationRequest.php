@@ -24,6 +24,7 @@ class ValidateApplicationRequest extends FormRequest
             'description' => 'nullable',
             'token' => 'required',
             'order_index' => 'numeric|required',
+            'is_active' => 'required|boolean',
         ];
     }
 }

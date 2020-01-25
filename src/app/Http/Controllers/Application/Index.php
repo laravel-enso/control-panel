@@ -9,7 +9,6 @@ class Index extends Controller
 {
     public function __invoke()
     {
-        return Application::ordered()
-            ->get();
+        return Application::ordered()->get();
     }
 }

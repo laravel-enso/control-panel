@@ -2,10 +2,10 @@
 
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
-class ClearLogResponse extends ApiResponse
+class Statistics extends ApiResponse
 {
     public function method(): string
     {
-        return 'clearLog';
+        return 'statistics';
     }
 }

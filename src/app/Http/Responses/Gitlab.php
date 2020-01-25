@@ -13,7 +13,7 @@ class Gitlab implements Responsable
 
     public function __construct(Application $application)
     {
-        $this->api = new SafeApi(new Api($application));
+        $this->api = new SafeApi($application->gitlabApi());
     }
 
     public function toResponse($request)
