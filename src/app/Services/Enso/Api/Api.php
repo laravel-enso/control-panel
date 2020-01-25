@@ -23,9 +23,9 @@ abstract class Api
 
     abstract public function statistics(): ResponseInterface;
 
-    abstract public function maintenance(): ResponseInterface;
+    abstract public function actions(): ResponseInterface;
 
-    abstract public function clearLog(): ResponseInterface;
+    abstract public function action($action): ResponseInterface;
 
     protected function request(string $method, string $path): ResponseInterface
     {

@@ -12,8 +12,8 @@ class Factory
 {
     public static function make(Application $application, array $params = []): Api
     {
-        return $params['type'] === ApplicationTypes::Enso
-            || $application->type === ApplicationTypes::Enso
+        return $application->type === ApplicationTypes::Enso
+            || $params['type'] === ApplicationTypes::Enso //TODO :: it seems this line can remove.
             ? new Enso($application, $params)
             : new Legacy($application, $params);
     }

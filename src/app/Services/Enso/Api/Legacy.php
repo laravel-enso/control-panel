@@ -14,12 +14,12 @@ class Legacy extends Api
         return $this->request('GET', self::LegacyStatistics);
     }
 
-    public function maintenance(): ResponseInterface
+    public function actions(): ResponseInterface
     {
         throw Exception::unsupportedOperation();
     }
 
-    public function clearLog(): ResponseInterface
+    public function action($action): ResponseInterface
     {
         throw Exception::unsupportedOperation();
     }
