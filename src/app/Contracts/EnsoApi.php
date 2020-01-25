@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 
 interface EnsoApi extends BaseApi
 {
-    public function maintenance(): ResponseInterface;
+    public function actions(): ResponseInterface;
 
-    public function clearLog(): ResponseInterface;
+    public function action(string $action): ResponseInterface;
 }

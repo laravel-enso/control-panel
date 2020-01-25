@@ -3,10 +3,11 @@
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use LaravelEnso\ControlPanel\App\Http\Resources\Sensor;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\SafeApi;
+use LaravelEnso\ControlPanel\App\Services\Sentry\Sensors\Events;
 
 class Sentry implements Responsable
 {
@@ -22,20 +23,18 @@ class Sentry implements Responsable
     public function toResponse($request)
     {
         return [
-            'events' => $this->events(),
+            'statistics' => [
+                'Errors' => Sensor::collection([ //TODO why do we need an intermediate key?
+                    new Events($this->api),
+                ]),
+            ],
             'url' => $this->url(),
         ];
-    }
-
-    private function events()
-    {
-        return (new Collection($this->api->events()))
-            ->reduce(fn ($sum, $event) => $sum + $event[1]);
     }
 
     private function url()
     {
         return Config::get('enso.control-panel.sentry.url')
-            ."/{$this->application->sentry}";
+            ."/{$this->application->sentry_project_slug}";
     }
 }

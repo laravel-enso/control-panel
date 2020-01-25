@@ -11,15 +11,15 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
+            $table->string('name')->unique();
 
             $table->text('description')->nullable();
 
             $table->string('url');
-            $table->string('forge'); //TODO forge_url
-            $table->string('envoyer'); //TODO envoyer_url
-            $table->string('gitlab'); //TODO gitlab_project_id
-            $table->string('sentry'); //TODO sentry_uri
+            $table->string('forge_url'); //TODO forge_url
+            $table->string('envoyer_url'); //TODO envoyer_url
+            $table->string('gitlab_project_id');
+            $table->string('sentry_project_slug'); //TODO sentry_uri
 
             $table->integer('type');
             $table->string('token');

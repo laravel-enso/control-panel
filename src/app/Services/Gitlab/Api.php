@@ -3,6 +3,7 @@
 namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Config;
 use LaravelEnso\ControlPanel\App\Contracts\Api as Contract;
 use LaravelEnso\ControlPanel\App\Models\Application;
 use Psr\Http\Message\ResponseInterface;
@@ -14,7 +15,7 @@ class Api implements Contract
 
     public function __construct(Application $application)
     {
-        $this->id = $application->gitlab;
+        $this->id = $application->gitlab_project_id;
         $this->client = new Client();
     }
 
@@ -43,12 +44,12 @@ class Api implements Contract
 
     private function url(string $uri): string
     {
-        return config('enso.control-panel.gitlab.url')."/{$uri}";
+        return Config::get('enso.control-panel.gitlab.url')."/{$uri}";
     }
 
     private function headers(): array
     {
-        return ['Private-Token' => config('enso.control-panel.gitlab.token')];
+        return ['Private-Token' => Config::get('enso.control-panel.gitlab.token')];
     }
 
     private function query(): array

@@ -12,13 +12,13 @@ class Enso extends ApiRequest implements EnsoApi
         return $this->call('GET', 'token/statistics');
     }
 
-    public function maintenance(): ResponseInterface
+    public function actions(): ResponseInterface
     {
-        return $this->call('POST', 'token/maintenance');
+        return $this->call('GET', '/token/actions');
     }
 
-    public function clearLog(): ResponseInterface
+    public function action($action): ResponseInterface
     {
-        return $this->call('POST', 'token/clearLog');
+        return $this->call('POST', "/token/{$action}");
     }
 }

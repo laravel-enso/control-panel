@@ -3,6 +3,7 @@
 namespace LaravelEnso\ControlPanel\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use LaravelEnso\ControlPanel\App\Enums\ApplicationTypes;
 
 class ValidateApplicationRequest extends FormRequest
 {
@@ -14,13 +15,13 @@ class ValidateApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'type' => 'required',
+            'name' => 'required|unique:applications,name',
+            'type' => 'required|in:'.ApplicationTypes::keys()->implode(','),
             'url' => 'required',
-            'forge' => 'required',
-            'envoyer' => 'required',
-            'gitlab' => 'required',
-            'sentry' => 'required',
+            'forge_url' => 'required',
+            'envoyer_url' => 'required',
+            'gitlab_project_id' => 'required',
+            'sentry_project_slug' => 'required',
             'description' => 'nullable',
             'token' => 'required',
             'order_index' => 'numeric|required',

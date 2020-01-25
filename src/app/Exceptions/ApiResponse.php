@@ -13,6 +13,6 @@ class ApiResponse extends EnsoException
 
     public static function request($code)
     {
-        return new static("The request failed with a response code:{$code}");
+        return new static("The request failed. Response code: {$code}");
     }
 }

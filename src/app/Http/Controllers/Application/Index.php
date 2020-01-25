@@ -9,6 +9,8 @@ class Index extends Controller
 {
     public function __invoke()
     {
+        //TODO add resource, cc instead of sc;
+        //we should add in resource a platforms section that will hold forge, envoyer and gitlab section with label, link and icon
         return Application::ordered()->get();
     }
 }

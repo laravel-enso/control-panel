@@ -14,9 +14,8 @@ class ApplicationForm
 
     public function __construct()
     {
-        $this->form = new Form(self::TemplatePath);
-
-        $this->form->options('type', ApplicationTypes::select());
+        $this->form = (new Form(self::TemplatePath))
+            ->options('type', ApplicationTypes::select());
     }
 
     public function create()

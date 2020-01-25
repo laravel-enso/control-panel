@@ -37,7 +37,7 @@
                 },
                 {
                     "label": "Forge Url",
-                    "name": "forge",
+                    "name": "forge_url",
                     "value": null,
                     "column": 12,
                     "meta": {
@@ -47,7 +47,7 @@
                 },
                 {
                     "label": "Envoyer Url",
-                    "name": "envoyer",
+                    "name": "envoyer_url",
                     "value": null,
                     "column": 12,
                     "meta": {
@@ -57,7 +57,7 @@
                 },
                 {
                     "label": "Gitlab Project Id",
-                    "name": "gitlab",
+                    "name": "gitlab_project_id",
                     "value": null,
                     "column": 4,
                     "meta": {
@@ -67,7 +67,7 @@
                 },
                 {
                     "label": "Sentry URI",
-                    "name": "sentry",
+                    "name": "sentry_project_slug",
                     "value": null,
                     "column": 4,
                     "meta": {
@@ -121,7 +121,7 @@
                     "name": "description",
                     "value": null,
                     "meta": {
-                        "type": "wysiwyg",
+                        "type": "textarea",
                         "rows": 3
                     }
                 }
