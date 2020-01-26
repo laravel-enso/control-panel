@@ -67,7 +67,7 @@
                 },
                 {
                     "label": "Sentry URI",
-                    "name": "sentry_project_slug",
+                    "name": "sentry_project_uri",
                     "value": null,
                     "column": 4,
                     "meta": {

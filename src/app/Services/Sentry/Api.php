@@ -15,13 +15,13 @@ class Api implements Contract
 
     public function __construct(Application $application)
     {
-        $this->id = $application->sentry_project_slug;
+        $this->id = $application->sentry_project_uri;
         $this->client = new Client();
     }
 
     public function events(): ResponseInterface
     {
-        return $this->call("api/0/projects/{$this->id}/stats");
+        return $this->call("api/0/projects/{$this->id}/stats/");
     }
 
     private function call(string $uri): ResponseInterface

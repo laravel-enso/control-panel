@@ -18,7 +18,7 @@ class Application extends Model
 
     protected $fillable = [
         'name', 'description', 'url', 'type', 'token', 'order_index',
-        'envoyer_url', 'forge_url', 'gitlab_project_id', 'sentry_project_slug', 'is_active',
+        'envoyer_url', 'forge_url', 'gitlab_project_id', 'sentry_project_uri', 'is_active',
     ];
 
     protected $hidden = ['token'];

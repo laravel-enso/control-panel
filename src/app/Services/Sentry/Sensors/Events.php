@@ -28,7 +28,7 @@ class Events implements Sensor
 
     public function icon()
     {
-        return 'bug';
+        return ['fad', 'bug'];
     }
 
     public function class(): string

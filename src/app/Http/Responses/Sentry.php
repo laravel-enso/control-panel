@@ -35,6 +35,6 @@ class Sentry implements Responsable
     private function url()
     {
         return Config::get('enso.control-panel.sentry.url')
-            ."/{$this->application->sentry_project_slug}";
+            ."/{$this->application->sentry_project_uri}";
     }
 }
