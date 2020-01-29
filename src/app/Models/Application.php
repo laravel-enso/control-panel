@@ -18,7 +18,8 @@ class Application extends Model
 
     protected $fillable = [
         'name', 'description', 'url', 'type', 'token', 'order_index',
-        'envoyer_url', 'forge_url', 'gitlab_project_id', 'sentry_project_uri', 'is_active',
+        'envoyer_url', 'forge_url', 'gitlab_project_id', 'sentry_project_uri',
+        'is_active',
     ];
 
     protected $hidden = ['token'];
@@ -30,6 +31,11 @@ class Application extends Model
     public function scopeOrdered($query)
     {
         $query->orderBy('order_index');
+    }
+
+    public function scopeActive($query)
+    {
+        $query->whereIsActive(1);
     }
 
     public function baseApi(array $request): BaseApi

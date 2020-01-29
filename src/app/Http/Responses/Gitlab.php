@@ -3,7 +3,10 @@
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
-use LaravelEnso\ControlPanel\App\Http\Resources\Sensor;
+use LaravelEnso\ControlPanel\App\DTOs\Group;
+use LaravelEnso\ControlPanel\App\DTOs\Link;
+use LaravelEnso\ControlPanel\App\Http\Resources\Group as GroupResource;
+use LaravelEnso\ControlPanel\App\Http\Resources\Link as LinkResource;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\CacheApi;
 use LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors\Commit;
@@ -25,14 +28,19 @@ class Gitlab implements Responsable
     public function toResponse($request)
     {
         return [
-            'statistics' => [
-                'Repository' => Sensor::collection([ //TODO why do we need the intermediary key (Repository)
+            'statistics' => GroupResource::collection([
+                new Group('repository', 'Repository', [
                     new Commit($this->api),
                     new Issues($this->api),
                     new Pipeline($this->api),
                 ]),
-            ],
-            'url' => $this->api->project()['web_url'],
+            ]),
+            'links' => LinkResource::collection([
+                new Link(
+                    'gitlab', 'gitlab', $this->api->project()['web_url'],
+                    ['fab', 'gitlab'], 'repository', 'this is link of repository in gitlab'
+                ),
+            ]),
         ];
     }
 }

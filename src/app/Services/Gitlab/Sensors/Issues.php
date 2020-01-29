@@ -14,14 +14,24 @@ class Issues implements Sensor
         $this->api = $api;
     }
 
+    public function id()
+    {
+        return 'issue';
+    }
+
     public function value()
     {
         return $this->api->project()['open_issues_count'];
     }
 
-    public function description(): string
+    public function tooltip(): string
     {
         return 'issues';
+    }
+
+    public function description(): ?string
+    {
+        return null;
     }
 
     public function icon()
@@ -32,5 +42,10 @@ class Issues implements Sensor
     public function class(): string
     {
         return '';
+    }
+
+    public function order(): int
+    {
+        return 10;
     }
 }

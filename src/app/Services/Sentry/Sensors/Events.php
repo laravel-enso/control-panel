@@ -15,13 +15,23 @@ class Events implements Sensor
         $this->api = $api;
     }
 
+    public function id()
+    {
+        return 'events';
+    }
+
     public function value()
     {
         return (new Collection($this->api->events()))
             ->reduce(fn ($sum, $event) => $sum + $event[1]);
     }
 
-    public function description(): string
+    public function tooltip(): string
+    {
+        return 'errors';
+    }
+
+    public function description(): ?string
     {
         return 'number of errors in last 24 hours';
     }
@@ -34,5 +44,10 @@ class Events implements Sensor
     public function class(): string
     {
         return '';
+    }
+
+    public function order(): int
+    {
+        return 0;
     }
 }

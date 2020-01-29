@@ -15,6 +15,11 @@ class Pipeline implements Sensor
         $this->api = $api;
     }
 
+    public function id()
+    {
+        return 'pipeline';
+    }
+
     public function value()
     {
         $pipeline = $this->api->pipeline();
@@ -24,18 +29,23 @@ class Pipeline implements Sensor
             : 'N/A';
     }
 
-    public function description(): string
+    public function tooltip(): string
     {
         return "pipeline {$this->value()}";
+    }
+
+    public function description(): ?string
+    {
+        return null;
     }
 
     public function icon()
     {
         switch ($this->value()) {
             case 'Running':
-                return 'play-circle';
+                return ['fad', 'play-circle'];
             case 'Pending':
-                return 'pause-circle';
+                return ['fad', 'pause-circle'];
             case 'Success':
                 return ['fad', 'check-circle'];
             case 'Failed':
@@ -59,5 +69,10 @@ class Pipeline implements Sensor
             default:
                 return '';
         }
+    }
+
+    public function order(): int
+    {
+        return 0;
     }
 }

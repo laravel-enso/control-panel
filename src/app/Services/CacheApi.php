@@ -6,7 +6,7 @@ use LaravelEnso\ControlPanel\App\Contracts\Api;
 
 class CacheApi implements Api
 {
-    private $api;
+    private Api $api;
     private array $cache;
 
     public function __construct(Api $api)

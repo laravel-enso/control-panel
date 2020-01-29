@@ -2,19 +2,19 @@
 
 namespace LaravelEnso\ControlPanel\App\Contracts;
 
-interface Sensor
+interface Link
 {
     public function id();
 
-    public function value();
+    public function label(): string;
 
-    public function tooltip(): string;
+    public function url(): string;
+
+    public function tooltip(): ?string;
 
     public function description(): ?string;
 
     public function icon();
-
-    public function class(): string;
 
     public function order(): int;
 }

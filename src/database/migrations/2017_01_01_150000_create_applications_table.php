@@ -16,10 +16,10 @@ class CreateApplicationsTable extends Migration
             $table->text('description')->nullable();
 
             $table->string('url');
-            $table->string('forge_url'); //TODO forge_url
-            $table->string('envoyer_url'); //TODO envoyer_url
+            $table->string('forge_url');
+            $table->string('envoyer_url');
             $table->string('gitlab_project_id');
-            $table->string('sentry_project_uri'); //TODO sentry_uri
+            $table->string('sentry_project_uri');
 
             $table->integer('type');
             $table->string('token');

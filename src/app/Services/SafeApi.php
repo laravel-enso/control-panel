@@ -8,7 +8,7 @@ use LaravelEnso\ControlPanel\App\Exceptions\ApiResponse as Exception;
 
 class SafeApi
 {
-    private $api;
+    private Api $api;
 
     public function __construct(Api $api)
     {

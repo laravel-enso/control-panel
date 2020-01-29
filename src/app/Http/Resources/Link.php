@@ -4,17 +4,17 @@ namespace LaravelEnso\ControlPanel\App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Sensor extends JsonResource
+class Link extends JsonResource
 {
     public function toArray($request)
     {
         return [
             'id' => $this->id(),
-            'value' => $this->value(),
+            'label' => ucfirst(__($this->label())),
+            'url' => $this->url(),
             'icon' => $this->icon(),
-            'tooltip' => __($this->tooltip()),
+            'tooltip' => $this->tooltip(),
             'description' => __($this->description()),
-            'class' => $this->class(),
             'order' => $this->order(),
         ];
     }

@@ -3,7 +3,6 @@
 namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
 use GuzzleHttp\Client;
-use LaravelEnso\ControlPanel\App\Enums\Data;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\Helpers\App\Classes\Obj;
 use Psr\Http\Message\ResponseInterface;
@@ -31,7 +30,7 @@ class Api
 
     private function url(string $uri): string
     {
-        return "{$this->application->url}/{$uri}";
+        return rtrim($this->application->url, '/')."/{$uri}";
     }
 
     private function headers(): array
@@ -45,7 +44,6 @@ class Api
             ? [
                 'startDate' => $this->params->get('startDate'),
                 'endDate' => $this->params->get('endDate'),
-                'data' => json_encode(Data::keys()),
             ] : [];
     }
 }
