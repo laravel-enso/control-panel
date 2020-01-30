@@ -26,7 +26,7 @@ class Gitlab implements Responsable
     {
         return [
             'statistics' => GroupResource::collection([
-                new Group($this->api)
+                new Group($this->api),
             ]),
             'links' => LinkResource::collection([
                 new Link($this->api),
