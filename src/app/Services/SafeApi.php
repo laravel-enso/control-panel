@@ -6,7 +6,7 @@ use GuzzleHttp\Exception\RequestException;
 use LaravelEnso\ControlPanel\App\Contracts\Api;
 use LaravelEnso\ControlPanel\App\Exceptions\ApiResponse as Exception;
 
-class SafeApi
+class SafeApi implements Api
 {
     private Api $api;
 

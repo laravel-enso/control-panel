@@ -8,7 +8,9 @@
         "laravel-enso/enums": "1.2.*",
         "laravel-enso/forms": "3.4.*",
         "laravel-enso/helpers": "1.15.*",
+        "laravel-enso/permissions": "3.4.*",
         "laravel-enso/migrator": "1.1.*",
+        "laravel-enso/control-panel-common": "0.9.*",
         "laravel-enso/tables": "3.2.*"
     },
     "license": "MIT",
@@ -41,7 +43,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelEnso\\ControlPanel\\AppServiceProvider"
+                "LaravelEnso\\ControlPanel\\AppServiceProvider",
+                "LaravelEnso\\ControlPanel\\EnumServiceProvider"
             ],
             "aliases": {}
         }

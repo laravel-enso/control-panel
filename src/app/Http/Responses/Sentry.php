@@ -3,23 +3,19 @@
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\Config;
-use LaravelEnso\ControlPanel\App\DTOs\Group;
-use LaravelEnso\ControlPanel\App\DTOs\Link;
-use LaravelEnso\ControlPanel\App\Http\Resources\Group as GroupResource;
-use LaravelEnso\ControlPanel\App\Http\Resources\Link as LinkResource;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\SafeApi;
-use LaravelEnso\ControlPanel\App\Services\Sentry\Sensors\Events;
+use LaravelEnso\ControlPanel\App\Services\Sentry\Group;
+use LaravelEnso\ControlPanel\App\Services\Sentry\Link;
+use LaravelEnso\ControlPanelCommon\App\Http\Resources\Group as GroupResource;
+use LaravelEnso\ControlPanelCommon\App\Http\Resources\Link as LinkResource;
 
 class Sentry implements Responsable
 {
-    private SafeApi $api;
     private Application $application;
 
     public function __construct(Application $application)
     {
-        $this->api = new SafeApi($application->sentryApi());
         $this->application = $application;
     }
 
@@ -27,17 +23,11 @@ class Sentry implements Responsable
     {
         return [
             'statistics' => GroupResource::collection([
-                new Group('errors', 'Errors', [new Events($this->api)]),
+                new Group(new SafeApi($this->application->sentryApi())),
             ]),
             'links' => LinkResource::collection([
-                new Link('sentry', 'sentry', $this->url(), ['fad', 'bug']),
+                new Link($this->application),
             ]),
         ];
-    }
-
-    private function url()
-    {
-        return Config::get('enso.control-panel.sentry.url')
-            ."/{$this->application->sentry_project_uri}";
     }
 }

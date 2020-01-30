@@ -8,6 +8,9 @@ use LaravelEnso\ControlPanel\App\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\App\Services\Enso\Enso;
 use LaravelEnso\ControlPanel\App\Services\Enso\Legacy;
 use LaravelEnso\ControlPanel\App\Services\Gitlab\Api as GitlabApi;
+use LaravelEnso\ControlPanel\App\Services\Gitlab\Envoyer;
+use LaravelEnso\ControlPanel\App\Services\Gitlab\Forge;
+use LaravelEnso\ControlPanel\App\Services\Gitlab\Site;
 use LaravelEnso\ControlPanel\App\Services\Sentry\Api as SentryApi;
 use LaravelEnso\Helpers\app\Traits\ActiveState;
 use LaravelEnso\Tables\App\Traits\TableCache;
@@ -53,5 +56,12 @@ class Application extends Model
     public function gitlabApi(): GitlabApi
     {
         return new GitlabApi($this);
+    }
+
+    public function links(): array
+    {
+        return [
+            new Forge($this), new Envoyer($this), new Site($this),
+        ];
     }
 }

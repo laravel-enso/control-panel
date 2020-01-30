@@ -3,14 +3,14 @@
 namespace LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors;
 
 use Illuminate\Support\Str;
-use LaravelEnso\ControlPanel\App\Contracts\Sensor;
-use LaravelEnso\ControlPanel\App\Services\SafeApi;
+use LaravelEnso\ControlPanel\App\Contracts\Api;
+use LaravelEnso\ControlPanelCommon\App\Contracts\Sensor;
 
 class Pipeline implements Sensor
 {
-    private SafeApi $api;
+    private Api $api;
 
-    public function __construct(SafeApi $api)
+    public function __construct(Api $api)
     {
         $this->api = $api;
     }
@@ -73,6 +73,6 @@ class Pipeline implements Sensor
 
     public function order(): int
     {
-        return 0;
+        return 300;
     }
 }

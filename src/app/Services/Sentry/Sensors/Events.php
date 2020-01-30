@@ -3,14 +3,14 @@
 namespace LaravelEnso\ControlPanel\App\Services\Sentry\Sensors;
 
 use Illuminate\Support\Collection;
-use LaravelEnso\ControlPanel\App\Contracts\Sensor;
-use LaravelEnso\ControlPanel\App\Services\SafeApi;
+use LaravelEnso\ControlPanel\App\Contracts\Api;
+use LaravelEnso\ControlPanelCommon\App\Contracts\Sensor;
 
 class Events implements Sensor
 {
-    private SafeApi $api;
+    private Api $api;
 
-    public function __construct(SafeApi $api)
+    public function __construct(Api $api)
     {
         $this->api = $api;
     }
@@ -48,6 +48,6 @@ class Events implements Sensor
 
     public function order(): int
     {
-        return 0;
+        return 100;
     }
 }

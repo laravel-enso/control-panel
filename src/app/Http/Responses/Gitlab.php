@@ -3,16 +3,13 @@
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
-use LaravelEnso\ControlPanel\App\DTOs\Group;
-use LaravelEnso\ControlPanel\App\DTOs\Link;
-use LaravelEnso\ControlPanel\App\Http\Resources\Group as GroupResource;
-use LaravelEnso\ControlPanel\App\Http\Resources\Link as LinkResource;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\CacheApi;
-use LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors\Commit;
-use LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors\Issues;
-use LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors\Pipeline;
+use LaravelEnso\ControlPanel\App\Services\Gitlab\Group;
+use LaravelEnso\ControlPanel\App\Services\Gitlab\Link;
 use LaravelEnso\ControlPanel\App\Services\SafeApi;
+use LaravelEnso\ControlPanelCommon\App\Http\Resources\Group as GroupResource;
+use LaravelEnso\ControlPanelCommon\App\Http\Resources\Link as LinkResource;
 
 class Gitlab implements Responsable
 {
@@ -29,17 +26,10 @@ class Gitlab implements Responsable
     {
         return [
             'statistics' => GroupResource::collection([
-                new Group('repository', 'Repository', [
-                    new Commit($this->api),
-                    new Issues($this->api),
-                    new Pipeline($this->api),
-                ]),
+                new Group($this->api)
             ]),
             'links' => LinkResource::collection([
-                new Link(
-                    'gitlab', 'gitlab', $this->api->project()['web_url'],
-                    ['fab', 'gitlab'], 'repository', 'this is link of repository in gitlab'
-                ),
+                new Link($this->api),
             ]),
         ];
     }
