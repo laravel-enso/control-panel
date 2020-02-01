@@ -33,7 +33,7 @@
             "meta": [
                 "sortable"
             ],
-            "enum": "LaravelEnso\\ControlPanel\\\App\\Enums\\ApplicationTypes"
+            "enum": "LaravelEnso\\ControlPanel\\App\\Enums\\ApplicationTypes"
         },
         {
             "label": "Order",

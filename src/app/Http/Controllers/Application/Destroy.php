@@ -1,9 +1,9 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\\App\Http\Controllers\Application;
+namespace LaravelEnso\ControlPanel\App\Http\Controllers\Application;
 
 use Illuminate\Routing\Controller;
-use LaravelEnso\ControlPanel\\App\Models\Application;
+use LaravelEnso\ControlPanel\App\Models\Application;
 
 class Destroy extends Controller
 {

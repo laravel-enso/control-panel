@@ -3,7 +3,7 @@
 namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
 use GuzzleHttp\Client;
-use LaravelEnso\ControlPanel\\App\Models\Application;
+use LaravelEnso\ControlPanel\App\Models\Application;
 use LaravelEnso\Helpers\App\Classes\Obj;
 use Psr\Http\Message\ResponseInterface;
 

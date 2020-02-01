@@ -1,7 +1,7 @@
 <?php
 
 use LaravelEnso\Migrator\App\Database\Migration;
-use LaravelEnso\Permissions\\App\Enums\Types;
+use LaravelEnso\Permissions\App\Enums\Types;
 
 class CreateStructureForControlPanel extends Migration
 {

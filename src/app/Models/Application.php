@@ -13,7 +13,7 @@ use LaravelEnso\ControlPanel\App\Services\Forge\Link as ForgeLink;
 use LaravelEnso\ControlPanel\App\Services\Gitlab\Api as GitlabApi;
 use LaravelEnso\ControlPanel\App\Services\Sentry\Api as SentryApi;
 use LaravelEnso\Files\App\Http\Resources\Collection;
-use LaravelEnso\Helpers\\App\Traits\ActiveState;
+use LaravelEnso\Helpers\App\Traits\ActiveState;
 use LaravelEnso\Tables\App\Traits\TableCache;
 
 class Application extends Model
