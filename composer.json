@@ -10,7 +10,7 @@
         "laravel-enso/helpers": "1.15.*",
         "laravel-enso/permissions": "3.4.*",
         "laravel-enso/migrator": "1.1.*",
-        "laravel-enso/control-panel-common": "0.9.*",
+        "laravel-enso/control-panel-common": "1.0.*",
         "laravel-enso/tables": "3.2.*"
     },
     "license": "MIT",

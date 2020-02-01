@@ -15,6 +15,8 @@ class Application extends JsonResource
             'url' => $this->url,
             'type' => $this->type,
             'description' => $this->description,
+            'gitlab' => $this->gitlab_project_id !== null,
+            'sentry' => $this->sentry_project_uri !== null,
             'links' => Resource::collection($this->links()),
         ];
     }

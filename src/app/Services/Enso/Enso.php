@@ -3,22 +3,21 @@
 namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
 use LaravelEnso\ControlPanel\App\Contracts\EnsoApi;
-use Psr\Http\Message\ResponseInterface;
 
-class Enso extends ApiRequest implements EnsoApi
+class Enso extends BaseApi implements EnsoApi
 {
-    public function statistics(): ResponseInterface
+    public function statistics(): array
     {
-        return $this->call('GET', 'token/statistics');
+        return $this->response('GET', 'token/statistics');
     }
 
-    public function actions(): ResponseInterface
+    public function actions(): array
     {
-        return $this->call('GET', '/token/actions');
+        return $this->response('GET', '/token/actions');
     }
 
-    public function action($action): ResponseInterface
+    public function action($action)
     {
-        return $this->call('POST', "/token/{$action}");
+        return $this->response('POST', "/token/{$action}");
     }
 }

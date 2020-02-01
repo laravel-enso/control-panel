@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
+namespace LaravelEnso\ControlPanel\App\Services\Envoyer;
 
 use LaravelEnso\ControlPanel\App\Models\Application;
 use LaravelEnso\ControlPanelCommon\App\Contracts\Link as Contract;
 
-class Envoyer implements Contract
+class Link implements Contract
 {
     private Application $application;
 
@@ -31,15 +31,10 @@ class Envoyer implements Contract
 
     public function tooltip(): ?string
     {
-        return null;
+        return 'click to visit the Envoyer project';
     }
 
-    public function description(): ?string
-    {
-        return null;
-    }
-
-    public function icon()
+    public function icon(): array
     {
         return ['fad', 'rocket'];
     }

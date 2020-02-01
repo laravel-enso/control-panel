@@ -5,6 +5,7 @@ namespace LaravelEnso\ControlPanel\App\Forms\Builders;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\Forms\App\Services\Form;
+use LaravelEnso\Helpers\App\Classes\Obj;
 
 class ApplicationForm
 {
@@ -18,12 +19,12 @@ class ApplicationForm
             ->options('type', ApplicationTypes::select());
     }
 
-    public function create()
+    public function create(): Obj
     {
         return $this->form->create();
     }
 
-    public function edit(Application $application)
+    public function edit(Application $application): Obj
     {
         return $this->form->actions(['create', 'update', 'destroy'])
             ->edit($application);

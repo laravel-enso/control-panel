@@ -30,7 +30,7 @@ class Api
 
     private function url(string $uri): string
     {
-        return rtrim($this->application->url, '/')."/{$uri}";
+        return "{$this->application->url}/{$uri}";
     }
 
     private function headers(): array
@@ -40,7 +40,7 @@ class Api
 
     private function query(): array
     {
-        return $this->params->isNotEmpty()
+        return ! empty($this->params)
             ? [
                 'startDate' => $this->params->get('startDate'),
                 'endDate' => $this->params->get('endDate'),

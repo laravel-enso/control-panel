@@ -3,9 +3,10 @@
 namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
 use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\ControlPanel\App\Services\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class ApiRequest
+abstract class BaseApi extends ApiResponse
 {
     private Api $api;
 
@@ -14,7 +15,7 @@ abstract class ApiRequest
         $this->api = new Api($application, $params);
     }
 
-    public function call(string $method, string $uri): ResponseInterface
+    protected function call(string $method, string $uri): ResponseInterface
     {
         return $this->api->call($method, $uri);
     }

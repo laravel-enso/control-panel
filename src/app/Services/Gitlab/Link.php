@@ -31,15 +31,10 @@ class Link implements Contract
 
     public function tooltip(): ?string
     {
-        return 'repository';
+        return 'click to visit the GitLab repository';
     }
 
-    public function description(): ?string
-    {
-        return 'this is link of repository in gitlab';
-    }
-
-    public function icon()
+    public function icon(): array
     {
         return ['fab', 'gitlab'];
     }

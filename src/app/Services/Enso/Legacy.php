@@ -2,13 +2,12 @@
 
 namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
-use LaravelEnso\ControlPanel\App\Contracts\BaseApi;
-use Psr\Http\Message\ResponseInterface;
+use LaravelEnso\ControlPanel\App\Contracts\LegacyApi;
 
-class Legacy extends ApiRequest implements BaseApi
+class Legacy extends BaseApi implements LegacyApi
 {
-    public function statistics(): ResponseInterface
+    public function statistics(): array
     {
-        return $this->call('GET', 'statistics');
+        return $this->response('GET', 'api/statistics');
     }
 }

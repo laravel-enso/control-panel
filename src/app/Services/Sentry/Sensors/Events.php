@@ -28,15 +28,10 @@ class Events implements Sensor
 
     public function tooltip(): string
     {
-        return 'errors';
+        return 'errors in last 24 hours';
     }
 
-    public function description(): ?string
-    {
-        return 'number of errors in last 24 hours';
-    }
-
-    public function icon()
+    public function icon(): array
     {
         return ['fad', 'bug'];
     }

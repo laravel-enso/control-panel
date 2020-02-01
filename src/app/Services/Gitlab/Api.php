@@ -4,42 +4,45 @@ namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
-use LaravelEnso\ControlPanel\App\Contracts\Api as Contract;
 use LaravelEnso\ControlPanel\App\Models\Application;
+use LaravelEnso\ControlPanel\App\Services\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 
-class Api implements Contract
+class Api extends ApiResponse
 {
-    private $id;
+    private int $id;
     private Client $client;
+    private array $cache;
 
     public function __construct(Application $application)
     {
         $this->id = $application->gitlab_project_id;
         $this->client = new Client();
+        $this->cache = [];
     }
 
-    public function project(): ResponseInterface
+    public function project(): array
     {
-        return $this->call("api/v4/projects/{$this->id}");
+        return $this->response('GET', "api/v4/projects/{$this->id}");
     }
 
-    public function commits(): ResponseInterface
+    public function commits(): array
     {
-        return $this->call("api/v4/projects/{$this->id}/repository/commits");
+        return $this->response('GET', "api/v4/projects/{$this->id}/repository/commits");
     }
 
-    public function pipeline(): ResponseInterface
+    public function pipeline(): array
     {
-        return $this->call("api/v4/projects/{$this->id}/pipelines");
+        return $this->response('GET', "api/v4/projects/{$this->id}/pipelines");
     }
 
-    private function call(string $uri): ResponseInterface
+    protected function call(string $method, string $uri): ResponseInterface
     {
-        return $this->client->get($this->url($uri), [
-            'headers' => $this->headers(),
-            'query' => $this->query(),
-        ]);
+        return $this->cache[$uri]
+            ??= $this->client->request($method, $this->url($uri), [
+                'headers' => $this->headers(),
+                'query' => $this->query(),
+            ]);
     }
 
     private function url(string $uri): string

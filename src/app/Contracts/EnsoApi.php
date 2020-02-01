@@ -2,11 +2,9 @@
 
 namespace LaravelEnso\ControlPanel\App\Contracts;
 
-use Psr\Http\Message\ResponseInterface;
-
-interface EnsoApi extends BaseApi
+interface EnsoApi extends LegacyApi
 {
-    public function actions(): ResponseInterface;
+    public function actions(): array;
 
-    public function action(string $action): ResponseInterface;
+    public function action(string $action);
 }

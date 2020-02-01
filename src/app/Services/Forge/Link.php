@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
+namespace LaravelEnso\ControlPanel\App\Services\Forge;
 
 use LaravelEnso\ControlPanel\App\Models\Application;
 use LaravelEnso\ControlPanelCommon\App\Contracts\Link as Contract;
 
-class Site implements Contract
+class Link implements Contract
 {
     private Application $application;
 
@@ -16,36 +16,31 @@ class Site implements Contract
 
     public function id()
     {
-        return 'site';
+        return 'forge';
     }
 
     public function label(): string
     {
-        return 'site';
+        return 'forge';
     }
 
     public function url(): string
     {
-        return $this->application->url;
+        return $this->application->forge_url;
     }
 
     public function tooltip(): ?string
     {
-        return null;
+        return 'click to visit the Forge project';
     }
 
-    public function description(): ?string
+    public function icon(): array
     {
-        return null;
-    }
-
-    public function icon()
-    {
-        return ['fab', 'enso'];
+        return ['fab', 'forge'];
     }
 
     public function order(): int
     {
-        return 100;
+        return 200;
     }
 }

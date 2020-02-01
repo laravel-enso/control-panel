@@ -27,7 +27,7 @@ class Group implements Contract
         return 'Repository';
     }
 
-    public function statistics(): array
+    public function sensors(): array
     {
         return [
             new Commit($this->api),

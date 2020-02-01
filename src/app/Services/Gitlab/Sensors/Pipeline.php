@@ -34,12 +34,7 @@ class Pipeline implements Sensor
         return "pipeline {$this->value()}";
     }
 
-    public function description(): ?string
-    {
-        return null;
-    }
-
-    public function icon()
+    public function icon(): array
     {
         switch ($this->value()) {
             case 'Running':

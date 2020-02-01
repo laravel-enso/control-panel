@@ -4,7 +4,6 @@ namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
 use LaravelEnso\ControlPanel\app\Models\Application;
-use LaravelEnso\ControlPanel\App\Services\SafeApi;
 use LaravelEnso\ControlPanel\App\Services\Sentry\Group;
 use LaravelEnso\ControlPanel\App\Services\Sentry\Link;
 use LaravelEnso\ControlPanelCommon\App\Http\Resources\Group as GroupResource;
@@ -22,8 +21,8 @@ class Sentry implements Responsable
     public function toResponse($request)
     {
         return [
-            'statistics' => GroupResource::collection([
-                new Group(new SafeApi($this->application->sentryApi())),
+            'groups' => GroupResource::collection([
+                new Group($this->application->sentryApi()),
             ]),
             'links' => LinkResource::collection([
                 new Link($this->application),

@@ -26,17 +26,12 @@ class Issues implements Sensor
 
     public function tooltip(): string
     {
-        return 'issues';
+        return 'open issues';
     }
 
-    public function description(): ?string
+    public function icon(): array
     {
-        return null;
-    }
-
-    public function icon()
-    {
-        return 'exclamation-circle';
+        return ['fad', 'exclamation-circle'];
     }
 
     public function class(): string

@@ -33,15 +33,10 @@ class Link implements Contract
 
     public function tooltip(): ?string
     {
-        return null;
+        return 'click to visit the Sentry project';
     }
 
-    public function description(): ?string
-    {
-        return null;
-    }
-
-    public function icon()
+    public function icon(): array
     {
         return ['fad', 'bug'];
     }

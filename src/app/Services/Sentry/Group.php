@@ -25,7 +25,7 @@ class Group implements Contract
         return 'Errors';
     }
 
-    public function statistics(): array
+    public function sensors(): array
     {
         return [new Events($this->api)];
     }

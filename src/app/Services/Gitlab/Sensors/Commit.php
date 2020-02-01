@@ -23,20 +23,15 @@ class Commit implements Sensor
     public function value()
     {
         return Carbon::parse($this->api->commits()[0]['committed_date'])
-            ->diffForHumans(Carbon::now());
+            ->diffForHumans();
     }
 
     public function tooltip(): string
     {
-        return 'commit';
-    }
-
-    public function description(): string
-    {
         return 'last commit time';
     }
 
-    public function icon()
+    public function icon(): array
     {
         return ['fad', 'code-commit'];
     }

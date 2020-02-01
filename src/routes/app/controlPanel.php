@@ -6,9 +6,9 @@ Route::namespace('ControlPanel')
     ->prefix('controlPanel')
     ->as('controlPanel.')
     ->group(function () {
-        Route::post('statistics/{application}', 'Statistics')->name('statistics');
-        Route::post('actions/{application}', 'Actions')->name('actions');
+        Route::get('statistics/{application}', 'Statistics')->name('statistics');
+        Route::get('actions/{application}', 'Actions')->name('actions');
         Route::post('action/{action}/{application}', 'Action')->name('action');
-        Route::post('gitlab/{application}', 'Gitlab')->name('gitlab');
-        Route::post('sentry/{application}', 'Sentry')->name('sentry');
+        Route::get('gitlab/{application}', 'Gitlab')->name('gitlab');
+        Route::get('sentry/{application}', 'Sentry')->name('sentry');
     });
