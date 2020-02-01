@@ -3,7 +3,7 @@
 namespace LaravelEnso\ControlPanel\App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
-use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\ControlPanel\\App\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\Gitlab\Api;
 use LaravelEnso\ControlPanel\App\Services\Gitlab\Group;
 use LaravelEnso\ControlPanel\App\Services\Gitlab\Link;

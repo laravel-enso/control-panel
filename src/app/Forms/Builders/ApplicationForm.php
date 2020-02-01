@@ -2,8 +2,8 @@
 
 namespace LaravelEnso\ControlPanel\App\Forms\Builders;
 
-use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
-use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\ControlPanel\\App\Enums\ApplicationTypes;
+use LaravelEnso\ControlPanel\\App\Models\Application;
 use LaravelEnso\Forms\App\Services\Form;
 use LaravelEnso\Helpers\App\Classes\Obj;
 

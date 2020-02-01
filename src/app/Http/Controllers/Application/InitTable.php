@@ -1,9 +1,9 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Http\Controllers\Application;
+namespace LaravelEnso\ControlPanel\\App\Http\Controllers\Application;
 
 use Illuminate\Routing\Controller;
-use LaravelEnso\ControlPanel\app\Tables\Builders\ApplicationTable;
+use LaravelEnso\ControlPanel\\App\Tables\Builders\ApplicationTable;
 use LaravelEnso\Tables\App\Traits\Init;
 
 class InitTable extends Controller

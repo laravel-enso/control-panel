@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\App\Services\Enso;
 
-use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\ControlPanel\\App\Models\Application;
 use LaravelEnso\ControlPanel\App\Services\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 

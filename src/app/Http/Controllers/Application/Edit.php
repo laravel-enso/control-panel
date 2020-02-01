@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\app\Http\Controllers\Application;
+namespace LaravelEnso\ControlPanel\\App\Http\Controllers\Application;
 
 use Illuminate\Routing\Controller;
-use LaravelEnso\ControlPanel\app\Forms\Builders\ApplicationForm;
-use LaravelEnso\ControlPanel\app\Models\Application;
+use LaravelEnso\ControlPanel\\App\Forms\Builders\ApplicationForm;
+use LaravelEnso\ControlPanel\\App\Models\Application;
 
 class Edit extends Controller
 {
