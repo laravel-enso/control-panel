@@ -37,9 +37,9 @@
                 },
                 {
                     "label": "Forge Url",
-                    "name": "forge",
+                    "name": "forge_url",
                     "value": null,
-                    "column": 6,
+                    "column": 12,
                     "meta": {
                         "type": "input",
                         "content": "text"
@@ -47,17 +47,17 @@
                 },
                 {
                     "label": "Envoyer Url",
-                    "name": "envoyer",
+                    "name": "envoyer_url",
                     "value": null,
-                    "column": 6,
+                    "column": 12,
                     "meta": {
                         "type": "input",
                         "content": "text"
                     }
                 },
                 {
-                    "label": "Gitlab Id",
-                    "name": "gitlab",
+                    "label": "Gitlab Project Id",
+                    "name": "gitlab_project_id",
                     "value": null,
                     "column": 4,
                     "meta": {
@@ -66,8 +66,8 @@
                     }
                 },
                 {
-                    "label": "Sentry",
-                    "name": "sentry",
+                    "label": "Sentry URI",
+                    "name": "sentry_project_uri",
                     "value": null,
                     "column": 4,
                     "meta": {
@@ -95,24 +95,34 @@
                     "label": "Token",
                     "name": "token",
                     "value": null,
-                    "column": 12,
+                    "column": 9,
                     "meta": {
                         "type": "input",
                         "content": "text"
+                    }
+                },
+                {
+                    "label": "Active",
+                    "name": "is_active",
+                    "value": true,
+                    "column": 3,
+                    "meta": {
+                        "type": "input",
+                        "content": "checkbox"
                     }
                 }
             ]
         },
         {
-            "columns": "1",
+            "columns": 1,
             "fields": [
                 {
                     "label": "Description",
                     "name": "description",
                     "value": null,
                     "meta": {
-                        "type": "input",
-                        "content": "text"
+                        "type": "textarea",
+                        "rows": 3
                     }
                 }
             ]

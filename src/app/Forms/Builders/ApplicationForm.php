@@ -5,26 +5,26 @@ namespace LaravelEnso\ControlPanel\App\Forms\Builders;
 use LaravelEnso\ControlPanel\app\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\app\Models\Application;
 use LaravelEnso\Forms\App\Services\Form;
+use LaravelEnso\Helpers\App\Classes\Obj;
 
 class ApplicationForm
 {
     private const TemplatePath = __DIR__.'/../Templates/application.json';
 
-    private $form;
+    private Form $form;
 
     public function __construct()
     {
-        $this->form = new Form(self::TemplatePath);
-
-        $this->form->options('type', ApplicationTypes::select());
+        $this->form = (new Form(self::TemplatePath))
+            ->options('type', ApplicationTypes::select());
     }
 
-    public function create()
+    public function create(): Obj
     {
         return $this->form->create();
     }
 
-    public function edit(Application $application)
+    public function edit(Application $application): Obj
     {
         return $this->form->actions(['create', 'update', 'destroy'])
             ->edit($application);

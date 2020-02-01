@@ -3,9 +3,15 @@
     "description": "A control panel that aggregates, controls and displays statistics from other laravel-enso apps",
     "type": "project",
     "require": {
+        "guzzlehttp/guzzle": "^6.3",
         "laravel-enso/core": "4.7.*",
         "laravel-enso/enums": "1.2.*",
-        "guzzlehttp/guzzle": "^6.3"
+        "laravel-enso/forms": "3.4.*",
+        "laravel-enso/helpers": "1.15.*",
+        "laravel-enso/permissions": "3.4.*",
+        "laravel-enso/migrator": "1.1.*",
+        "laravel-enso/control-panel-common": "1.0.*",
+        "laravel-enso/tables": "3.2.*"
     },
     "license": "MIT",
     "authors": [
@@ -20,6 +26,12 @@
             "email": "aocneanu@gmail.com",
             "homepage": "https://laravel-enso.com",
             "role": "Developer"
+        },
+        {
+            "name": "Reza Fouladi",
+            "email": "raftx24@gmail.com",
+            "homepage": "https://laravel-enso.com",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "stable",
@@ -31,7 +43,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelEnso\\ControlPanel\\AppServiceProvider"
+                "LaravelEnso\\ControlPanel\\AppServiceProvider",
+                "LaravelEnso\\ControlPanel\\EnumServiceProvider"
             ],
             "aliases": {}
         }

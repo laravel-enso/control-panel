@@ -1,43 +1,52 @@
 <?php
 
-namespace LaravelEnso\ControlPanel\App\Services\Gitlab;
+namespace LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors;
 
 use Illuminate\Support\Str;
-use LaravelEnso\ControlPanel\App\Contracts\Sensor;
-use LaravelEnso\ControlPanel\App\Services\SafeApi;
+use LaravelEnso\ControlPanel\App\Contracts\Api;
+use LaravelEnso\ControlPanelCommon\App\Contracts\Sensor;
 
 class Pipeline implements Sensor
 {
-    private SafeApi $api;
+    private Api $api;
 
-    public function __construct(SafeApi $api)
+    public function __construct(Api $api)
     {
         $this->api = $api;
     }
 
-    public function value()
+    public function id()
     {
-        return Str::ucfirst($this->api->pipeline()[0]['status']);
+        return 'pipeline';
     }
 
-    public function description(): string
+    public function value()
+    {
+        $pipeline = $this->api->pipeline();
+
+        return ! empty($pipeline)
+            ? Str::ucfirst($pipeline[0]['status'])
+            : 'N/A';
+    }
+
+    public function tooltip(): string
     {
         return "pipeline {$this->value()}";
     }
 
-    public function icon()
+    public function icon(): array
     {
         switch ($this->value()) {
             case 'Running':
-                return 'play-circle';
+                return ['fad', 'play-circle'];
             case 'Pending':
-                return 'pause-circle';
+                return ['fad', 'pause-circle'];
             case 'Success':
-                return 'check-circle';
+                return ['fad', 'check-circle'];
             case 'Failed':
-                return 'times-circle';
+                return ['fad', 'times-circle'];
             default:
-                return 'ban';
+                return ['fad', 'ban'];
         }
     }
 
@@ -55,5 +64,10 @@ class Pipeline implements Sensor
             default:
                 return '';
         }
+    }
+
+    public function order(): int
+    {
+        return 300;
     }
 }

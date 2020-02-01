@@ -2,14 +2,6 @@
     "routePrefix": "administration.applications",
     "crtNo": true,
     "buttons": [
-        {
-            "type": "global",
-            "icon": "cubes",
-            "class": "",
-            "label": "Control Panel",
-            "event": "panel",
-            "confirmation": false
-        },
         "excel",
         "create",
         "edit",
