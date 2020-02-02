@@ -2,6 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\App\Services\Gitlab\Sensors;
 
+use Illuminate\Support\Str;
 use LaravelEnso\ControlPanel\App\Contracts\Api;
 use LaravelEnso\ControlPanelCommon\App\Contracts\Sensor;
 
@@ -21,18 +22,16 @@ class Pipeline implements Sensor
 
     public function value()
     {
-        return 'Pipeline';
+        $pipeline = $this->api->pipeline();
+
+        return ! empty($pipeline)
+            ? Str::ucfirst($pipeline[0]['status'])
+            : 'N/A';
     }
 
     public function tooltip(): string
     {
-        $pipeline = $this->api->pipeline();
-
-        $status = ! empty($pipeline)
-            ? $pipeline[0]['status']
-            : 'N/A';
-
-        return "last pipeline status: {$status}";
+        return 'last pipeline status';
     }
 
     public function icon(): array
