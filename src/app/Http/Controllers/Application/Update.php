@@ -10,7 +10,13 @@ class Update extends Controller
 {
     public function __invoke(ValidateApplicationRequest $request, Application $application)
     {
-        $application->update($request->validated());
+        $application->fill($request->validated());
+
+        if ($request->filled('token')) {
+            $application->token = $request->get('token');
+        }
+
+        $application->save();
 
         return ['message' => __('The application was successfully updated')];
     }

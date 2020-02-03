@@ -24,7 +24,7 @@ class ValidateApplicationRequest extends FormRequest
             'gitlab_project_id' => 'nullable|numeric',
             'sentry_project_uri' => 'nullable|string',
             'description' => 'nullable',
-            'token' => 'required',
+            'token' => $this->token(),
             'order_index' => 'numeric|required',
             'is_active' => 'required|boolean',
         ];
@@ -34,5 +34,12 @@ class ValidateApplicationRequest extends FormRequest
     {
         return Rule::unique('applications', 'name')
             ->ignore(optional($this->route('application'))->id);
+    }
+
+    private function token()
+    {
+        return $this->method() === 'POST'
+            ? 'required'
+            : 'nullable';
     }
 }

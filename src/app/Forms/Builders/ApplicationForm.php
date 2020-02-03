@@ -27,6 +27,7 @@ class ApplicationForm
     public function edit(Application $application): Obj
     {
         return $this->form->actions(['create', 'update', 'destroy'])
+            ->value('token', null)
             ->edit($application);
     }
 }

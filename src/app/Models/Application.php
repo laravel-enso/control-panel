@@ -21,9 +21,8 @@ class Application extends Model
     use ActiveState, TableCache;
 
     protected $fillable = [
-        'name', 'description', 'url', 'type', 'token', 'order_index',
-        'envoyer_url', 'forge_url', 'gitlab_project_id', 'sentry_project_uri',
-        'is_active',
+        'name', 'description', 'url', 'type', 'order_index', 'envoyer_url',
+        'forge_url', 'gitlab_project_id', 'sentry_project_uri', 'is_active',
     ];
 
     protected $hidden = ['token'];

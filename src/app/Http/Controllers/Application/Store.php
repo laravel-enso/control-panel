@@ -10,7 +10,11 @@ class Store extends Controller
 {
     public function __invoke(ValidateApplicationRequest $request, Application $application)
     {
-        $application->fill($request->validated())->save();
+        $application->fill($request->validated());
+
+        $application->token = $request->get('token');
+
+        $application->save();
 
         return [
             'message' => __('The application was successfully created'),
