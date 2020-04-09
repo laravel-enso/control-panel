@@ -13,11 +13,11 @@ class Enso extends BaseApi implements EnsoApi
 
     public function actions(): array
     {
-        return $this->response('GET', '/token/actions');
+        return $this->response('GET', 'token/actions');
     }
 
     public function action($action)
     {
-        return $this->response('POST', "/token/{$action}");
+        return $this->response('POST', "token/{$action}");
     }
 }
