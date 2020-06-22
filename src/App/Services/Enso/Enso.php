@@ -8,16 +8,16 @@ class Enso extends BaseApi implements EnsoApi
 {
     public function statistics(): array
     {
-        return $this->response('GET', 'token/statistics');
+        return $this->response('GET', 'api/controlPanelApi/statistics');
     }
 
     public function actions(): array
     {
-        return $this->response('GET', 'token/actions');
+        return $this->response('GET', 'api/controlPanelApi/actions');
     }
 
     public function action($action)
     {
-        return $this->response('POST', "token/{$action}");
+        return $this->response('POST', "api/controlPanelApi/{$action}");
     }
 }

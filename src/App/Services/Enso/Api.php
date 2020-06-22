@@ -35,7 +35,7 @@ class Api
 
     private function headers(): array
     {
-        return ['Api-Token' => $this->application->token];
+        return ['Authorization' => "Bearer {$this->application->token}"];
     }
 
     private function query(): array
