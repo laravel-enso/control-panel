@@ -4,7 +4,7 @@ namespace LaravelEnso\ControlPanel\Services\Enso;
 
 use GuzzleHttp\Client;
 use LaravelEnso\ControlPanel\Models\Application;
-use LaravelEnso\Helpers\Classes\Obj;
+use LaravelEnso\Helpers\Services\Obj;
 use Psr\Http\Message\ResponseInterface;
 
 class Api

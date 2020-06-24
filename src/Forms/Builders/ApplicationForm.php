@@ -5,7 +5,7 @@ namespace LaravelEnso\ControlPanel\Forms\Builders;
 use LaravelEnso\ControlPanel\Enums\ApplicationTypes;
 use LaravelEnso\ControlPanel\Models\Application;
 use LaravelEnso\Forms\Services\Form;
-use LaravelEnso\Helpers\Classes\Obj;
+use LaravelEnso\Helpers\Services\Obj;
 
 class ApplicationForm
 {
