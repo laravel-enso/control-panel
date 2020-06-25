@@ -20,5 +20,5 @@ class CreateStructureForApplications extends Migration
         'name' => 'Applications', 'icon' => 'stethoscope', 'route' => 'administration.applications.index', 'order_index' => 100, 'has_children' => false,
     ];
 
-    protected string $parentMenu = 'Administration';
+    protected ?string $parentMenu = 'Administration';
 }
