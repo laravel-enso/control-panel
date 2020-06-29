@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\Http\Controllers\ControlPanel;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use LaravelEnso\ControlPanel\Exceptions\Gitlab as Exception;
 use LaravelEnso\ControlPanel\Http\Responses\Gitlab as Response;
 use LaravelEnso\ControlPanel\Models\Application;

@@ -2,7 +2,7 @@
 
 namespace LaravelEnso\ControlPanel\Http\Controllers\ControlPanel;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use LaravelEnso\ControlPanel\Http\Requests\ValidateStatisticsRequest as Request;
 use LaravelEnso\ControlPanel\Models\Application;
 
