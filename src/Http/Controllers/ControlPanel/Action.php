@@ -2,8 +2,8 @@
 
 namespace LaravelEnso\ControlPanel\Http\Controllers\ControlPanel;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use LaravelEnso\ControlPanel\Models\Application;
 
 class Action extends Controller
