@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "laravel-enso/core": "^5.0",
+        "laravel-enso/core": "^5.0|^6.0",
         "laravel-enso/enums": "^2.0",
         "laravel-enso/forms": "^4.0",
         "laravel-enso/helpers": "^2.0",
