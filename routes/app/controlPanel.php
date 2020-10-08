@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Statistics;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Actions;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Action;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Gitlab;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Sentry;
 
-Route::namespace('ControlPanel')
-    ->prefix('controlPanel')
+Route::prefix('controlPanel')
     ->as('controlPanel.')
     ->group(function () {
-        Route::get('statistics/{application}', 'Statistics')->name('statistics');
-        Route::get('actions/{application}', 'Actions')->name('actions');
-        Route::post('action/{action}/{application}', 'Action')->name('action');
-        Route::get('gitlab/{application}', 'Gitlab')->name('gitlab');
-        Route::get('sentry/{application}', 'Sentry')->name('sentry');
+        Route::get('statistics/{application}', Statistics::class)->name('statistics');
+        Route::get('actions/{application}', Actions::class)->name('actions');
+        Route::post('action/{action}/{application}', Action::class)->name('action');
+        Route::get('gitlab/{application}', Gitlab::class)->name('gitlab');
+        Route::get('sentry/{application}', Sentry::class)->name('sentry');
     });
