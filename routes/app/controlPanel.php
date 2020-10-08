@@ -1,10 +1,10 @@
 <?php
 
-use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Statistics;
-use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Actions;
 use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Action;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Actions;
 use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Gitlab;
 use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Sentry;
+use LaravelEnso\ControlPanel\Http\Controllers\ControlPanel\Statistics;
 
 Route::prefix('controlPanel')
     ->as('controlPanel.')
