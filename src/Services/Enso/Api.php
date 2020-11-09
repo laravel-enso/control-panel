@@ -3,9 +3,10 @@
 namespace LaravelEnso\ControlPanel\Services\Enso;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 use LaravelEnso\ControlPanel\Models\Application;
 use LaravelEnso\Helpers\Services\Obj;
-use Psr\Http\Message\ResponseInterface;
 
 class Api
 {
@@ -20,12 +21,10 @@ class Api
         $this->client = new Client();
     }
 
-    public function call(string $method, string $uri): ResponseInterface
+    public function call(string $method, string $uri): Response
     {
-        return $this->client->request($method, $this->url($uri), [
-            'headers' => $this->headers(),
-            'query' => $this->query(),
-        ]);
+        return Http::withHeaders($this->headers())
+            ->{$method}($this->url($uri), $this->params());
     }
 
     private function url(string $uri): string
@@ -38,12 +37,8 @@ class Api
         return ['Authorization' => "Bearer {$this->application->token}"];
     }
 
-    private function query(): array
+    private function params(): array
     {
-        return ! empty($this->params)
-            ? [
-                'startDate' => $this->params->get('startDate'),
-                'endDate' => $this->params->get('endDate'),
-            ] : [];
+        return $this->params->only(['startDate', 'endDate'])->toArray();
     }
 }

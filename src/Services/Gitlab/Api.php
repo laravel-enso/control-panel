@@ -3,10 +3,11 @@
 namespace LaravelEnso\ControlPanel\Services\Gitlab;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use LaravelEnso\ControlPanel\Models\Application;
 use LaravelEnso\ControlPanel\Services\ApiResponse;
-use Psr\Http\Message\ResponseInterface;
 
 class Api extends ApiResponse
 {
@@ -36,13 +37,10 @@ class Api extends ApiResponse
         return $this->response('GET', "api/v4/projects/{$this->id}/pipelines");
     }
 
-    protected function call(string $method, string $uri): ResponseInterface
+    protected function call(string $method, string $uri): Response
     {
-        return $this->cache[$uri]
-            ??= $this->client->request($method, $this->url($uri), [
-                'headers' => $this->headers(),
-                'query' => $this->query(),
-            ]);
+        return $this->cache[$uri] ??= Http::withHeaders($this->headers())
+            ->{$method}($this->url($uri), $this->params());
     }
 
     private function url(string $uri): string
@@ -55,7 +53,7 @@ class Api extends ApiResponse
         return ['Private-Token' => Config::get('enso.control-panel.gitlab.token')];
     }
 
-    private function query(): array
+    private function params(): array
     {
         return [
             'page' => 1,
