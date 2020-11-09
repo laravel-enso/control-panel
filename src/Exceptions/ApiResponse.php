@@ -6,13 +6,8 @@ use LaravelEnso\Helpers\Exceptions\EnsoException;
 
 class ApiResponse extends EnsoException
 {
-    public static function error($message)
+    public static function error(int $code, string $message)
     {
-        return new static($message);
-    }
-
-    public static function request($code)
-    {
-        return new static("The request failed. Response code: {$code}");
+        return new static($message, $code);
     }
 }

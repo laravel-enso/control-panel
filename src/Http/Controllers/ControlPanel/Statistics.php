@@ -10,6 +10,6 @@ class Statistics extends Controller
 {
     public function __invoke(Request $request, Application $application)
     {
-        return $application->baseApi($request->validated())->statistics();
+        return $application->api($request->validated())->statistics();
     }
 }

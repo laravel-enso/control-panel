@@ -10,6 +10,6 @@ class Actions extends Controller
 {
     public function __invoke(Request $request, Application $application)
     {
-        return $application->baseApi($request->all())->actions();
+        return $application->api($request->all())->actions();
     }
 }

@@ -6,12 +6,12 @@ use LaravelEnso\ControlPanel\Contracts\EnsoApi;
 
 class Enso extends BaseApi implements EnsoApi
 {
-    public function statistics(): ?array
+    public function statistics(): array
     {
         return $this->response('GET', 'apis/controlPanel/statistics');
     }
 
-    public function actions(): ?array
+    public function actions(): array
     {
         return $this->response('GET', 'apis/controlPanel/actions');
     }

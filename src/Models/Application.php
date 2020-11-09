@@ -38,7 +38,7 @@ class Application extends Model
         $query->whereIsActive(1);
     }
 
-    public function baseApi(array $request): LegacyApi
+    public function api(array $request): LegacyApi
     {
         return $this->type === ApplicationTypes::Enso
             ? new Enso($this, $request)

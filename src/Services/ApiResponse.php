@@ -2,38 +2,22 @@
 
 namespace LaravelEnso\ControlPanel\Services;
 
-use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Client\Response;
 use LaravelEnso\ControlPanel\Contracts\Api;
 use LaravelEnso\ControlPanel\Exceptions\ApiResponse as Exception;
-use Psr\Http\Message\ResponseInterface;
 
 abstract class ApiResponse implements Api
 {
-    public function response(string $method, string $uri): ?array
+    public function response(string $method, string $uri): array
     {
-        $response = $this->attemptCall($method, $uri);
+        $response = $this->call($method, $uri);
 
-        if ($response->getStatusCode() === 200) {
-            return json_decode($response->getBody(), true);
+        if ($response->failed()) {
+            throw Exception::error($response->status(), $response->body());
         }
 
-        throw Exception::request($response->getStatusCode());
+        return  $response->json();
     }
 
-    abstract protected function call(string $method, string $uri): ResponseInterface;
-
-    private function attemptCall(string $method, string $uri)
-    {
-        try {
-            $response = $this->call($method, $uri);
-        } catch (RequestException $exception) {
-            $message = $exception->hasResponse()
-                ? $exception->getResponse()->getBody()
-                : $exception->getMessage();
-
-            throw Exception::error($message);
-        }
-
-        return $response;
-    }
+    abstract protected function call(string $method, string $uri): Response;
 }

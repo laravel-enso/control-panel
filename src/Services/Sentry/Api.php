@@ -3,10 +3,11 @@
 namespace LaravelEnso\ControlPanel\Services\Sentry;
 
 use GuzzleHttp\Client;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use LaravelEnso\ControlPanel\Models\Application;
 use LaravelEnso\ControlPanel\Services\ApiResponse;
-use Psr\Http\Message\ResponseInterface;
 
 class Api extends ApiResponse
 {
@@ -24,11 +25,10 @@ class Api extends ApiResponse
         return $this->response('GET', "api/0/projects/{$this->id}/stats/");
     }
 
-    protected function call(string $method, string $uri): ResponseInterface
+    protected function call(string $method, string $uri): Response
     {
-        return $this->client->request($method, $this->url($uri), [
-            'headers' => $this->headers(),
-        ]);
+        return Http::withHeaders($this->headers())
+            ->{$method}($this->url($uri));
     }
 
     private function url(string $uri): string
