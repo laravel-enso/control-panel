@@ -18,15 +18,6 @@
             ]
         },
         {
-            "label": "Description",
-            "name": "description",
-            "data": "applications.description",
-            "meta": [
-                "searchable",
-                "sortable"
-            ]
-        },
-        {
             "label": "Type",
             "name": "type",
             "data": "applications.type",
@@ -47,6 +38,24 @@
             "label": "URL",
             "name": "url",
             "data": "applications.url",
+            "meta": [
+                "searchable",
+                "sortable"
+            ]
+        },
+        {
+            "label": "Active",
+            "name": "is_active",
+            "data": "applications.is_active",
+            "meta": [
+                "boolean",
+                "sortable"
+            ]
+        },
+        {
+            "label": "Description",
+            "name": "description",
+            "data": "applications.description",
             "meta": [
                 "searchable",
                 "sortable"
