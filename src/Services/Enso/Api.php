@@ -2,7 +2,6 @@
 
 namespace LaravelEnso\ControlPanel\Services\Enso;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use LaravelEnso\ControlPanel\Models\Application;
@@ -12,13 +11,11 @@ class Api
 {
     private Application $application;
     private Obj $params;
-    private Client $client;
 
     public function __construct(Application $application, array $params)
     {
         $this->application = $application;
         $this->params = new Obj($params);
-        $this->client = new Client();
     }
 
     public function call(string $method, string $uri): Response

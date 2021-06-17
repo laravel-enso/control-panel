@@ -7,11 +7,8 @@ use LaravelEnso\ControlPanelCommon\Contracts\Sensor;
 
 class Issues implements Sensor
 {
-    private Api $api;
-
-    public function __construct(Api $api)
+    public function __construct(private Api $api)
     {
-        $this->api = $api;
     }
 
     public function id()

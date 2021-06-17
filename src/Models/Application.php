@@ -57,6 +57,7 @@ class Application extends Model
 
     public function links(): array
     {
+        //TODO review this
         // return [
         //     new ForgeLink($this), new EnvoyerLink($this), new ApplicationLink($this),
         // ];

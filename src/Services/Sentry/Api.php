@@ -2,7 +2,6 @@
 
 namespace LaravelEnso\ControlPanel\Services\Sentry;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
@@ -12,12 +11,10 @@ use LaravelEnso\ControlPanel\Services\ApiResponse;
 class Api extends ApiResponse
 {
     private $id;
-    private Client $client;
 
     public function __construct(Application $application)
     {
         $this->id = $application->sentry_project_uri;
-        $this->client = new Client();
     }
 
     public function events(): array

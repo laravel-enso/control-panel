@@ -36,7 +36,7 @@ class ValidateApplicationRequest extends FormRequest
     private function nameUnique()
     {
         return Rule::unique('applications', 'name')
-            ->ignore(optional($this->route('application'))->id);
+            ->ignore($this->route('application'));
     }
 
     private function token()

@@ -2,7 +2,6 @@
 
 namespace LaravelEnso\ControlPanel\Services\Gitlab;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
@@ -12,13 +11,11 @@ use LaravelEnso\ControlPanel\Services\ApiResponse;
 class Api extends ApiResponse
 {
     private int $id;
-    private Client $client;
     private array $cache;
 
     public function __construct(Application $application)
     {
         $this->id = $application->gitlab_project_id;
-        $this->client = new Client();
         $this->cache = [];
     }
 

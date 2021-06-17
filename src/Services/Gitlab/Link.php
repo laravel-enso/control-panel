@@ -7,11 +7,8 @@ use LaravelEnso\ControlPanelCommon\Contracts\Link as Contract;
 
 class Link implements Contract
 {
-    private Api $api;
-
-    public function __construct(Api $api)
+    public function __construct(private Api $api)
     {
-        $this->api = $api;
     }
 
     public function id()

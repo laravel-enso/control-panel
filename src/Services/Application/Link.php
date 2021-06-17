@@ -7,11 +7,8 @@ use LaravelEnso\ControlPanelCommon\Contracts\Link as Contract;
 
 class Link implements Contract
 {
-    private Application $application;
-
-    public function __construct(Application $application)
+    public function __construct(private Application $application)
     {
-        $this->application = $application;
     }
 
     public function id()
