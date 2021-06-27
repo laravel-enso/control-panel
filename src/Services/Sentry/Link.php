@@ -12,7 +12,7 @@ class Link implements Contract
     {
     }
 
-    public function id()
+    public function id(): string
     {
         return 'sentry';
     }

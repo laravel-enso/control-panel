@@ -5,16 +5,12 @@ namespace LaravelEnso\ControlPanel\Services\Gitlab\Sensors;
 use Illuminate\Support\Str;
 use LaravelEnso\ControlPanel\Contracts\Api;
 use LaravelEnso\ControlPanelCommon\Contracts\Sensor;
+use LaravelEnso\ControlPanelCommon\Services\IdProvider;
 
-class Pipeline implements Sensor
+class Pipeline extends IdProvider implements Sensor
 {
     public function __construct(private Api $api)
     {
-    }
-
-    public function id()
-    {
-        return 'pipeline';
     }
 
     public function value()

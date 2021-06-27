@@ -5,16 +5,12 @@ namespace LaravelEnso\ControlPanel\Services\Gitlab\Sensors;
 use Carbon\Carbon;
 use LaravelEnso\ControlPanel\Contracts\Api;
 use LaravelEnso\ControlPanelCommon\Contracts\Sensor;
+use LaravelEnso\ControlPanelCommon\Services\IdProvider;
 
-class Commit implements Sensor
+class Commit extends IdProvider implements Sensor
 {
     public function __construct(private Api $api)
     {
-    }
-
-    public function id()
-    {
-        return 'commit';
     }
 
     public function value()

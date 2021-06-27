@@ -4,16 +4,12 @@ namespace LaravelEnso\ControlPanel\Services\Gitlab\Sensors;
 
 use LaravelEnso\ControlPanel\Contracts\Api;
 use LaravelEnso\ControlPanelCommon\Contracts\Sensor;
+use LaravelEnso\ControlPanelCommon\Services\IdProvider;
 
-class Issues implements Sensor
+class Issues extends IdProvider implements Sensor
 {
     public function __construct(private Api $api)
     {
-    }
-
-    public function id()
-    {
-        return 'issue';
     }
 
     public function value()

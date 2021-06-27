@@ -5,16 +5,12 @@ namespace LaravelEnso\ControlPanel\Services\Sentry\Sensors;
 use Illuminate\Support\Collection;
 use LaravelEnso\ControlPanel\Contracts\Api;
 use LaravelEnso\ControlPanelCommon\Contracts\Sensor;
+use LaravelEnso\ControlPanelCommon\Services\IdProvider;
 
-class Events implements Sensor
+class Events extends IdProvider implements Sensor
 {
     public function __construct(private Api $api)
     {
-    }
-
-    public function id()
-    {
-        return 'events';
     }
 
     public function value()
