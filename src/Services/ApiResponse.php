@@ -16,7 +16,7 @@ abstract class ApiResponse implements Api
             throw Exception::error($response->status(), $response->body());
         }
 
-        return  $response->json();
+        return $response->json();
     }
 
     abstract protected function call(string $method, string $uri): Response;

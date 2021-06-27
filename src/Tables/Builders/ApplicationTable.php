@@ -13,7 +13,7 @@ class ApplicationTable implements Table
     public function query(): Builder
     {
         return Application::selectRaw(
-            'id, name, description, url, type, order_index'
+            'id, name, description, url, type, order_index, is_active'
         );
     }
 
