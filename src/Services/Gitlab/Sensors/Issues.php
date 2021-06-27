@@ -12,7 +12,7 @@ class Issues extends IdProvider implements Sensor
     {
     }
 
-    public function value()
+    public function value(): mixed
     {
         return $this->api->project()['open_issues_count'];
     }
@@ -27,9 +27,9 @@ class Issues extends IdProvider implements Sensor
         return ['fad', 'exclamation-circle'];
     }
 
-    public function class(): string
+    public function class(): ?string
     {
-        return '';
+        return null;
     }
 
     public function order(): int

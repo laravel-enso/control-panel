@@ -13,7 +13,7 @@ class Events extends IdProvider implements Sensor
     {
     }
 
-    public function value()
+    public function value(): mixed
     {
         return (new Collection($this->api->events()))
             ->reduce(fn ($sum, $event) => $sum + $event[1]);
@@ -29,9 +29,9 @@ class Events extends IdProvider implements Sensor
         return ['fad', 'bug'];
     }
 
-    public function class(): string
+    public function class(): ?string
     {
-        return '';
+        return null;
     }
 
     public function order(): int

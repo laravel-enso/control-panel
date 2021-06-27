@@ -13,7 +13,7 @@ class Commit extends IdProvider implements Sensor
     {
     }
 
-    public function value()
+    public function value(): mixed
     {
         return Carbon::parse($this->api->commits()[0]['committed_date'])
             ->diffForHumans();
@@ -29,9 +29,9 @@ class Commit extends IdProvider implements Sensor
         return ['fad', 'code-commit'];
     }
 
-    public function class(): string
+    public function class(): ?string
     {
-        return '';
+        return null;
     }
 
     public function order(): int

@@ -13,7 +13,7 @@ class Pipeline extends IdProvider implements Sensor
     {
     }
 
-    public function value()
+    public function value(): mixed
     {
         $pipeline = $this->api->pipeline();
 
@@ -29,34 +29,24 @@ class Pipeline extends IdProvider implements Sensor
 
     public function icon(): array
     {
-        switch ($this->value()) {
-            case 'Running':
-                return ['fad', 'play-circle'];
-            case 'Pending':
-                return ['fad', 'pause-circle'];
-            case 'Success':
-                return ['fad', 'check-circle'];
-            case 'Failed':
-                return ['fad', 'times-circle'];
-            default:
-                return ['fad', 'ban'];
-        }
+        return match ($this->value()) {
+            'Running' => ['fad', 'play-circle'],
+            'Pending' => ['fad', 'pause-circle'],
+            'Success' => ['fad', 'check-circle'],
+            'Failed' => ['fad', 'times-circle'],
+            default => ['fad', 'ban'],
+        };
     }
 
-    public function class(): string
+    public function class(): ?string
     {
-        switch ($this->value()) {
-            case 'Running':
-                return 'has-text-info';
-            case 'Pending':
-                return 'has-text-warning';
-            case 'Success':
-                return 'has-text-success';
-            case 'Failed':
-                return 'has-text-danger';
-            default:
-                return '';
-        }
+        return match ($this->value()) {
+            'Running' => 'has-text-info',
+            'Pending' => 'has-text-warning',
+            'Success' => 'has-text-success',
+            'Failed' => 'has-text-danger',
+            default => null,
+        };
     }
 
     public function order(): int
