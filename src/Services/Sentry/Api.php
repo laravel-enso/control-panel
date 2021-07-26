@@ -10,7 +10,7 @@ use LaravelEnso\ControlPanel\Services\ApiResponse;
 
 class Api extends ApiResponse
 {
-    private $id;
+    private ?string $id;
 
     public function __construct(Application $application)
     {
