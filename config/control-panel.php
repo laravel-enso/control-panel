@@ -7,6 +7,7 @@ return [
     ],
     'sentry' => [
         'token' => env('SENTRY_TOKEN'),
-        'url' => env('SENTRY_URL', 'https://sentry.io'),
+        'url' => env('SENTRY_URL'),
+        'organization' => env('SENTRY_ORGANIZATION'),
     ],
 ];
