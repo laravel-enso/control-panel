@@ -3,11 +3,10 @@
 return [
     'gitlab' => [
         'token' => env('GITLAB_TOKEN'),
-        'url' => env('GITLAB_URL', 'https://git.xtelecom.ro'),
+        'url' => env('GITLAB_URL'),
     ],
     'sentry' => [
         'token' => env('SENTRY_TOKEN'),
         'url' => env('SENTRY_URL'),
-        'organization' => env('SENTRY_ORGANIZATION'),
     ],
 ];

@@ -19,10 +19,7 @@ class Api extends ApiResponse
 
     public function events(): array
     {
-        $organization = Config::get('enso.control-panel.sentry.organization');
-        $url = "api/0/projects/{$organization}/{$this->id}/stats/";
-
-        return $this->response('GET', $url);
+        return $this->response('GET', "api/0/projects/{$this->id}/stats/");
     }
 
     protected function call(string $method, string $uri): Response
