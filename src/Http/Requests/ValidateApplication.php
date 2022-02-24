@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use LaravelEnso\ControlPanel\Enums\ApplicationTypes;
 use LaravelEnso\Helpers\Traits\FiltersRequest;
 
-class ValidateApplicationRequest extends FormRequest
+class ValidateApplication extends FormRequest
 {
     use FiltersRequest;
 
@@ -20,7 +20,7 @@ class ValidateApplicationRequest extends FormRequest
     {
         return [
             'name' => ['required', $this->nameUnique()],
-            'type' => 'required|in:'.ApplicationTypes::keys()->implode(','),
+            'type' => 'required|in:' . ApplicationTypes::keys()->implode(','),
             'url' => 'required',
             'forge_url' => 'nullable|string',
             'envoyer_url' => 'nullable|string',

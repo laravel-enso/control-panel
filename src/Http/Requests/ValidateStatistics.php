@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use LaravelEnso\ControlPanel\Enums\ApplicationTypes;
 
-class ValidateStatisticsRequest extends FormRequest
+class ValidateStatistics extends FormRequest
 {
     public function authorize()
     {
@@ -16,7 +16,7 @@ class ValidateStatisticsRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|in:'.ApplicationTypes::keys()->implode(','),
+            'type' => 'required|in:' . ApplicationTypes::keys()->implode(','),
             'startDate' => 'nullable|date',
             'endDate' => 'nullable|date',
         ];

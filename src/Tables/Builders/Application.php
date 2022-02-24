@@ -3,16 +3,16 @@
 namespace LaravelEnso\ControlPanel\Tables\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use LaravelEnso\ControlPanel\Models\Application;
+use LaravelEnso\ControlPanel\Models\Application as Model;
 use LaravelEnso\Tables\Contracts\Table;
 
-class ApplicationTable implements Table
+class Application implements Table
 {
-    protected const TemplatePath = __DIR__.'/../Templates/applications.json';
+    private const TemplatePath = __DIR__.'/../Templates/applications.json';
 
     public function query(): Builder
     {
-        return Application::selectRaw(
+        return Model::selectRaw(
             'id, name, description, url, type, order_index, is_active'
         );
     }
