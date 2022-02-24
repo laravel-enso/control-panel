@@ -16,7 +16,7 @@ class ValidateStatistics extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|in:' . ApplicationTypes::keys()->implode(','),
+            'type' => 'required|in:'.ApplicationTypes::keys()->implode(','),
             'startDate' => 'nullable|date',
             'endDate' => 'nullable|date',
         ];
