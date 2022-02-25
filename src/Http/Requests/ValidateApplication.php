@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use LaravelEnso\ControlPanel\Enums\ApplicationTypes;
 use LaravelEnso\Helpers\Traits\FiltersRequest;
 
-class ValidateApplicationRequest extends FormRequest
+class ValidateApplication extends FormRequest
 {
     use FiltersRequest;
 

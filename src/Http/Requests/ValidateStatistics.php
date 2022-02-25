@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use LaravelEnso\ControlPanel\Enums\ApplicationTypes;
 
-class ValidateStatisticsRequest extends FormRequest
+class ValidateStatistics extends FormRequest
 {
     public function authorize()
     {
