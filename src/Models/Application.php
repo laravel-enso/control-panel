@@ -24,10 +24,6 @@ class Application extends Model
 
     protected $hidden = ['token'];
 
-    protected $casts = [
-        'is_active' => 'boolean', 'created_at' => 'datetime:d-m-Y',
-    ];
-
     public function scopeOrdered($query)
     {
         $query->orderBy('order_index');
@@ -66,5 +62,12 @@ class Application extends Model
             ->when($this->forge_url, fn ($links) => $links->push(new ForgeLink($this)))
             ->when($this->envoyer_url, fn ($links) => $links->push(new EnvoyerLink($this)))
             ->toArray();
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean', 'created_at' => 'datetime:d-m-Y',
+        ];
     }
 }
