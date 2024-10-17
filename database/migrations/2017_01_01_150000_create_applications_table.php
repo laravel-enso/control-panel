@@ -18,7 +18,7 @@ class CreateApplicationsTable extends Migration
             $table->string('url');
             $table->string('forge_url')->nullable();
             $table->string('envoyer_url')->nullable();
-            $table->unsignedInteger('gitlab_project_id')->nullable();
+            $table->integer('gitlab_project_id')->unsigned()->nullable();
             $table->string('sentry_project_uri')->nullable();
 
             $table->integer('type');
